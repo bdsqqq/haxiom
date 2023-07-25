@@ -1,7 +1,7 @@
 import "react-image-crop/dist/ReactCrop.css";
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import LocalFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -12,13 +12,15 @@ import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
 import { siteConfig } from "./config";
 
-const fontSans = Inter({
+const fontSans = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["200", "400", "700"],
 });
-const fontCal = LocalFont({
-  src: "../styles/calsans.ttf",
-  variable: "--font-cal",
+const fontMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["200", "400", "700"],
 });
 
 export const metadata = {
@@ -50,7 +52,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         className={cn(
           "min-h-screen font-sans antialiased",
           fontSans.variable,
-          fontCal.variable,
+          fontMono.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
