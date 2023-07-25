@@ -27,8 +27,10 @@ export default function ThemeToggle(props: {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
-          size="sm"
+          options={{
+            variant: "ghost",
+            size: "sm",
+          }}
           className="gap-1 px-2 text-lg font-semibold md:text-base"
         >
           {triggerIcon}
