@@ -165,7 +165,6 @@ export default {
       "expressive-entrance": "cubic-bezier(0, 0, 0.3, 1)",
       "expressive-exit": "cubic-bezier(0.4, 0.14, 1, 1)",
     },
-
     transitionDuration: {
       /**
        * fast-01 - 70ms - Micro-interactions such as button and toggle
@@ -215,7 +214,6 @@ export default {
       ringColor: {
         DEFAULT: "hsl(var(--focus-ring) / <alpha-value>)",
       },
-
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
