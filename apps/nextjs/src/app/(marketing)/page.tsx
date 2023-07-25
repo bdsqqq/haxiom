@@ -5,15 +5,214 @@ export const runtime = "edge";
 export default function Home() {
   return (
     <main className="">
-      <div className="flex h-full min-h-screen w-full items-center justify-center gap-4">
-        <Button variant={"destructive"} size={"sm"}>
-          Hej do
-        </Button>
-        <Button variant={"destructive"}>Hej do</Button>
-        <Button variant={"destructive"} size="lg">
-          Hej do
-        </Button>
+      <div className="flex h-full min-h-screen w-full flex-col items-center justify-center gap-4">
+        <div className="dark">
+          <ButtonsGrid />
+        </div>
+
+        <div className="light">
+          <ButtonsGrid />
+        </div>
       </div>
     </main>
   );
 }
+
+const ButtonsGrid = () => {
+  return (
+    <div className="grid grid-cols-3 gap-4 bg-gray-1 p-6">
+      <Button
+        options={{
+          size: "sm",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button>Hej do</Button>
+      <Button
+        options={{
+          size: "lg",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          intent: "destructive",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          intent: "destructive",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          intent: "destructive",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          intent: "destructive",
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          intent: "destructive",
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          intent: "destructive",
+          variant: "outline",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          intent: "destructive",
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          intent: "destructive",
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          intent: "destructive",
+          variant: "link",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+
+      <Button
+        options={{
+          size: "sm",
+          intent: "destructive",
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          intent: "destructive",
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+      <Button
+        options={{
+          size: "lg",
+          intent: "destructive",
+          variant: "ghost",
+        }}
+      >
+        Hej do
+      </Button>
+    </div>
+  );
+};
