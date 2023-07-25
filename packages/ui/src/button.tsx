@@ -5,42 +5,97 @@ import type { VariantProps } from "class-variance-authority";
 import { cn } from "./utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  "inline-flex items-center justify-center rounded-sm text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "underline-offset-4 hover:underline text-primary",
+        solid: "",
+        outline: "border",
+        ghost: "",
+        link: "underline-offset-2 underline",
+      },
+      intent: {
+        primary: "",
+        destructive: "",
       },
       size: {
-        default: "h-10 py-2 px-4",
-        sm: "h-9 px-3 rounded-md",
-        lg: "h-11 px-8 rounded-md",
+        sm: "min-h-6 py-1 text-xs px-1.5 h-min",
+        md: "min-h-8 py-1.5 px-2 h-min",
+        lg: "min-h-10 py-3 px-4 h-min",
+        icon: "h-9 w-9",
       },
     },
+    compoundVariants: [
+      {
+        variant: ["solid"],
+        intent: "primary",
+        class:
+          "bg-gray-12 hover:bg-gray-11 focus-visible:bg-gray-11 active:bg-gray-10 text-gray-1 aria-disabled:text-gray-3",
+      },
+      {
+        variant: ["solid"],
+        intent: "destructive",
+        class:
+          "bg-red-9 hover:bg-red-10 focus-visible:bg-red-10 text-gray-1 aria-disabled:text-gray-3",
+      },
+
+      {
+        variant: ["outline"],
+        intent: "primary",
+        class:
+          "text-gray-12 border-gray-7 hover:border-gray-8 focus-visible:border-gray-8 bg-transparent hover:bg-grayA-2 focus-visible:bg-grayA-2",
+      },
+      {
+        variant: ["outline"],
+        intent: "destructive",
+        class:
+          "text-red-9 border-red-9 hover:border-red-10 focus-visible:border-red-10 bg-transparent hover:bg-redA-3 focus-visible:bg-redA-3",
+      },
+
+      {
+        variant: ["ghost"],
+        intent: "primary",
+        class:
+          "text-gray-12 bg-transparent hover:bg-gray-4 focus-within:bg-gray-4",
+      },
+      {
+        variant: ["ghost"],
+        intent: "destructive",
+        class:
+          "text-red-9 bg-transparent hover:text-red-10 hover:bg-redA-3 focus-within:bg-redA-3",
+      },
+
+      {
+        variant: ["link"],
+        intent: "primary",
+        class:
+          "text-gray-12 bg-transparent hover:bg-gray-4 focus-within:bg-gray-4",
+      },
+      {
+        variant: ["link"],
+        intent: "destructive",
+        class:
+          "text-red-9 bg-transparent hover:text-red-10 hover:bg-redA-3 focus-within:bg-redA-3",
+      },
+    ],
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      intent: "primary",
+      variant: "solid",
+      size: "md",
     },
   },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  options?: VariantProps<typeof buttonVariants>;
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, options, ...props }, ref) => {
     return (
       <button
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants(options), className)}
         ref={ref}
         {...props}
       />
