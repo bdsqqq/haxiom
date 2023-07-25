@@ -35,7 +35,7 @@ export default function Home() {
             <Button>open</Button>
           </DialogTrigger>
           <DialogContent options={{
-            variant: "modal",
+            variant: "drawer",
             side: "left",
           }}>left</DialogContent>
         </Dialog>
