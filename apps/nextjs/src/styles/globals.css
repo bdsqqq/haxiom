@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root .light .light-theme {
+  :root,
+  .light {
     --gray-1: 0deg 0% 99%;
     --gray-2: 0deg 0% 97.3%;
     --gray-3: 0deg 0% 95.1%;
@@ -161,7 +162,7 @@
     --amberA12: 20deg 99.8% 14.1% / 0.965;
   }
 
-  .dark .dark-theme {
+  .dark {
     --gray-1: 0deg 0% 8.5%;
     --gray-2: 0deg 0% 11%;
     --gray-3: 0deg 0% 13.6%;
