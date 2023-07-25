@@ -11,12 +11,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/db": "^0.1.0",
     "@clerk/nextjs": "^4.21.13",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@trpc/client": "^10.33.1",
     "@trpc/server": "^10.33.1",
-    "stripe": "^12.11.0",
     "superjson": "1.12.4",
     "zod": "^3.21.4",
     "zod-form-data": "^2.0.1"

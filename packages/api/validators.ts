@@ -1,7 +1,5 @@
 import * as z from "zod";
 
-import { env } from "./src/env.mjs";
-
 /**
  * Shared validators used in both the frontend and backend
  */
@@ -17,21 +15,6 @@ export const renameProjectSchema = z.object({
   name: z.string().min(5, "Name must be at least 5 characters"),
 });
 export type RenameProject = z.infer<typeof renameProjectSchema>;
-
-export const purchaseOrgSchema = z.object({
-  orgName: z.string().min(5, "Name must be at least 5 characters"),
-  planId: z
-    .string()
-    .refine(
-      (str) =>
-        [
-          env.NEXT_PUBLIC_STRIPE_STD_MONTHLY_PRICE_ID,
-          env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID,
-        ].includes(str),
-      "Invalid planId",
-    ),
-});
-export type PurchaseOrg = z.infer<typeof purchaseOrgSchema>;
 
 export const createApiKeySchema = z.object({
   projectId: z.string(),

@@ -3,7 +3,6 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 
 import { cn } from "@acme/ui";
@@ -46,25 +45,21 @@ export const metadata = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <>
-      <ClerkProvider>
-        <html lang="en" suppressHydrationWarning className="bg-background">
-          <body
-            className={cn(
-              "min-h-screen font-sans antialiased",
-              fontSans.variable,
-              fontCal.variable,
-            )}
-          >
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              {props.children}
-              <TailwindIndicator />
-            </ThemeProvider>
-            <Analytics />
-            <Toaster />
-          </body>
-        </html>
-      </ClerkProvider>
-    </>
+    <html lang="en" suppressHydrationWarning className="bg-background">
+      <body
+        className={cn(
+          "min-h-screen font-sans antialiased",
+          fontSans.variable,
+          fontCal.variable,
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {props.children}
+          <TailwindIndicator />
+        </ThemeProvider>
+        <Analytics />
+        <Toaster />
+      </body>
+    </html>
   );
 }

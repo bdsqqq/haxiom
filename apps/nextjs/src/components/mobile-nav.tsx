@@ -8,7 +8,6 @@ import * as Icons from "@acme/ui/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@acme/ui/popover";
 import { ScrollArea } from "@acme/ui/scroll-area";
 
-import { Search } from "~/app/(dashboard)/_components/search";
 import { navItems, siteConfig } from "~/app/config";
 import ThemeToggle from "./theme-toggle";
 
@@ -37,7 +36,6 @@ export function MobileDropdown() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="z-40 mt-2 h-[calc(100vh-4rem)] w-screen animate-none rounded-none border-none transition-transform">
-        <Search />
         <ScrollArea className="py-8">
           {navItems.map((item) => (
             <Link
