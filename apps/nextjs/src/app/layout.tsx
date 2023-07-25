@@ -3,9 +3,10 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
+
 import { cn } from "@haxiom/ui";
 import { Toaster } from "@haxiom/ui/toaster";
-import { Analytics } from "@vercel/analytics/react";
 
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
@@ -44,7 +45,7 @@ export const metadata = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className="bg-background">
+    <html lang="en" suppressHydrationWarning className="bg">
       <body
         className={cn(
           "min-h-screen font-sans antialiased",
