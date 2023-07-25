@@ -14,8 +14,8 @@ const ThemeToggle = dynamic(() => import("~/components/theme-toggle"), {
       size="sm"
       className="gap-1 px-2 text-lg font-semibold md:text-base"
     >
-      <div className="h-6 w-6 animate-pulse rounded-full bg-muted-foreground/70" />
-      <span className="w-14 animate-pulse rounded bg-muted-foreground/70 capitalize">
+      <div className="h-6 w-6 animate-pulse rounded-full bg-subtle-foreground/70" />
+      <span className="w-14 animate-pulse rounded bg-subtle-foreground/70 capitalize">
         &nbsp;
       </span>
     </Button>

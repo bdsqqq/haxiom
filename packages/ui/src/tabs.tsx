@@ -14,7 +14,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "bg-muted text-subtle inline-flex h-10 items-center justify-center rounded-md p-1",
+      "bg-subtle text-subtle inline-flex h-10 items-center justify-center rounded-md p-1",
       className,
     )}
     {...props}
