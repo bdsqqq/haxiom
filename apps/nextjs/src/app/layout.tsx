@@ -3,10 +3,9 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
+import { cn } from "@haxiom/ui";
+import { Toaster } from "@haxiom/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
-
-import { cn } from "@acme/ui";
-import { Toaster } from "@acme/ui/toaster";
 
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
@@ -37,10 +36,10 @@ export const metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [{ url: "https://acme-corp-lib.vercel.app/opengraph-image.png" }],
+    images: [{ url: "https://haxiom-corp-lib.vercel.app/opengraph-image.png" }],
     creator: "@jullerino",
   },
-  metadataBase: new URL("https://acme-corp.jumr.dev"),
+  metadataBase: new URL("https://haxiom-corp.jumr.dev"),
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {

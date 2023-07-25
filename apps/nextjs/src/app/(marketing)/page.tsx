@@ -1,15 +1,14 @@
-import { Balancer } from "react-wrap-balancer";
-
-import { cn } from "@acme/ui";
-import { buttonVariants } from "@acme/ui/button";
+import { cn } from "@haxiom/ui";
+import { buttonVariants } from "@haxiom/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/card";
-import * as Icons from "@acme/ui/icons";
+} from "@haxiom/ui/card";
+import * as Icons from "@haxiom/ui/icons";
+import { Balancer } from "react-wrap-balancer";
 
 import { marketingFeatures, siteConfig } from "~/app/config";
 
@@ -27,7 +26,7 @@ export default function Home() {
         >
           <Icons.twitter className="h-5 w-5 text-sky-500" />
           <p className="text-sm font-semibold text-sky-500">
-            Introducing Acme Corp
+            Introducing haxiom Corp
           </p>
         </a> */}
         <h1
@@ -41,9 +40,9 @@ export default function Home() {
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            Acme Corp is a Next.js starter kit that includes everything you need
-            to build a modern web application. Mobile application preconfigured,
-            ready to go.
+            haxiom Corp is a Next.js starter kit that includes everything you
+            need to build a modern web application. Mobile application
+            preconfigured, ready to go.
           </Balancer>
         </p>
         <div

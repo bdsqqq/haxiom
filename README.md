@@ -1,4 +1,4 @@
-# Acme Corp
+# haxiom Corp
 
 > **Warning**
 > This is a work-in-progress and not the finished product.
@@ -12,7 +12,7 @@
 You can use the `create-turbo` CLI to bootstrap your project using this template:
 
 ```bash
-npx create-turbo@latest -e https://github.com/juliusmarminge/acme-corp
+npx create-turbo@latest -e https://github.com/juliusmarminge/haxiom-corp
 ```
 
 ## About

@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useTheme } from "next-themes";
-
-import { Button } from "@acme/ui/button";
+import { Button } from "@haxiom/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@acme/ui/dropdown-menu";
-import * as Icons from "@acme/ui/icons";
+} from "@haxiom/ui/dropdown-menu";
+import * as Icons from "@haxiom/ui/icons";
+import { useTheme } from "next-themes";
 
 export default function ThemeToggle(props: {
   align?: "center" | "start" | "end";

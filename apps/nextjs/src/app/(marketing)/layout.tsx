@@ -1,9 +1,8 @@
 import { Suspense } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-
-import { buttonVariants } from "@acme/ui/button";
-import * as Icons from "@acme/ui/icons";
+import { buttonVariants } from "@haxiom/ui/button";
+import * as Icons from "@haxiom/ui/icons";
 
 import { SiteFooter } from "~/components/footer";
 import { MobileDropdown } from "~/components/mobile-nav";

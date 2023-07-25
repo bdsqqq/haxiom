@@ -47,7 +47,7 @@ export const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = (opts: { req: NextRequest }) => {
-  const apiKey = opts.req.headers.get("x-acme-api-key");
+  const apiKey = opts.req.headers.get("x-haxiom-api-key");
 
   return createInnerTRPCContext({
     apiKey,

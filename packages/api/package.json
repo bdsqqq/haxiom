@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@haxiom/api",
   "version": "0.1.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -20,7 +20,7 @@
     "zod-form-data": "^2.0.1"
   },
   "devDependencies": {
-    "@acme/eslint-config": "0.2.0",
+    "@haxiom/eslint-config": "0.2.0",
     "eslint": "^8.44.0",
     "typescript": "^5.1.6"
   }

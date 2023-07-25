@@ -2,11 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-
-import { Button } from "@acme/ui/button";
-import * as Icons from "@acme/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@acme/ui/popover";
-import { ScrollArea } from "@acme/ui/scroll-area";
+import { Button } from "@haxiom/ui/button";
+import * as Icons from "@haxiom/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@haxiom/ui/popover";
+import { ScrollArea } from "@haxiom/ui/scroll-area";
 
 import { navItems, siteConfig } from "~/app/config";
 import ThemeToggle from "./theme-toggle";

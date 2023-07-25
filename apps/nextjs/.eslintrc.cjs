@@ -2,9 +2,9 @@
 const config = {
   root: true,
   extends: [
-    "@acme/eslint-config/base",
-    "@acme/eslint-config/nextjs",
-    "@acme/eslint-config/react",
+    "@haxiom/eslint-config/base",
+    "@haxiom/eslint-config/nextjs",
+    "@haxiom/eslint-config/react",
   ],
 };
 

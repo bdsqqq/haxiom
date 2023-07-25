@@ -1,13 +1,12 @@
 import type { Route } from "next";
+import * as Icons from "@haxiom/ui/icons";
 import { Component, CreditCard, Globe } from "lucide-react";
 
-import * as Icons from "@acme/ui/icons";
-
 export const siteConfig = {
-  name: "Acme Corp",
+  name: "haxiom Corp",
   description:
     "Next.js starter kit that includes everything you need to build a modern web application. Mobile application preconfigured, ready to go.",
-  github: "https://github.com/juliusmarminge/acme-corp",
+  github: "https://github.com/juliusmarminge/haxiom-corp",
   twitter: "https://twitter.com/jullerino",
 };
 

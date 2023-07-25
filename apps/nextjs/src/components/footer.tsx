@@ -1,9 +1,8 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
-
-import { cn } from "@acme/ui";
-import { Button } from "@acme/ui/button";
-import * as Icons from "@acme/ui/icons";
+import { cn } from "@haxiom/ui";
+import { Button } from "@haxiom/ui/button";
+import * as Icons from "@haxiom/ui/icons";
 
 import { siteConfig } from "~/app/config";
 
