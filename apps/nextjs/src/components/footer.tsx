@@ -33,7 +33,7 @@ export function SiteFooter(props: { className?: string }) {
           <Icons.Logo className="h-6 w-6" />
           <p className="text-lg font-medium md:hidden">{siteConfig.name}</p>
         </Link>
-        <p className="col-span-full row-start-2 text-center text-sm leading-loose text-muted-foreground md:flex-1 md:text-left">
+        <p className="col-span-full row-start-2 text-center text-sm leading-loose text-subtle md:flex-1 md:text-left">
           Built by{" "}
           <a
             href={siteConfig.twitter}

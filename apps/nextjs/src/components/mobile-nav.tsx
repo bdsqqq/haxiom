@@ -43,7 +43,7 @@ export function MobileDropdown() {
               key={item.href}
               href={item.href}
               // className="mt-2 flex items-center text-lg font-semibold sm:text-sm"
-              className="flex py-1 text-base font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="flex py-1 text-base font-medium text-subtle transition-colors hover:text-primary"
             >
               {item.title}
             </Link>
