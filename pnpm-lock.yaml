@@ -284,6 +284,9 @@ importers:
       tailwind-merge:
         specifier: ^1.13.2
         version: 1.13.2
+      tailwindcss-radix:
+        specifier: ^2.8.0
+        version: 2.8.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -5599,6 +5602,10 @@ packages:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
       tailwindcss: 3.3.2
+
+  /tailwindcss-radix@2.8.0:
+    resolution: {integrity: sha512-1k1UfoIYgVyBl13FKwwoKavjnJ5VEaUClCTAsgz3VLquN4ay/lyaMPzkbqD71sACDs2fRGImytAUlMb4TzOt1A==}
+    dev: false
 
   /tailwindcss@3.3.2:
     resolution: {integrity: sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==}
