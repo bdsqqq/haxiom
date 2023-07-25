@@ -7,7 +7,7 @@ import withMDX from "@next/mdx";
 const config = {
   reactStrictMode: true,
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@haxiom/api", "@haxiom/ui"],
+  transpilePackages: ["@haxiom/api"],
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
     mdxRs: true,
