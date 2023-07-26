@@ -1,4 +1,3 @@
-import { cn } from '@haxiom/ui';
 import { Button } from '@haxiom/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@haxiom/ui/tooltip';
 

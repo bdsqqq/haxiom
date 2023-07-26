@@ -15,7 +15,8 @@ const TooltipTrigger = TooltipPrimitive.Trigger;
 // TODO: add variants for common use cases
 // like, skipDelayDuration, delayDuration,
 
-const tooltipContentVariants = cva('z-50 outline-none animate-in', {
+// inheriting button styles for now
+const _tooltipContentVariants = cva('z-50 outline-none animate-in', {
   variants: {
     size: {
       sm: 'w-fit max-w-[6rem] py-1 text-xs px-1.5 h-min',
