@@ -39,7 +39,7 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead className="rounded-t-md" key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -52,7 +52,8 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        {/* TODO: Last row is clipping the bottom border, fix it. */}
+        <TableBody> 
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
