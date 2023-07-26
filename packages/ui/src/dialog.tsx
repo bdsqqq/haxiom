@@ -80,6 +80,7 @@ const dialogContentVariants = cva(
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   options?: VariantProps<typeof dialogContentVariants>;
+  closeButton?: boolean;
 }
 
 /**
@@ -88,7 +89,7 @@ export interface DialogContentProps
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, options, children, ...props }, ref) => (
+>(({ className, options, children, closeButton = true, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
@@ -100,19 +101,24 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close asChild>
-        <Button options={{
-          variant: "ghost",
-          size: "icon",
-        }}
-          className={cn(
-            "absolute top-4 right-4"
-          )}
-        >
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </Button>
-      </DialogPrimitive.Close>
+      {
+        closeButton ? (
+          <DialogPrimitive.Close asChild>
+            <Button options={{
+              variant: "ghost",
+              size: "icon",
+            }}
+              className={cn(
+                "absolute top-4 right-4"
+              )}
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </Button>
+          </DialogPrimitive.Close>
+        ) : null
+      }
+      
     </DialogPrimitive.Content>
   </DialogPortal>
 ));
