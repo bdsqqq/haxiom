@@ -158,6 +158,7 @@ export default {
       /**
        * See: https://carbondesignsystem.com/guidelines/motion/overview/
        */
+      DEFAULT: "cubic-bezier(0.2, 0, 0.38, 0.9)",
       "productive-standard": "cubic-bezier(0.2, 0, 0.38, 0.9)",
       "productive-entrance": "cubic-bezier(0, 0, 0.38, 0.9)",
       "productive-exit": "cubic-bezier(0.2, 0, 1, 0.9)",
@@ -181,6 +182,7 @@ export default {
        *
        * See: https://carbondesignsystem.com/guidelines/motion/overview/
        */
+      DEFAULT: "70ms",
       "fast-01": "70ms",
       "fast-02": "110ms",
       "moderate-01": "150ms",
