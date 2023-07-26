@@ -45,13 +45,13 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const dialogContentVariants = cva(
   [
     "fixed z-50 grid gap-4 border border-subtle bg p-6 shadow-lg animate-in",
-    "data-[state=open]:fade-in-90 md:max-w-lg duration-moderate-01 data-[state=open]:ease-productive-entrance",
+    "data-[state=open]:fade-in-90 md:max-w-lg data-[state=open]:ease-productive-entrance",
   ],
   {
     variants: {
       variant: {
-        drawer: "",
-        modal: "bottom-0 rounded-t-lg data-[state=open]:slide-in-from-bottom-10 data-[state=open]:md:slide-in-from-bottom-0 md:zoom-in-90 w-full md:rounded-lg md:bottom-auto",
+        drawer: "duration-moderate-01",
+        modal: "bottom-0 rounded-t-lg duration-moderate-01 md:duration-fast-02 data-[state=open]:slide-in-from-bottom-10 data-[state=open]:md:slide-in-from-bottom-0 md:zoom-in-90 w-full md:rounded-lg md:bottom-auto",
       },
       side: {
         left: "",
