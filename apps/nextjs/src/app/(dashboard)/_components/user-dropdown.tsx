@@ -20,7 +20,7 @@ export const UserDropdown = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="h-full">
         <Avatar>
           <AvatarImage src="" />
           <AvatarFallback className="bg-transparent">
