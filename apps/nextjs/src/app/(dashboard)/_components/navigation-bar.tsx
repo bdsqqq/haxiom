@@ -1,6 +1,6 @@
 "use client";
 
-import { Axiom, ChevronDown } from "@haxiom/ui/icons";
+import { Axiom, ChevronDown, Settings } from "@haxiom/ui/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserDropdown } from "./user-dropdown";
@@ -66,6 +66,15 @@ export const NavigationBar = () => {
               {label}
             </Link>
           ))}
+
+          <Separator />
+
+          <Link
+            href={"/settings"}
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+          >
+            <Settings className="h-4 w-4" />
+          </Link>
         </div>
         <div className="flex items-center h-full">
           <Separator />
