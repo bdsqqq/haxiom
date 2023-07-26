@@ -154,9 +154,9 @@ interface SaveProps {
 }
 
 const Save = ({ className }: SaveProps) => {
-  setTimeout(() => {
-    debugger;
-  }, 1000);
+  // debug stupid tooltip
+  // setTimeout(() => { debugger; }, 1000);
+
   return (
     <TooltipProvider>
       <Tooltip>
