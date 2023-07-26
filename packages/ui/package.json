@@ -44,6 +44,7 @@
     "@haxiom/eslint-config": "0.2.0",
     "@haxiom/tailwind-config": "0.1.0",
     "@tanstack/react-table": "^8.9.3",
+    "@types/node": "^20.2.5",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "date-fns": "^2.30.0",
