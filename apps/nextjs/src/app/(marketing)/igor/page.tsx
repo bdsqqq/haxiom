@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@haxiom/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@haxiom/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@haxiom/ui/card";
 import { Checkbox } from "@haxiom/ui/checkbox";
+import { CommandDialogDemo } from "../../../components/command-palette-demo"
 
 export const runtime = "edge";
 
@@ -32,6 +33,8 @@ export default function Home() {
           <Checkbox name="checkbox" />
           <label htmlFor="checkbox">Checkbox</label>
         </fieldset>
+
+        <CommandDialogDemo />
 
         <Dialog>
           <DialogTrigger asChild>
