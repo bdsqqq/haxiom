@@ -22,6 +22,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.4",
+    "@radix-ui/react-tooltip": "^1.0.6",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
@@ -128,6 +129,10 @@
       "import": "./dist/toaster.mjs",
       "types": "./dist/toaster.d.ts"
     },
+    "./tooltip": {
+      "import": "./dist/tooltip.mjs",
+      "types": "./dist/tooltip.d.ts"
+    },
     "./use-toast": {
       "import": "./dist/use-toast.mjs",
       "types": "./dist/use-toast.d.ts"
@@ -220,6 +225,9 @@
       ],
       "checkbox": [
         "dist/checkbox.d.ts"
+      ],
+      "tooltip": [
+        "dist/tooltip.d.ts"
       ]
     }
   }

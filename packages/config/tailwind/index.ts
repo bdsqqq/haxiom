@@ -8,7 +8,6 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-
       "gray-1": `hsl(var(--gray-1) / <alpha-value>)`,
       "gray-2": `hsl(var(--gray-2) / <alpha-value>)`,
       "gray-3": `hsl(var(--gray-3) / <alpha-value>)`,
