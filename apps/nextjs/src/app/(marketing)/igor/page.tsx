@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} 
 import { Checkbox } from "@haxiom/ui/checkbox";
 import { CommandDialogDemo } from "./_components/command-palette-demo"
 import { DataTableDemo } from "./_components/data-table-demo"
+import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
 
 export const runtime = "edge";
 
@@ -41,32 +42,14 @@ export default function Home() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button>open</Button>
+            <Button>open dialog</Button>
           </DialogTrigger>
           <DialogContent options={{
             variant: "modal",
           }}>modal</DialogContent>
         </Dialog>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>open</Button>
-          </DialogTrigger>
-          <DialogContent options={{
-            variant: "drawer",
-            side: "right",
-          }}>right</DialogContent>
-        </Dialog>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>open</Button>
-          </DialogTrigger>
-          <DialogContent options={{
-            variant: "drawer",
-            side: "left",
-          }}>left</DialogContent>
-        </Dialog>
+        
+        <DropdownMenuDemo />
       </div>
     </main>
   );
