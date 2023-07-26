@@ -1,6 +1,7 @@
 import { Button } from "@haxiom/ui/button";
 import { Input, TextArea } from "@haxiom/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@haxiom/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@haxiom/ui/avatar";
 
 export const runtime = "edge";
 
@@ -10,6 +11,11 @@ export default function Home() {
       <div className="flex h-full min-h-screen max-w-xl mx-auto flex-col items-center justify-center gap-4">
         <Input placeholder="placeholder..." />
         <TextArea placeholder="another placeholder..." />
+
+        <Avatar>
+          <AvatarImage src="https://github.com/bdsqqq.png" />
+          <AvatarFallback>IB</AvatarFallback>
+        </Avatar>
 
         <Dialog>
           <DialogTrigger asChild>
