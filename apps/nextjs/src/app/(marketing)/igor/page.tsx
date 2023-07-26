@@ -48,9 +48,7 @@ export default function Home() {
           <DialogTrigger asChild>
             <Button>open dialog</Button>
           </DialogTrigger>
-          <DialogContent options={{
-            variant: "modal",
-          }}>modal</DialogContent>
+          <DialogContent>modal</DialogContent>
         </Dialog>
         
         <DropdownMenuDemo />
