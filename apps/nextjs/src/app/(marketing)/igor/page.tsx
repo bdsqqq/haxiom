@@ -10,6 +10,7 @@ import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
 import { Label } from "@haxiom/ui/label";
 import { ScrollArea } from "@haxiom/ui/scroll-area";
 import { SelectDemo } from "./_components/select-demo";
+import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
 
 export const runtime = "edge";
 
@@ -63,6 +64,13 @@ export default function Home() {
         </ScrollArea>
 
         <SelectDemo />
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button>open Sheet</Button>
+          </SheetTrigger>
+          <SheetContent>Sheet</SheetContent>
+        </Sheet>
       </div>
     </main>
   );
