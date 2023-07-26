@@ -11,6 +11,7 @@ import { Label } from "@haxiom/ui/label";
 import { ScrollArea } from "@haxiom/ui/scroll-area";
 import { SelectDemo } from "./_components/select-demo";
 import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger} from "@haxiom/ui/tabs";
 
 export const runtime = "edge";
 
@@ -69,6 +70,15 @@ export default function Home() {
           </SheetTrigger>
           <SheetContent>Sheet</SheetContent>
         </Sheet>
+
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="account">Account</TabsTrigger>
+            <TabsTrigger value="password">Password</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">Make changes to your account here.</TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent>
+        </Tabs>
       </div>
     </main>
   );
