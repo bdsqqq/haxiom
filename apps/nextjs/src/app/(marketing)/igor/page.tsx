@@ -7,6 +7,7 @@ import { Checkbox } from "@haxiom/ui/checkbox";
 import { CommandDialogDemo } from "./_components/command-palette-demo"
 import { DataTableDemo } from "./_components/data-table-demo"
 import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
+import { Label } from "@haxiom/ui/label";
 
 export const runtime = "edge";
 
@@ -32,8 +33,8 @@ export default function Home() {
         </Card>
 
         <fieldset className="inline-flex gap-1 items-center">
-          <Checkbox name="checkbox" />
-          <label htmlFor="checkbox">Checkbox</label>
+          <Checkbox name="checkbox" id="checkbox" />
+          <Label htmlFor="checkbox">Checkbox</Label>
         </fieldset>
 
         <CommandDialogDemo />
@@ -50,6 +51,8 @@ export default function Home() {
         </Dialog>
         
         <DropdownMenuDemo />
+
+
       </div>
     </main>
   );
