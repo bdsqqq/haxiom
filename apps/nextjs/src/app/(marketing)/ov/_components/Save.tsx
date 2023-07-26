@@ -16,8 +16,8 @@ export const Save = ({ className }: SaveProps) => {
         <TooltipTrigger asChild>
           <Button>💾</Button>
         </TooltipTrigger>
-        <TooltipContent options={{ size: 'md' }}>
-          <p className={cn(className, 'text-gray-12')}>Save</p>
+        <TooltipContent className={className} options={{ size: 'sm' }} side="top" align="center" sideOffset={4}>
+          <p className="text-gray-1">Save but if you have a lot of text, should choose a different size, no?</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

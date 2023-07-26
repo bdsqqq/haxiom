@@ -145,7 +145,10 @@ export const TimeRange = ({ dark = false }) => {
             </Button>
           </FormControl>
         </PopoverTrigger>
-        <PopoverContent options={{}} className={cn(dark && 'dark', 'mt-4 w-80 bg-gray-1 border border-gray-4')}>
+        <PopoverContent
+          options={{}}
+          className={cn(dark ? 'dark' : 'light', 'mt-4 w-80 bg-gray-1 border border-gray-4')}
+        >
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormLabel className="text-gray-12">Quick Range</FormLabel>
 
