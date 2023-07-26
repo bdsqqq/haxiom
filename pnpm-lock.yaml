@@ -175,6 +175,9 @@ importers:
       '@haxiom/eslint-config':
         specifier: 0.2.0
         version: link:../config/eslint
+      '@types/node':
+        specifier: ^20.2.5
+        version: 20.4.5
       eslint:
         specifier: ^8.44.0
         version: 8.44.0
@@ -2523,7 +2526,6 @@ packages:
 
   /@types/node@20.4.5:
     resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
-    dev: false
 
   /@types/prettier@2.7.3:
     resolution: {integrity: sha512-+68kP9yzs4LMp7VNh8gdzMSPZFL44MLGqiHWvttYJe+6qnuVr4Ek9wSBQoveqY/r+LwjCcU29kNVkidwim+kYA==}
