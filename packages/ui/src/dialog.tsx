@@ -45,7 +45,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const dialogContentVariants = cva(
   [
     "fixed z-50 grid gap-4 border border-subtle bg p-6 shadow-lg animate-in",
-    "data-[state=open]:fade-in-90 md:max-w-lg",
+    "data-[state=open]:fade-in-90 md:max-w-lg duration-moderate-01 data-[state=open]:ease-productive-entrance",
   ],
   {
     variants: {
@@ -161,7 +161,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-muted-foreground text-sm", className)}
+    className={cn("text-subtle text-sm", className)}
     {...props}
   />
 ));

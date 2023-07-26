@@ -157,6 +157,7 @@ export default {
       /**
        * See: https://carbondesignsystem.com/guidelines/motion/overview/
        */
+      DEFAULT: "cubic-bezier(0.2, 0, 0.38, 0.9)",
       "productive-standard": "cubic-bezier(0.2, 0, 0.38, 0.9)",
       "productive-entrance": "cubic-bezier(0, 0, 0.38, 0.9)",
       "productive-exit": "cubic-bezier(0.2, 0, 1, 0.9)",
@@ -164,7 +165,6 @@ export default {
       "expressive-entrance": "cubic-bezier(0, 0, 0.3, 1)",
       "expressive-exit": "cubic-bezier(0.4, 0.14, 1, 1)",
     },
-
     transitionDuration: {
       /**
        * fast-01 - 70ms - Micro-interactions such as button and toggle
@@ -181,6 +181,7 @@ export default {
        *
        * See: https://carbondesignsystem.com/guidelines/motion/overview/
        */
+      DEFAULT: "70ms",
       "fast-01": "70ms",
       "fast-02": "110ms",
       "moderate-01": "150ms",
@@ -214,7 +215,6 @@ export default {
       ringColor: {
         DEFAULT: "hsl(var(--focus-ring) / <alpha-value>)",
       },
-
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -222,34 +222,9 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       keyframes: {
-        "fade-up": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(10px)",
-          },
-          "80%": {
-            opacity: "0.6",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0px)",
-          },
-        },
-        "fade-down": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(-10px)",
-          },
-          "80%": {
-            opacity: "0.6",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0px)",
-          },
-        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -260,8 +235,6 @@ export default {
         },
       },
       animation: {
-        "fade-up": "fade-up 0.5s",
-        "fade-down": "fade-down 0.5s",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

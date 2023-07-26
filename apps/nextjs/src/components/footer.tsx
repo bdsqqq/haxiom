@@ -10,12 +10,14 @@ const ThemeToggle = dynamic(() => import("~/components/theme-toggle"), {
   ssr: false,
   loading: () => (
     <Button
-      variant="ghost"
-      size="sm"
+      options={{
+        variant: "ghost",
+        size: "sm",
+      }}
       className="gap-1 px-2 text-lg font-semibold md:text-base"
     >
-      <div className="h-6 w-6 animate-pulse rounded-full bg-muted-foreground/70" />
-      <span className="w-14 animate-pulse rounded bg-muted-foreground/70 capitalize">
+      <div className="h-6 w-6 animate-pulse rounded-full bg-subtle/70" />
+      <span className="w-14 animate-pulse rounded bg-subtle/70 capitalize">
         &nbsp;
       </span>
     </Button>
@@ -33,7 +35,7 @@ export function SiteFooter(props: { className?: string }) {
           <Icons.Logo className="h-6 w-6" />
           <p className="text-lg font-medium md:hidden">{siteConfig.name}</p>
         </Link>
-        <p className="col-span-full row-start-2 text-center text-sm leading-loose text-muted-foreground md:flex-1 md:text-left">
+        <p className="col-span-full row-start-2 text-center text-sm leading-loose text-subtle md:flex-1 md:text-left">
           Built by{" "}
           <a
             href={siteConfig.twitter}

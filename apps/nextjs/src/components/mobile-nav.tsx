@@ -25,8 +25,10 @@ export function MobileDropdown() {
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="ghost"
-          className="mr-2 px-0 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+          options={{
+            variant: "ghost",
+          }}
+          className="mr-2 px-1 md:hidden"
         >
           <Icons.Logo className="mr-2 h-6 w-6" />
           <span className="text-lg font-bold tracking-tight">
@@ -41,7 +43,7 @@ export function MobileDropdown() {
               key={item.href}
               href={item.href}
               // className="mt-2 flex items-center text-lg font-semibold sm:text-sm"
-              className="flex py-1 text-base font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="flex py-1 text-base font-medium text-subtle transition-colors hover:text-primary"
             >
               {item.title}
             </Link>

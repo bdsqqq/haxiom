@@ -330,11 +330,11 @@
     --border-subtle: var(--gray-6);
     --separator-subtle: var(--gray-6);
     --element-border: var(--gray-7);
-    --focus-ring: var(--gray-7);
     --element-border-hover: var(--gray-8);
     --solid: var(--gray-9);
     --solid-hover: var(--gray-10);
     --foreground-subtle: var(--gray-11);
+    --focus-ring: var(--gray-11);
     --foreground: var(--gray-12);
 
     --radius: 0.5rem;
@@ -345,5 +345,70 @@
   body {
     @apply bg text;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-gray-12 text-gray-1;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  * {
+    @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-11 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-1;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  ,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  ,
+  ol,
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ,
+
+  /* Remove Safari input shadow on mobile */
+  'input[type="text"]' {
+    appearance: "none";
+  }
+
+  'input[type="email"]' {
+    appearance: "none";
   }
 }
