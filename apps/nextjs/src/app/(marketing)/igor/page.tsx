@@ -13,6 +13,7 @@ import { SelectDemo } from "./_components/select-demo";
 import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger} from "@haxiom/ui/tabs";
 import { ToastDemo } from "./_components/toast-demo";
+import { ButtonsGrid } from "./_components/button-grid";
 
 export const runtime = "edge";
 
@@ -27,6 +28,8 @@ export default function Home() {
           <AvatarImage src="https://github.com/bdsqqq.png" />
           <AvatarFallback>IB</AvatarFallback>
         </Avatar>
+
+        <ButtonsGrid />
 
         <Card>
           <CardHeader>
