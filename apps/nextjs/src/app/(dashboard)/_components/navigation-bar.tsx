@@ -79,7 +79,7 @@ export const NavigationBar = () => {
         <div className="flex items-center h-full">
           <Separator />
           <OrgDropdown>
-            <DropdownMenuTrigger className="flex hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 data-[state=open]:bg-element-hover h-full px-2 items-center">
+            <DropdownMenuTrigger className="flex gap-1 hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 data-[state=open]:bg-element-hover h-full px-2 items-center">
                {MOCK_CURRENT_ORG?.name} <ChevronDown className="h-4 w-4 mt-1" />
             </DropdownMenuTrigger>
             </OrgDropdown>
