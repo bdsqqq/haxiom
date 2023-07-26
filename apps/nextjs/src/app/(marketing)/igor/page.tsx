@@ -12,6 +12,7 @@ import { ScrollArea } from "@haxiom/ui/scroll-area";
 import { SelectDemo } from "./_components/select-demo";
 import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger} from "@haxiom/ui/tabs";
+import { ToastDemo } from "./_components/toast-demo";
 
 export const runtime = "edge";
 
@@ -79,6 +80,8 @@ export default function Home() {
           <TabsContent value="account">Make changes to your account here.</TabsContent>
           <TabsContent value="password">Change your password here.</TabsContent>
         </Tabs>
+
+        <ToastDemo />
       </div>
     </main>
   );
