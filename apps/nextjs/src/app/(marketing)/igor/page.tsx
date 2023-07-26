@@ -1,19 +1,19 @@
-import { Button } from "@haxiom/ui/button";
-import { Input, TextArea } from "@haxiom/ui/input";
-import { Dialog, DialogContent, DialogTrigger } from "@haxiom/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@haxiom/ui/avatar";
+import { Button } from "@haxiom/ui/button";
+import { ButtonsGrid } from "./_components/button-grid";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@haxiom/ui/card";
 import { Checkbox } from "@haxiom/ui/checkbox";
 import { CommandDialogDemo } from "./_components/command-palette-demo"
 import { DataTableDemo } from "./_components/data-table-demo"
+import { Dialog, DialogContent, DialogTrigger } from "@haxiom/ui/dialog";
 import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
+import { Input, TextArea } from "@haxiom/ui/input";
 import { Label } from "@haxiom/ui/label";
 import { ScrollArea } from "@haxiom/ui/scroll-area";
 import { SelectDemo } from "./_components/select-demo";
 import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger} from "@haxiom/ui/tabs";
 import { ToastDemo } from "./_components/toast-demo";
-import { ButtonsGrid } from "./_components/button-grid";
 
 export const runtime = "edge";
 
@@ -21,8 +21,6 @@ export default function Home() {
   return (
     <main className="">
       <div className="flex h-full min-h-screen max-w-xl mx-auto flex-col items-center justify-center gap-4">
-        <Input placeholder="placeholder..." />
-        <TextArea placeholder="another placeholder..." />
 
         <Avatar>
           <AvatarImage src="https://github.com/bdsqqq.png" />
@@ -57,6 +55,9 @@ export default function Home() {
         </Dialog>
         
         <DropdownMenuDemo />
+
+        <Input placeholder="placeholder..." />
+        <TextArea placeholder="another placeholder..." />
 
         <ScrollArea className="h-24">
           {new Array(100).fill(0).map((_, i) => (
