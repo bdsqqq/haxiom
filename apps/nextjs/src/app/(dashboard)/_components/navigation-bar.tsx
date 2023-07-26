@@ -7,6 +7,7 @@ import { UserDropdown } from "./user-dropdown";
 import { cn } from "@haxiom/ui";
 import { MOCK_CURRENT_ORG, OrgDropdown } from "./organization-dropdown";
 import { DropdownMenuTrigger } from "@haxiom/ui/dropdown-menu";
+import { MAX_WIDTH_CLASS } from "../_constants";
 
 const NAV_ITEMS = [
   {
@@ -43,7 +44,7 @@ export const NavigationBar = () => {
 
   return (
     <nav className="sticky top-0 bg border-b">
-      <div className="flex justify-between h-12 max-w-6xl mx-auto px-4">
+      <div className={cn("flex justify-between h-12", MAX_WIDTH_CLASS)}>
         <div className="flex items-center h-full">
           <Link
             href={"/"}
