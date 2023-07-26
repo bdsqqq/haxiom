@@ -16,7 +16,7 @@ const popoverContentVariants = cva('z-50 outline-none animate-in', {
   variants: {
     size: {
       sm: 'w-24 py-1 text-xs px-1.5 h-min',
-      md: 'w-48-8 py-1.5 px-2 h-min',
+      md: 'w-48 py-1.5 px-2 h-min',
       lg: 'w-96 py-3 px-4 h-min',
       full: 'w-full py-3 px-4 h-min',
     },
@@ -74,7 +74,7 @@ const popoverContentVariants2 = cva('z-50 outline-none animate-in', {
   variants: {
     size: {
       sm: 'w-24 py-1 text-xs px-1.5 h-min',
-      md: 'w-48-8 py-1.5 px-2 h-min',
+      md: 'w-48 py-1.5 px-2 h-min',
       lg: 'w-96 py-3 px-4 h-min',
       full: 'w-full py-3 px-4 h-min',
     },
