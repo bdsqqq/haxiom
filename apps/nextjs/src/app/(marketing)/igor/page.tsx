@@ -8,6 +8,7 @@ import { CommandDialogDemo } from "./_components/command-palette-demo"
 import { DataTableDemo } from "./_components/data-table-demo"
 import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
 import { Label } from "@haxiom/ui/label";
+import { ScrollArea } from "@haxiom/ui/scroll-area";
 
 export const runtime = "edge";
 
@@ -52,6 +53,13 @@ export default function Home() {
         
         <DropdownMenuDemo />
 
+        <ScrollArea className="h-24">
+          {new Array(100).fill(0).map((_, i) => (
+            <div key={i} className="flex items-center justify-center">
+              Item {i}
+            </div>
+          ))}
+        </ScrollArea>
 
       </div>
     </main>
