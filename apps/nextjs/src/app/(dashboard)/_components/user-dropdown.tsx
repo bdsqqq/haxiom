@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@haxiom/ui/avatar";
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -10,10 +11,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@haxiom/ui/dropdown-menu";
-import { Check, User } from "@haxiom/ui/icons";
+import { User } from "@haxiom/ui/icons";
 import { toast } from "@haxiom/ui/use-toast";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+
+const THEMES = [
+  {
+    label: "Light",
+    value: "light",
+  },
+  {
+    label: "Dark",
+    value: "dark",
+  },
+  {
+    label: "System",
+    value: "system",
+  },
+]
 
 export const UserDropdown = ({className}: {className: string}) => {
   const { setTheme, theme } = useTheme();
@@ -31,18 +47,11 @@ export const UserDropdown = ({className}: {className: string}) => {
       <DropdownMenuContent align="end" side="bottom">
         <DropdownMenuGroup>
           <DropdownMenuLabel>Theme</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            <span>Light</span>
-            {theme === "light" && <Check className="ml-auto h-4 w-4" />}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            <span>Dark</span>
-            {theme === "dark" && <Check className="ml-auto h-4 w-4" />}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
-            <span>System</span>
-            {theme === "system" && <Check className="ml-auto h-4 w-4" />}
-          </DropdownMenuItem>
+          {THEMES.map(({ label, value }) => (
+            <DropdownMenuCheckboxItem key={value} checked={value === theme} onClick={() => setTheme(value)}>
+            {label}
+          </DropdownMenuCheckboxItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
