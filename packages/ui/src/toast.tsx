@@ -5,6 +5,8 @@ import type { VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
 
 import { cn } from "./utils/cn";
+import type { buttonVariants } from "./button";
+import { Button } from "./button";
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -15,7 +17,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
-      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col gap-2 md:max-w-[420px]",
       className,
     )}
     {...props}
@@ -24,13 +26,13 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "data-[swipe=move]:transition-none group relative pointer-events-auto flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:slide-out-to-right-full",
+  "data-[swipe=move]:transition-none group relative pointer-events-auto flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:duration-moderate-01 data-[state=closed]:duration-fast-02 data-[state=open]:ease-productive-entrance data-[state=closed]:ease-productive-exit data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:slide-out-to-right-full",
   {
     variants: {
       variant: {
         default: "bg border",
         destructive:
-          "group destructive border-destructive bg-destructive text-destructive-foreground",
+          "group destructive border-red-6 bg-red-3 text-red-12",
       },
     },
     defaultVariants: {
@@ -54,18 +56,28 @@ const Toast = React.forwardRef<
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
 
+type ToastActionProps = React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action> & {
+  options?: VariantProps<typeof buttonVariants>;
+};
+
 const ToastAction = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Action>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Action
+  ToastActionProps
+>(({ className, options, children, ...props }, ref) => (
+  <ToastPrimitives.Action asChild
     ref={ref}
     className={cn(
-      "hover:bg-secondary group-[.destructive]:border-destructive/30 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50",
       className,
     )}
     {...props}
-  />
+  >
+    <Button options={{
+      ...options,
+      variant: "outline",
+    }}>
+      {children}
+    </Button>
+  </ToastPrimitives.Action>
 ));
 ToastAction.displayName = ToastPrimitives.Action.displayName;
 
@@ -76,7 +88,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      "text-foreground/50 hover:text group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100",
+      "text-subtle ring-offset-background hover:text group-[.destructive]:text-red-9 group-[.destructive]:hover:text-red-11 absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100 duration-fast-02 ease-productive-standard",
       className,
     )}
     toast-close=""

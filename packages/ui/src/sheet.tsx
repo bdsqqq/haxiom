@@ -40,13 +40,18 @@ const SheetPortal = ({
 );
 SheetPortal.displayName = SheetPrimitive.Portal.displayName;
 
+type SheetOverlayProps = React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & {
+  blur?: boolean;
+};
+
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
->(({ className, ...props }, ref) => (
+  SheetOverlayProps
+>(({ className, blur = true, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "bg/80 fixed inset-0 z-50 backdrop-blur-sm transition-all duration-100 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in",
+      "bg/80 fixed inset-0 z-50 transition-all duration-fast-01 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in",
+      blur && "backdrop-blur-sm",
       className,
     )}
     {...props}
@@ -60,10 +65,10 @@ const sheetVariants = cva(
   {
     variants: {
       position: {
-        top: "animate-in slide-in-from-top w-full duration-300",
-        bottom: "animate-in slide-in-from-bottom w-full duration-300",
-        left: "animate-in slide-in-from-left h-full duration-300",
-        right: "animate-in slide-in-from-right h-full duration-300",
+        top: "animate-in slide-in-from-top w-full duration-moderate-01",
+        bottom: "animate-in slide-in-from-bottom w-full duration-moderate-01",
+        left: "animate-in slide-in-from-left h-full duration-moderate-01",
+        right: "animate-in slide-in-from-right h-full duration-moderate-01",
       },
       size: {
         content: "",
@@ -144,18 +149,22 @@ const sheetVariants = cva(
 );
 
 export interface DialogContentProps
-  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>
+    {
+      options?: VariantProps<typeof sheetVariants> & {
+        blur?: boolean;
+      };
+    }
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   DialogContentProps
->(({ position, size, className, children, ...props }, ref) => (
-  <SheetPortal position={position}>
-    <SheetOverlay />
+>(({ options, className, children, ...props }, ref) => (
+  <SheetPortal position={options?.position}>
+    <SheetOverlay blur={options?.blur} />
     <SheetPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ position, size }), className)}
+      className={cn(sheetVariants(options), className)}
       {...props}
     >
       {children}
@@ -202,7 +211,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("text-foreground text-lg font-semibold", className)}
+    className={cn("text text-lg font-semibold", className)}
     {...props}
   />
 ));
