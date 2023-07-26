@@ -36,7 +36,7 @@ const buttonVariants = cva(
         variant: ["solid"],
         intent: "destructive",
         class:
-          "bg-red-9 hover:bg-red-10 focus-visible:bg-red-10 text-gray-1 aria-disabled:text-gray-3",
+          "bg-red-9 hover:bg-red-10 focus-visible:bg-red-10 text-red-1 aria-disabled:text-red-1",
       },
 
       {
