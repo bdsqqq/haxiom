@@ -36,7 +36,9 @@ export function ToastDemo() {
                   title: "Something went wrong",
                   description: "Very dangerous error",
                   action: (
-                     <ToastAction altText="Fix dangerous error">Fix</ToastAction>
+                     <ToastAction options={{
+                        intent: "destructive"
+                     }} altText="Fix dangerous error">Fix</ToastAction>
                   ),
                   variant: "destructive"
                })
