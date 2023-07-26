@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.21.13",
-    "next": "^13.4.8",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@trpc/client": "^10.33.1",
     "@trpc/server": "^10.33.1",
+    "next": "^13.4.8",
     "superjson": "1.12.4",
     "zod": "^3.21.4",
     "zod-form-data": "^2.0.1"
