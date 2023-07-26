@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserDropdown } from "./user-dropdown";
 import { cn } from "@haxiom/ui";
-import { MOCK_CURRENT_ORG, OrgSelect } from "./organization-select";
+import { MOCK_CURRENT_ORG, OrgDropdown } from "./organization-dropdown";
 import { DropdownMenuTrigger } from "@haxiom/ui/dropdown-menu";
 
 const NAV_ITEMS = [
@@ -78,11 +78,11 @@ export const NavigationBar = () => {
         </div>
         <div className="flex items-center h-full">
           <Separator />
-          <OrgSelect>
+          <OrgDropdown>
             <DropdownMenuTrigger className="flex hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 data-[state=open]:bg-element-hover h-full px-2 items-center">
                {MOCK_CURRENT_ORG?.name} <ChevronDown className="h-4 w-4 mt-1" />
             </DropdownMenuTrigger>
-            </OrgSelect>
+            </OrgDropdown>
           <UserDropdown className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 data-[state=open]:bg-element-hover h-full px-2 -mr-2" />
         </div>
       </div>

@@ -19,7 +19,7 @@ export const MOCK_CURRENT_ORG = MOCK_ORGS[0];
 /**
  * Provide a DropdownMenuTrigger as a child to this component.
  */
-export const OrgSelect = ({children}:{children: ReactNode}) => {
+export const OrgDropdown = ({children}:{children: ReactNode}) => {
       return (
          <DropdownMenu>
             {children}
