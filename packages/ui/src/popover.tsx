@@ -20,6 +20,8 @@ const popoverContentVariants = cva('z-50 outline-none animate-in', {
       lg: 'w-96 py-3 px-4 h-min',
       full: 'w-full py-3 px-4 h-min',
     },
+    // i added these here so we could have a uniform api
+    // (alternative: options -> variants and props -> radix options)
     align: {
       start: 'start',
       center: 'center',
@@ -67,4 +69,34 @@ const PopoverContent = React.forwardRef<React.ElementRef<typeof PopoverPrimitive
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent, popoverContentVariants };
+// ALTERNATIVE
+const popoverContentVariants2 = cva('z-50 outline-none animate-in', {
+  variants: {
+    size: {
+      sm: 'w-24 py-1 text-xs px-1.5 h-min',
+      md: 'w-48-8 py-1.5 px-2 h-min',
+      lg: 'w-96 py-3 px-4 h-min',
+      full: 'w-full py-3 px-4 h-min',
+    },
+  },
+  defaultVariants: {
+    size: 'full',
+  },
+});
+
+export interface PopoverContentProps2 extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
+  options?: VariantProps<typeof popoverContentVariants>;
+}
+
+const PopoverContent2 = React.forwardRef<React.ElementRef<typeof PopoverPrimitive.Content>, PopoverContentProps2>(
+  ({ className, options, ...props }, ref) => {
+    return (
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content ref={ref} className={cn(popoverContentVariants(options), className)} {...props} />
+      </PopoverPrimitive.Portal>
+    );
+  }
+);
+PopoverContent2.displayName = PopoverPrimitive.Content.displayName;
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverContent2, popoverContentVariants, popoverContentVariants2 };
