@@ -15,12 +15,12 @@ import { toast } from "@haxiom/ui/use-toast";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
-export const UserDropdown = () => {
+export const UserDropdown = ({className}: {className: string}) => {
   const { setTheme, theme } = useTheme();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="h-full">
+      <DropdownMenuTrigger className={className}>
         <Avatar>
           <AvatarImage src="" />
           <AvatarFallback className="bg-transparent">
