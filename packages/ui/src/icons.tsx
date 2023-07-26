@@ -9,6 +9,7 @@ export const Close = Lucide.X;
 export const Spinner = Lucide.Loader2;
 export const ChevronLeft = Lucide.ChevronLeft;
 export const ChevronRight = Lucide.ChevronRight;
+export const ChevronDown = Lucide.ChevronDown;
 export const Trash = Lucide.Trash;
 export const Post = Lucide.FileText;
 export const Page = Lucide.File;
