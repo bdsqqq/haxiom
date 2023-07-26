@@ -25,7 +25,7 @@ export const OrgDropdown = ({children}:{children: ReactNode}) => {
         <NewOrganizationDialog>
          <DropdownMenu>
             {children}
-           <DropdownMenuContent align="end" side="bottom">
+           <DropdownMenuContent sideOffset={0} align="end" side="bottom">
              <DropdownMenuGroup>
                <DropdownMenuLabel>{MOCK_ORGS.length} Organizations</DropdownMenuLabel>
                {MOCK_ORGS.map((org) => (

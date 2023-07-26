@@ -38,7 +38,7 @@ export default function ThemeToggle(props: {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={props.align} side={props.side}>
+      <DropdownMenuContent sideOffset={0} align={props.align} side={props.side}>
         <DropdownMenuItem onClick={() => setTheme("light")}>
           <Icons.Sun className="mr-2 h-4 w-4" />
           <span>Light</span>

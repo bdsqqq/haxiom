@@ -44,7 +44,7 @@ export const UserDropdown = ({className}: {className: string}) => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" side="bottom">
+      <DropdownMenuContent sideOffset={0} align="end" side="bottom">
         <DropdownMenuGroup>
           <DropdownMenuLabel>Theme</DropdownMenuLabel>
           {THEMES.map(({ label, value }) => (

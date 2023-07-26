@@ -39,7 +39,7 @@ import {
             variant: "outline"
          }}>Open dropdown</Button>
        </DropdownMenuTrigger>
-       <DropdownMenuContent className="w-56">
+       <DropdownMenuContent sideOffset={0} className="w-56">
          <DropdownMenuLabel>My Account</DropdownMenuLabel>
          <DropdownMenuSeparator />
          <DropdownMenuGroup>
