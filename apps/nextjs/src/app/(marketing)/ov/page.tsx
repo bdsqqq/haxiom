@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@haxiom/ui/button';
 import { Popover, PopoverContent, PopoverContent2, PopoverTrigger } from '@haxiom/ui/popover';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@haxiom/ui/tooltip';
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 import { buttonVariants } from '@haxiom/ui/button';
@@ -30,6 +31,16 @@ export default function Home() {
 
           <div className="light p-12 w-full bg-gray-1">
             <FakeTimeRanger2 />
+          </div>
+        </div>
+
+        <div className="flex h-full w-full flex-row items-center justify-center gap-4">
+          <div className="dark p-12 w-full bg-gray-1">
+            <Save className="dark" />
+          </div>
+
+          <div className="light p-12 w-full bg-gray-1">
+            <Save className="light" />
           </div>
         </div>
       </div>
@@ -138,6 +149,28 @@ const FakeMenu2 = ({ className, ...props }: FakeMenu2Props) => {
   );
 };
 
+interface SaveProps {
+  className?: string;
+}
+
+const Save = ({ className }: SaveProps) => {
+  setTimeout(() => {
+    debugger;
+  }, 1000);
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button>💾</Button>
+        </TooltipTrigger>
+        <TooltipContent options={{ size: 'md' }}>
+          <p className={cn(className, 'text-gray-12')}>Save</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
 const ClockSVG = () => (
   <svg
     aria-hidden="true"
@@ -174,7 +207,7 @@ const DownSVG = () => (
 );
 
 const PencilSVG = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-14">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-12">
     <path
       d="M13.6691 6.94923L7.29591 13.6872C7.10702 13.8869 6.84428 14 6.56941 14L3.66668 14C3.11439 14 2.66668 13.5523 2.66668 13L2.66668 10.0717C2.66668 9.81193 2.76774 9.56238 2.94848 9.37583L9.38784 2.72966C9.77214 2.33301 10.4052 2.323 10.8019 2.70731C10.8057 2.71097 10.8094 2.71467 10.8131 2.71839L13.6497 5.55496C14.0326 5.93782 14.0412 6.55587 13.6691 6.94923Z"
       fill="currentColor"
@@ -182,7 +215,7 @@ const PencilSVG = () => (
   </svg>
 );
 const LayerSVG = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-14">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-12">
     <path
       opacity="0.3"
       d="M10.6638 3.99996H6.00002C4.89545 3.99996 4.00002 4.89539 4.00002 5.99996V10.6637C3.13459 10.6211 2.66669 10.1137 2.66669 9.21208V4.12117C2.66669 3.1783 3.17836 2.66663 4.12123 2.66663H9.21214C10.1138 2.66663 10.6211 3.13453 10.6638 3.99996Z"
@@ -197,7 +230,7 @@ const LayerSVG = () => (
   </svg>
 );
 const TrashSVG = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-14">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-12">
     <path
       d="M4 5.33337H12L11.4044 13.0767C11.3643 13.5977 10.9298 14 10.4073 14H5.5927C5.07016 14 4.63572 13.5977 4.59564 13.0767L4 5.33337ZM5.33333 6.66671L5.63625 9.393L10.3679 9.35598L10.6667 6.66671H5.33333Z"
       fill="currentColor"
