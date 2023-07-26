@@ -6,8 +6,6 @@ import { X } from "lucide-react";
 
 import { Button } from "./button";
 import { cn } from "./utils/cn";
-import type { VariantProps} from "class-variance-authority";
-import { cva } from "class-variance-authority";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -41,61 +39,22 @@ const DialogOverlay = React.forwardRef<
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-// TODO: Make this typesafe eg: when "modal" is selected, "side" is not available
-const dialogContentVariants = cva(
-  [
-    "fixed z-50 grid gap-4 border border-subtle bg p-6 shadow-lg animate-in",
-    "data-[state=open]:fade-in-90 md:max-w-lg data-[state=open]:ease-productive-entrance",
-  ],
-  {
-    variants: {
-      variant: {
-        drawer: "duration-moderate-01",
-        modal: "bottom-0 rounded-t-lg duration-moderate-01 md:duration-fast-02 data-[state=open]:slide-in-from-bottom-10 data-[state=open]:md:slide-in-from-bottom-0 md:zoom-in-90 w-full md:rounded-lg md:bottom-auto",
-      },
-      side: {
-        left: "",
-        right: "",
-      }
-    },
-    compoundVariants: [
-      {
-        variant: "drawer",
-        side: "left",
-        class: "left-0 h-full min-w-[300px] max-w-full rounded-r-lg md:max-w-md data-[state=open]:slide-in-from-left-10 border-l-transparent",
-      },
-      {
-        variant: "drawer",
-        side: "right",
-        class: "right-0 h-full min-w-[300px] max-w-full rounded-l-lg md:max-w-md data-[state=open]:slide-in-from-right-10 border-r-transparent",
-      },
-    ],
-    defaultVariants: {
-      variant: "modal",
-      side: "right",
-    }
-  },
-);       
-
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
-  options?: VariantProps<typeof dialogContentVariants>;
   closeButton?: boolean;
 }
 
-/**
- * On mobile, dialogs will always be drawers.
- */
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, options, children, closeButton = true, ...props }, ref) => (
+>(({ className, children, closeButton = true, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        dialogContentVariants(options),
+        "fixed z-50 grid gap-4 border border-subtle bg p-6 shadow-lg w-full md:rounded-lg md:bottom-auto animate-in bottom-0 rounded-t-lg md:max-w-lg",
+        "data-[state=open]:fade-in-90 data-[state=open]:ease-productive-entrance duration-moderate-01 md:duration-fast-02 data-[state=open]:slide-in-from-bottom-10 data-[state=open]:md:slide-in-from-bottom-0 md:zoom-in-90 ",
         className,
       )}
       {...props}
