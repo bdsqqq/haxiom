@@ -9,6 +9,7 @@ import { DataTableDemo } from "./_components/data-table-demo"
 import { DropdownMenuDemo } from "./_components/dropdown-menu-demo";
 import { Label } from "@haxiom/ui/label";
 import { ScrollArea } from "@haxiom/ui/scroll-area";
+import { SelectDemo } from "./_components/select-demo";
 
 export const runtime = "edge";
 
@@ -61,6 +62,7 @@ export default function Home() {
           ))}
         </ScrollArea>
 
+        <SelectDemo />
       </div>
     </main>
   );
