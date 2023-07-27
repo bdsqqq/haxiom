@@ -12,12 +12,9 @@ export const FilterBuilder = () => {
   const datasetIdFromUrl = urlSegments[urlSegments.indexOf('stream') + 1];
 
   return (
-    <div className="relative w-full">
+    <div className={cn('relative w-full', !datasetIdFromUrl ? 'hidden' : '')}>
       <Filter className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-subtle" />
-      <Input
-        placeholder="Add a filter..."
-        className={cn('pl-8 focus:ring-offset-0', !datasetIdFromUrl ? 'hidden' : '')}
-      />
+      <Input placeholder="Add a filter..." className={'pl-8 focus:ring-offset-0'} />
     </div>
   );
 };
