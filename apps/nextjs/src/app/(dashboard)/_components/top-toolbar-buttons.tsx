@@ -15,6 +15,7 @@ export const ROUTE_TO_DOCS_URL: Record<string, string> = {
   explore: 'https://axiom.co/docs/monitor-data/explore',
   dashboards: 'https://axiom.co/docs/query-data/dashboards',
   monitors: 'https://axiom.co/docs/monitor-data/alerts',
+  settings: 'https://axiom.co/docs/reference/settings',
   default: DEFAULT_DOCS_URL,
 };
 export const HIDE_DOCS_BUTTON_IN_ROUTES_MATCHERS = [
