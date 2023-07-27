@@ -13,6 +13,17 @@ export const ROUTE_TO_DOCS_URL: Record<string, string> = {
   stream: 'https://axiom.co/docs/query-data/stream',
   default: DEFAULT_DOCS_URL,
 };
+export const HIDE_DOCS_BUTTON_IN_ROUTES_MATCHERS = [
+  (urlSegments: string[]) => {
+    /* sub-route of /stream, aimed at /stream/[datasetId]
+     if other sub-routes are added, we should write a
+     function that detects if route actually is a
+     datasetId. (an ok heuristic is checking if the
+     segment ends in a dash followed by 4 characters)
+    */
+    return urlSegments[urlSegments.indexOf('stream') + 1];
+  },
+];
 
 const matchRouteToDocsUrl = (route: string) => {
   return ROUTE_TO_DOCS_URL[route] ?? DEFAULT_DOCS_URL;
@@ -23,6 +34,10 @@ export const DocsButton = () => {
   const topLevelRoute = pathName.split('/')[1];
 
   const docsUrl = matchRouteToDocsUrl(topLevelRoute ?? 'default');
+  const shouldHide = HIDE_DOCS_BUTTON_IN_ROUTES_MATCHERS.some((matcher) => {
+    const urlSegments = pathName.split('/');
+    return matcher(urlSegments);
+  });
 
   return (
     <Button
@@ -31,6 +46,7 @@ export const DocsButton = () => {
         variant: 'outline',
         size: 'icon',
       }}
+      className={shouldHide ? 'hidden' : ''}
     >
       <Link href={docsUrl} target="_blank">
         <Book className="h-4 w-4" />
