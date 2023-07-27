@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 export const DEFAULT_DOCS_URL = 'https://axiom.co/docs';
 export const ROUTE_TO_DOCS_URL: Record<string, string> = {
   datasets: 'https://axiom.co/docs/query-data/datasets',
+  stream: 'https://axiom.co/docs/query-data/stream',
   default: DEFAULT_DOCS_URL,
 };
 
