@@ -6,8 +6,12 @@ import { Separator } from '@haxiom/ui/separator';
 import { ChevronDown } from '@haxiom/ui/icons';
 import type { ReactNode } from 'react';
 import { mockAction } from '~/app/(dashboard)/_utils';
+import { Lock } from '../../_components/Lock';
+import { useDebugStore } from '../../_components/debugger';
 
 export const AplEditorMock = () => {
+  const { hasABunchOfAccesses } = useDebugStore();
+
   return (
     <div className="border">
       <div className="bg-subtle h-48"></div>
@@ -25,14 +29,16 @@ export const AplEditorMock = () => {
             Clear
           </Button>
           <div className="flex">
-            <Button
-              onClick={() => {
-                mockAction('Ran the query');
-              }}
-              className="rounded-r-none"
-            >
-              Run Query
-            </Button>
+            <Lock locked={!hasABunchOfAccesses} lockedFeedback={<LockedFeedback />}>
+              <Button
+                onClick={() => {
+                  mockAction('Ran the query');
+                }}
+                className="rounded-r-none"
+              >
+                Run Query
+              </Button>
+            </Lock>
             <Separator orientation="vertical" className="bg-gray-11 h-auto" />
             <AditionalActionsDropdown>
               <DropdownMenuTrigger asChild>
@@ -90,5 +96,24 @@ const AditionalActionsDropdown = ({ children }: { children: ReactNode }) => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+};
+
+const LockedFeedback = () => {
+  return (
+    <div className="flex flex-col gap-2 items-end">
+      <p>
+        You reached your plan's monthly query limit. <br />
+        Upgrade to run more queries.
+      </p>
+      <Button
+        onClick={() => {
+          mockAction('Paid us more money');
+        }}
+        className="w-min"
+      >
+        Upgrade
+      </Button>
+    </div>
   );
 };
