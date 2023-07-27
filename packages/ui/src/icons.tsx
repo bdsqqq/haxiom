@@ -41,6 +41,7 @@ export const Filter = Lucide.Filter;
 export const Braces = Lucide.Braces;
 export const HardDrive = Lucide.HardDrive;
 export const Layers = Lucide.Layers;
+export const Plug = Lucide.Plug;
 
 export const System: Icon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
