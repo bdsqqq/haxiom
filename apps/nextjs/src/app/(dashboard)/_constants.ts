@@ -1,4 +1,5 @@
 export const MAX_WIDTH_CLASS = 'max-w-6xl mx-auto px-4';
+export const MAIN_CONTENT_CLASS = 'py-4';
 
 export const MOCK_DATASETS = [
   {
