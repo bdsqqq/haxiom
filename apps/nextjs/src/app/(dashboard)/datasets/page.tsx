@@ -3,6 +3,7 @@ import { MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS } from '~/app/(dashboard)/_constant
 import { DatasetsTable } from '~/app/(dashboard)/_components/datasets-table';
 import { StarredQueriesCard } from '~/app/(dashboard)/_components/starred-queries-card';
 import { QueryHistoryCard } from '~/app/(dashboard)/_components/query-history-card';
+import { IntegrationDashboardsCard } from '~/app/(dashboard)/_components/integration-dashboards-card';
 
 export default function Page() {
   return (
@@ -12,7 +13,7 @@ export default function Page() {
           <DatasetsTable />
         </div>
         <div className="col-span-4 col-end-13 row-span-1">
-          <div className="bg-element border h-96"></div>
+          <IntegrationDashboardsCard />
         </div>
         <div className="col-span-4 col-end-13 row-span-1">
           <StarredQueriesCard />
