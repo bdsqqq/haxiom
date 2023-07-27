@@ -6,7 +6,7 @@ import {
   QueryHistoryButton,
   StarredQuerriesButton,
 } from '~/app/(dashboard)/_components/top-toolbar-buttons';
-import { Separator } from '~/app/(dashboard)/_components/separator';
+import { Separator } from '@haxiom/ui/separator';
 
 export default function DatasetsLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +17,7 @@ export default function DatasetsLayout({ children }: { children: React.ReactNode
         </div>
         <div className="flex h-full items-center gap-2">
           <DocsButton />
-          <Separator className="mx-2" />
+          <Separator className="mx-2" orientation="vertical" />
           <VirtualFieldsButton />
           <StarredQuerriesButton />
           <QueryHistoryButton />

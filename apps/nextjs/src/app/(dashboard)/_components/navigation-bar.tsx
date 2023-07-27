@@ -8,7 +8,7 @@ import { cn } from '@haxiom/ui';
 import { MOCK_CURRENT_ORG, OrgDropdown } from '~/app/(dashboard)/_components/organization-dropdown';
 import { DropdownMenuTrigger } from '@haxiom/ui/dropdown-menu';
 import { MAX_WIDTH_CLASS } from '~/app/(dashboard)/_constants';
-import { Separator } from '~/app/(dashboard)/_components/separator';
+import { Separator } from '@haxiom/ui/separator';
 
 const NAV_ITEMS = [
   {
@@ -67,7 +67,7 @@ export const NavigationBar = () => {
             </Link>
           ))}
 
-          <Separator />
+          <Separator orientation="vertical" />
 
           <Link
             href={'/settings'}
@@ -77,7 +77,7 @@ export const NavigationBar = () => {
           </Link>
         </div>
         <div className="flex items-center h-full">
-          <Separator />
+          <Separator orientation="vertical" />
           <OrgDropdown>
             <DropdownMenuTrigger className="flex gap-1 hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 data-[state=open]:bg-element-hover h-full px-2 items-center">
               {MOCK_CURRENT_ORG?.name} <ChevronDown className="h-4 w-4 mt-1" />
