@@ -2,7 +2,7 @@
 
 import { cn } from '@haxiom/ui';
 import { Button } from '@haxiom/ui/button';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@haxiom/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent } from '@haxiom/ui/dialog';
 import { Book, FunctionSquare, History, Star } from '@haxiom/ui/icons';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@haxiom/ui/sheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@haxiom/ui/tabs';
