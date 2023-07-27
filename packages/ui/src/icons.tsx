@@ -20,6 +20,7 @@ export const Organization = Lucide.Building;
 export const Add = Lucide.Plus;
 export const Warning = Lucide.AlertTriangle;
 export const User = Lucide.User;
+export const Users = Lucide.Users;
 export const ArrowRight = Lucide.ArrowRight;
 export const Help = Lucide.HelpCircle;
 export const Info = Lucide.Info;
