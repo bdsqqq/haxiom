@@ -22,6 +22,7 @@ export const Warning = Lucide.AlertTriangle;
 export const User = Lucide.User;
 export const ArrowRight = Lucide.ArrowRight;
 export const Help = Lucide.HelpCircle;
+export const Info = Lucide.Info;
 export const Twitter = Lucide.Twitter;
 export const Check = Lucide.Check;
 export const Copy = Lucide.Copy;
