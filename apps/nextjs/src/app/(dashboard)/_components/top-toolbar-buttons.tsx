@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export const DEFAULT_DOCS_URL = 'https://axiom.co/docs';
+// TODO: currently only top-level routes are supported, should be extended to sub-routes
 export const ROUTE_TO_DOCS_URL: Record<string, string> = {
   datasets: 'https://axiom.co/docs/query-data/datasets',
   stream: 'https://axiom.co/docs/query-data/stream',
