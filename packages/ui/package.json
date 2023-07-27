@@ -19,6 +19,7 @@
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-scroll-area": "^1.0.4",
     "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.4",
@@ -117,6 +118,10 @@
     "./select": {
       "import": "./dist/select.mjs",
       "types": "./dist/select.d.ts"
+    },
+    "./separator": {
+      "import": "./dist/separator.mjs",
+      "types": "./dist/separator.d.ts"
     },
     "./sheet": {
       "import": "./dist/sheet.mjs",
@@ -229,6 +234,9 @@
       ],
       "tooltip": [
         "dist/tooltip.d.ts"
+      ],
+      "separator": [
+        "dist/separator.d.ts"
       ]
     }
   }
