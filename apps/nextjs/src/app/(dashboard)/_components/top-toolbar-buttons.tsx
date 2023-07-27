@@ -15,13 +15,7 @@ export const ROUTE_TO_DOCS_URL: Record<string, string> = {
 };
 
 const matchRouteToDocsUrl = (route: string) => {
-  const match = ROUTE_TO_DOCS_URL[route];
-
-  if (!match) {
-    return DEFAULT_DOCS_URL;
-  }
-
-  return match;
+  return ROUTE_TO_DOCS_URL[route] ?? DEFAULT_DOCS_URL;
 };
 
 export const DocsButton = () => {
