@@ -19,8 +19,6 @@ export const useDebugStore = create<DebugState>((set) => ({
 export function Debugger() {
   const { hasABunchOfAccesses, toggle } = useDebugStore();
 
-  if (process.env.NODE_ENV === 'production') return null;
-
   return (
     <Popover>
       <PopoverTrigger asChild>
