@@ -19,6 +19,7 @@ const client = [
   './src/popover.tsx',
   './src/scroll-area.tsx',
   './src/select.tsx',
+  './src/separator.tsx',
   './src/sheet.tsx',
   './src/tabs.tsx',
   './src/toaster.tsx',
