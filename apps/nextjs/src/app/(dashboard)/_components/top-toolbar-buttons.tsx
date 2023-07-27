@@ -11,6 +11,9 @@ export const DEFAULT_DOCS_URL = 'https://axiom.co/docs';
 export const ROUTE_TO_DOCS_URL: Record<string, string> = {
   datasets: 'https://axiom.co/docs/query-data/datasets',
   stream: 'https://axiom.co/docs/query-data/stream',
+  explore: 'https://axiom.co/docs/monitor-data/explore',
+  dashboards: 'https://axiom.co/docs/query-data/dashboards',
+  monitors: 'https://axiom.co/docs/monitor-data/alerts',
   default: DEFAULT_DOCS_URL,
 };
 export const HIDE_DOCS_BUTTON_IN_ROUTES_MATCHERS = [
