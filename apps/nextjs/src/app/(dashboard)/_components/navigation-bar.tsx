@@ -71,7 +71,10 @@ export const NavigationBar = () => {
 
           <Link
             href={'/settings'}
-            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+            className={cn(
+              'hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center border-b',
+              topLevelPath === 'settings' ? 'border-b-gray-11' : 'border-transparent'
+            )}
           >
             <Settings className="h-4 w-4" />
           </Link>
