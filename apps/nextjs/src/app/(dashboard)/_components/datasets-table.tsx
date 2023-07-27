@@ -5,6 +5,8 @@ import { Button } from '@haxiom/ui/button';
 import Link from 'next/link';
 import { HardDrive, Layers } from '@haxiom/ui/icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@haxiom/ui/card';
+import { NewDatasetDialog } from './new-dataset-dialog';
+import { DialogTrigger } from '@haxiom/ui/dialog';
 
 const DATASET_URL_PREFIX = '/datasets';
 const MAKE_DATASET_URL = (id: string) => `${DATASET_URL_PREFIX}/${id}`;
@@ -14,7 +16,11 @@ export const DatasetsTable = () => {
     <Card className="rounded-none">
       <CardHeader className="justify-between">
         <CardTitle>Datasets</CardTitle>
-        <Button>New Dataset</Button>
+        <NewDatasetDialog>
+          <DialogTrigger asChild>
+            <Button>New Dataset</Button>
+          </DialogTrigger>
+        </NewDatasetDialog>
       </CardHeader>
       <CardContent className="p-0">
         {MOCK_DATASETS.map((dataset) => (
