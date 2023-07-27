@@ -3,6 +3,7 @@ import { Button } from '@haxiom/ui/button';
 import { Card, CardContent, CardHeader } from '@haxiom/ui/card';
 import { SheetTrigger } from '@haxiom/ui/sheet';
 import { EditMonitorSheet } from './edit-monitor-sheet';
+import { NewMonitorSheet } from '../../_components/new-monitor-sheet';
 
 const MAX_MONITORS = 5;
 // TODO: make MOCK_MONITORS
@@ -13,7 +14,11 @@ export const AllMonitorsCard = () => {
   return (
     <Card className="rounded-none">
       <CardHeader className="flex justify-end">
-        <Button>New monitor</Button>
+        <NewMonitorSheet>
+          <SheetTrigger asChild>
+            <Button>New monitor</Button>
+          </SheetTrigger>
+        </NewMonitorSheet>
       </CardHeader>
       <CardContent className="flex flex-col items-center p-0">
         <EditMonitorSheet>
