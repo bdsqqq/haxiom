@@ -11,35 +11,37 @@ import { omit, pick } from './utils/fn';
 const Popover = PopoverPrimitive.Root;
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
-// potentially: 'z-50 shadow-md outline-none animate-in'
-const popoverContentVariants = cva('z-50 outline-none animate-in', {
-  variants: {
-    size: {
-      sm: 'w-24 py-1 text-xs px-1.5 h-min',
-      md: 'w-48 py-1.5 px-2 h-min',
-      lg: 'w-96 py-3 px-4 h-min',
-      full: 'w-full py-3 px-4 h-min',
+const popoverContentVariants = cva(
+  'z-50 min-w-[8rem] border bg-subtle text shadow-md animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+  {
+    variants: {
+      size: {
+        sm: 'w-24 p-1 text-xs h-min',
+        md: 'w-48 p-1.5 h-min',
+        lg: 'w-96 p-3 h-min',
+        full: 'w-full p-3 h-min',
+      },
+      // i added these here so we could have a uniform api
+      // (alternative: options -> variants and props -> radix options)
+      align: {
+        start: 'start',
+        center: 'center',
+        end: 'end',
+      },
+      side: {
+        top: 'top',
+        right: 'right',
+        bottom: 'bottom',
+        left: 'left',
+      },
     },
-    // i added these here so we could have a uniform api
-    // (alternative: options -> variants and props -> radix options)
-    align: {
-      start: 'start',
-      center: 'center',
-      end: 'end',
+    defaultVariants: {
+      size: 'full',
+      align: 'center',
+      side: 'bottom',
     },
-    side: {
-      top: 'top',
-      right: 'right',
-      bottom: 'bottom',
-      left: 'left',
-    },
-  },
-  defaultVariants: {
-    size: 'full',
-    align: 'center',
-    side: 'bottom',
-  },
-});
+  }
+);
 
 export interface PopoverContentProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
   options?: PopoverContentOptions;
