@@ -18,7 +18,7 @@ export const TeamDashboardsCard = () => {
       </CardHeader>
       <CardContent className="flex flex-col items-center p-0">
         {DASHBOARDS_TO_RENDER.length ? (
-          DASHBOARDS_TO_RENDER.map((Dashboard) => <TeamDashboard key={Dashboard} />)
+          DASHBOARDS_TO_RENDER.map((dashboard) => <Dashboard key={dashboard} />)
         ) : (
           <EmptyState />
         )}
@@ -36,7 +36,7 @@ const EmptyState = () => {
 };
 
 // TODO: Update with actual content once MOCK_DASHBOARDS is done
-const TeamDashboard = () => {
+const Dashboard = () => {
   return (
     <Link
       className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
