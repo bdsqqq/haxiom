@@ -10,8 +10,8 @@ import { mockAction } from '~/app/(dashboard)/_utils';
 export const AplEditorMock = () => {
   return (
     <div className="border">
-      <div className="bg-element h-48"></div>
-      <div className="flex justify-between py-3.5 px-4 bg-element-hover border-t">
+      <div className="bg-subtle h-48"></div>
+      <div className="flex justify-between py-3.5 px-4 bg-element border-t">
         <div className="flex items-center gap-2"></div>
         <div className="flex items-center gap-2">
           <Button
