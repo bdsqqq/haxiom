@@ -1,6 +1,6 @@
 import { TopToolBar } from '~/app/(dashboard)/_components/top-tool-bar';
 import { VirtualFieldsButton } from '~/app/(dashboard)/datasets/_components/top-toolbar-buttons';
-import { SelectDataset } from '~/app/(dashboard)/datasets/_components/select-dataset';
+import { SelectDataset } from '~/app/(dashboard)/_components/select-dataset';
 import {
   DocsButton,
   QueryHistoryButton,
