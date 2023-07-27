@@ -88,7 +88,7 @@ export const QuickRangeButton = () => {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger className="data-[state=open]:bg-subtle" asChild>
         <Button
           options={{
             variant: 'outline',
