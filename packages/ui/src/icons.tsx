@@ -37,6 +37,7 @@ export const Clock = Lucide.Clock;
 export const Pause = Lucide.Pause;
 export const Play = Lucide.Play;
 export const Filter = Lucide.Filter;
+export const Braces = Lucide.Braces;
 
 export const System: Icon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
