@@ -10,15 +10,16 @@ export const SelectDataset = () => {
   const pathname = usePathname();
 
   const urlSegments = pathname.split('/');
-  const datasetIdFromUrl = urlSegments[urlSegments.indexOf('datasets') + 1] ?? '';
+  const topLevelSegment = urlSegments[1] ?? '';
+  const datasetIdFromUrl = urlSegments[urlSegments.indexOf(topLevelSegment) + 1] ?? '';
 
   const [selectedDatasetId, setSelectedDatasetId] = useState<string>(datasetIdFromUrl);
 
   useEffect(() => {
     console.log('datasetIdFromUrl changed', datasetIdFromUrl);
     setSelectedDatasetId(datasetIdFromUrl);
-    router.push(`/datasets/${datasetIdFromUrl}`);
-  }, [datasetIdFromUrl, router]);
+    router.push(`/${topLevelSegment}/${datasetIdFromUrl}`);
+  }, [datasetIdFromUrl, topLevelSegment, router]);
 
   return (
     <Select
@@ -26,7 +27,7 @@ export const SelectDataset = () => {
       value={selectedDatasetId}
       onValueChange={(newDatasetId) => {
         setSelectedDatasetId(newDatasetId);
-        router.push(`/datasets/${newDatasetId}`);
+        router.push(`/${topLevelSegment}/${newDatasetId}`);
       }}
     >
       <SelectTrigger className="w-[240px] ring-offset-0">
