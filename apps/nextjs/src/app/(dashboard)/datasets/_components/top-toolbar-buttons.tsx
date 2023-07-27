@@ -1,8 +1,10 @@
 'use client';
 
+import { cn } from '@haxiom/ui';
 import { Button } from '@haxiom/ui/button';
-import { Book, History, Star } from '@haxiom/ui/icons';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@haxiom/ui/sheet';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@haxiom/ui/dialog';
+import { Book, FunctionSquare, History, Star } from '@haxiom/ui/icons';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@haxiom/ui/sheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@haxiom/ui/tabs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -104,5 +106,51 @@ export const QueryHistoryButton = () => {
         </Tabs>
       </SheetContent>
     </Sheet>
+  );
+};
+
+export const VirtualFieldsButton = () => {
+  const pathname = usePathname();
+
+  const urlSegments = pathname.split('/');
+  const datasetIdFromUrl = urlSegments[urlSegments.indexOf('datasets') + 1];
+
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button
+          options={{
+            variant: 'outline',
+            size: 'icon',
+          }}
+          className={cn(!datasetIdFromUrl ? 'hidden' : '')}
+        >
+          <FunctionSquare className="h-4 w-4" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader className="flex flex-row justify-between items-center">
+          <SheetTitle>Virtual fields</SheetTitle>
+          <AddVirtualField />
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
+  );
+};
+
+const AddVirtualField = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          options={{
+            variant: 'outline',
+          }}
+        >
+          Add virtual field
+        </Button>
+      </DialogTrigger>
+      <DialogContent>form</DialogContent>
+    </Dialog>
   );
 };
