@@ -32,6 +32,7 @@ export const Key = Lucide.Key;
 export const History = Lucide.History;
 export const Star = Lucide.Star;
 export const Book = Lucide.Book;
+export const FunctionSquare = Lucide.FunctionSquare;
 
 export const System: Icon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
