@@ -1,23 +1,48 @@
-import type { ReactNode } from 'react';
+import { Axiom } from '@haxiom/ui/icons';
+import { cn } from '@haxiom/ui';
+import { MAIN_CONTENT_CLASS, MAX_WIDTH_CLASS } from '~/app/(dashboard)/_constants';
+import Link from 'next/link';
+import { Button } from '@haxiom/ui/button';
 
-import * as Icons from '@haxiom/ui/icons';
-
-import { MobileDropdown } from '~/components/mobile-nav';
-import { siteConfig } from '~/app/config';
-
-export default function MarketingLayout(props: { children: ReactNode }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
-      <nav className="container z-50 flex h-16 items-center border-b bg">
-        <div className="mr-8 hidden items-center md:flex">
-          <Icons.Axiom className="mr-2 h-6 w-6" />
-          <span className="text-lg font-bold tracking-tight">{siteConfig.name}</span>
-        </div>
-        <MobileDropdown />
-        <div className="ml-auto flex items-center space-x-4">Dashboard Link</div>
-      </nav>
-
-      <main className="flex-1">{props.children}</main>
-    </div>
+    <>
+      <NavigationBar />
+      <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS)}>{children}</main>
+    </>
   );
 }
+
+const NavigationBar = () => {
+  return (
+    <nav className="sticky top-0 bg border-b">
+      <div className={cn('flex justify-between h-12', MAX_WIDTH_CLASS)}>
+        <div className="flex items-center h-full">
+          <Link
+            href={'/'}
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 -ml-2 block flex items-center"
+          >
+            <Axiom className="h-6 w-6" />
+          </Link>
+          <Link
+            href={'/igor'}
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+          >
+            Igor's UI Components
+          </Link>
+          <Link
+            href={'/ov'}
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+          >
+            Ollie Explorations
+          </Link>
+        </div>
+        <div className="flex items-center h-full">
+          <Button asChild>
+            <Link href={'/datasets'}>Login</Link>
+          </Button>
+        </div>
+      </div>
+    </nav>
+  );
+};
