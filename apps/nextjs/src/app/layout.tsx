@@ -38,10 +38,10 @@ export const metadata = {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [{ url: 'https://haxiom-corp-lib.vercel.app/opengraph-image.png' }],
-    creator: '@jullerino',
+    images: [{ url: 'https://haxiom-nextjs.vercel.app/opengraph-image.png' }],
+    creator: '@bedesqui',
   },
-  metadataBase: new URL('https://haxiom-corp.jumr.dev'),
+  metadataBase: new URL('https://haxiom-nextjs.vercel.app/'),
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {

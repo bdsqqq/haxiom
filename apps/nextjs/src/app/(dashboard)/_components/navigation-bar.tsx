@@ -9,6 +9,7 @@ import { MOCK_CURRENT_ORG, OrgDropdown } from '~/app/(dashboard)/_components/org
 import { DropdownMenuTrigger } from '@haxiom/ui/dropdown-menu';
 import { MAX_WIDTH_CLASS } from '~/app/(dashboard)/_constants';
 import { Separator } from '@haxiom/ui/separator';
+import type { Route } from 'next';
 
 const NAV_ITEMS = [
   {
@@ -31,7 +32,7 @@ const NAV_ITEMS = [
     label: 'Monitors',
     href: '/monitors',
   },
-];
+] satisfies { href: Route; label: string }[];
 
 export const NavigationBar = () => {
   const pathname = usePathname();
