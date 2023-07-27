@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserDropdown } from './user-dropdown';
 import { cn } from '@haxiom/ui';
-import { MOCK_CURRENT_ORG, OrgDropdown } from './organization-dropdown';
+import { MOCK_CURRENT_ORG, OrgDropdown } from '~/app/(dashboard)/_components/organization-dropdown';
 import { DropdownMenuTrigger } from '@haxiom/ui/dropdown-menu';
-import { MAX_WIDTH_CLASS } from '../_constants';
+import { MAX_WIDTH_CLASS } from '~/app/(dashboard)/_constants';
+import { Separator } from '~/app/(dashboard)/_components/separator';
 
 const NAV_ITEMS = [
   {
@@ -88,5 +89,3 @@ export const NavigationBar = () => {
     </nav>
   );
 };
-
-const Separator = () => <div className="bg-gray-6 w-px my-2 h-full" />;

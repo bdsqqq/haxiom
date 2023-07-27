@@ -6,6 +6,7 @@ import {
   QueryHistoryButton,
   StarredQuerriesButton,
 } from '~/app/(dashboard)/_components/top-toolbar-buttons';
+import { Separator } from '~/app/(dashboard)/_components/separator';
 
 export default function DatasetsLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +17,7 @@ export default function DatasetsLayout({ children }: { children: React.ReactNode
         </div>
         <div className="flex h-full items-center gap-2">
           <DocsButton />
-          <Separator />
+          <Separator className="mx-2" />
           <VirtualFieldsButton />
           <StarredQuerriesButton />
           <QueryHistoryButton />
@@ -26,5 +27,3 @@ export default function DatasetsLayout({ children }: { children: React.ReactNode
     </>
   );
 }
-
-const Separator = () => <div className="bg-gray-6 w-px my-2 h-full mx-2" />;
