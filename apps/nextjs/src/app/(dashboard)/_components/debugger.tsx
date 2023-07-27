@@ -11,7 +11,7 @@ interface DebugState {
   toggle: () => void;
 }
 
-const useDebugStore = create<DebugState>((set) => ({
+export const useDebugStore = create<DebugState>((set) => ({
   hasABunchOfAccesses: true,
   toggle: () => set((state) => ({ hasABunchOfAccesses: !state.hasABunchOfAccesses })),
 }));
