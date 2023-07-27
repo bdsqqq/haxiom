@@ -103,7 +103,7 @@ const LockedFeedback = () => {
   return (
     <div className="flex flex-col gap-2 items-end">
       <p>
-        You reached your plan's monthly query limit. <br />
+        {`You reached your plan's monthly query limit.`} <br />
         Upgrade to run more queries.
       </p>
       <Button
