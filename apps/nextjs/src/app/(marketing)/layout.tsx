@@ -20,19 +20,19 @@ const NavigationBar = () => {
         <div className="flex items-center h-full">
           <Link
             href={'/'}
-            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 -ml-2 block flex items-center"
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center"
           >
             <Axiom className="h-6 w-6" />
           </Link>
           <Link
             href={'/igor'}
-            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center"
           >
             Igor's UI Components
           </Link>
           <Link
             href={'/ov'}
-            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-2 block flex items-center"
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center"
           >
             Ollie Explorations
           </Link>
