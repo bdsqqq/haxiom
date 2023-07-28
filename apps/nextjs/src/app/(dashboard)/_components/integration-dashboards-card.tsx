@@ -9,7 +9,7 @@ const INTEGRATION_DASHBOARDS_TO_RENDER = INTEGRATION_DASHBOARDS.slice(0, MAX_INT
 
 export const IntegrationDashboardsCard = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader>
         <CardTitle className="flex gap-2">
           <Plug className="h-4 w-4" /> Integration Dashboards

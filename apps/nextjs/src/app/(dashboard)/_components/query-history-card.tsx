@@ -9,7 +9,7 @@ const QUERIES_TO_RENDER = QUERIES.slice(0, MAX_HISTORY);
 
 export const QueryHistoryCard = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader>
         <CardTitle className="flex gap-2">
           <History className="h-4 w-4" /> Query history

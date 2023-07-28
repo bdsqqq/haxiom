@@ -3,7 +3,7 @@ import { Star } from '@haxiom/ui/icons';
 
 export const StarredQueriesCard = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader>
         <CardTitle className="flex gap-2">
           <Star className="h-4 w-4" /> Starred queries

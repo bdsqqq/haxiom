@@ -34,7 +34,6 @@ export const AplEditorMock = () => {
                 onClick={() => {
                   mockAction('Ran the query');
                 }}
-                className="rounded-r-none"
               >
                 Run Query
               </Button>
@@ -42,7 +41,7 @@ export const AplEditorMock = () => {
             <Separator orientation="vertical" className="bg-gray-11 h-auto" />
             <AditionalActionsDropdown>
               <DropdownMenuTrigger asChild>
-                <Button className="rounded-l-none h-auto">
+                <Button className="h-auto">
                   <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>

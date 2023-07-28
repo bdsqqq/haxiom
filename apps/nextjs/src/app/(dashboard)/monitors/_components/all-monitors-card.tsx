@@ -12,7 +12,7 @@ const MONITORS_TO_RENDER = MONITORS.slice(0, MAX_MONITORS);
 
 export const AllMonitorsCard = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader className="flex justify-end">
         <NewMonitorSheet>
           <SheetTrigger asChild>

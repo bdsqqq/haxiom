@@ -19,7 +19,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex items-center justify-between h-10 w-full rounded-md border border-subtle bg-transparent px-3 py-2 text-sm placeholder:text-subtle disabled:cursor-not-allowed disabled:opacity-50',
+      'flex items-center justify-between h-10 w-full border border-subtle bg-transparent px-3 py-2 text-sm placeholder:text-subtle disabled:cursor-not-allowed disabled:opacity-50',
       className
     )}
     {...props}
@@ -40,7 +40,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-subtle shadow-md animate-in fade-in-80',
+        'relative z-50 min-w-[8rem] overflow-hidden border bg-subtle shadow-md animate-in fade-in-80',
         position === 'popper' && 'translate-y-1',
         className
       )}

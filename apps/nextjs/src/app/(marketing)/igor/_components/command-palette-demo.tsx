@@ -1,14 +1,7 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
+import * as React from 'react';
+import { Calculator, Calendar, CreditCard, Settings, Smile, User } from 'lucide-react';
 
 import {
   CommandDialog,
@@ -19,27 +12,27 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@haxiom/ui/command"
+} from '@haxiom/ui/command';
 
 export function CommandDialogDemo() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "j" && e.metaKey) {
-        setOpen((open) => !open)
+      if (e.key === 'j' && e.metaKey) {
+        setOpen((open) => !open);
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
 
   return (
     <>
       <p className="text-sm text-subtle">
-        Press{" "}
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-subtle px-1.5 font-mono text-[10px] font-medium text-subtle opacity-100">
+        Press{' '}
+        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 border bg-subtle px-1.5 font-mono text-[10px] font-medium text-subtle opacity-100">
           <span className="text-xs">⌘</span>J
         </kbd>
       </p>
@@ -82,5 +75,5 @@ export function CommandDialogDemo() {
         </CommandList>
       </CommandDialog>
     </>
-  )
+  );
 }

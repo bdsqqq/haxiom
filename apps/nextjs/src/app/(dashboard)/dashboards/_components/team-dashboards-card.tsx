@@ -9,7 +9,7 @@ const DASHBOARDS_TO_RENDER = DASHBOARDS.slice(0, MAX_DASHBOARDS);
 
 export const TeamDashboardsCard = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader className="flex flex-col gap-2 items-start">
         <CardTitle className="flex gap-2">
           <Users className="h-4 w-4" /> Team Dashboards

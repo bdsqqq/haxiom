@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
+import * as React from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 
-import { cn } from "./utils/cn";
+import { cn } from './utils/cn';
 
 const Tabs = TabsPrimitive.Root;
 
@@ -13,10 +13,7 @@ const TabsList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={cn(
-      "bg-subtle text-subtle inline-flex h-10 items-center justify-center rounded-md p-1",
-      className,
-    )}
+    className={cn('bg-subtle text-subtle inline-flex h-10 items-center justify-center p-1', className)}
     {...props}
   />
 ));
@@ -29,8 +26,8 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "data-[state=active]:text hover:text inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all ease-productive-standard duration-fast-01 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg data-[state=active]:shadow-sm focus-visible:ring-offset-gray-2",
-      className,
+      'data-[state=active]:text hover:text inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-medium transition-all ease-productive-standard duration-fast-01 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg data-[state=active]:shadow-sm focus-visible:ring-offset-gray-2',
+      className
     )}
     {...props}
   />
@@ -40,16 +37,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    className={cn(
-      "mt-2",
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => <TabsPrimitive.Content ref={ref} className={cn('mt-2', className)} {...props} />);
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };

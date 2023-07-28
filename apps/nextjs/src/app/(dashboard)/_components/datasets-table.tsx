@@ -13,7 +13,7 @@ const MAKE_DATASET_URL = (id: string) => `${DATASET_URL_PREFIX}/${id}`;
 
 export const DatasetsTable = () => {
   return (
-    <Card className="rounded-none">
+    <Card>
       <CardHeader className="justify-between">
         <CardTitle>Datasets</CardTitle>
         <NewDatasetDialog>

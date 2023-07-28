@@ -27,7 +27,7 @@ interface FakeMenuProps {
 
 const FakeMenu = ({ className, ...props }: FakeMenuProps) => {
   return (
-    <div className={cn(className, 'flex items-center rounded p-1')} {...props}>
+    <div className={cn(className, 'flex items-center p-1')} {...props}>
       <Button options={{ variant: 'outline' }}>
         {/* should we add fill to button? */}
         <PencilSVG />
