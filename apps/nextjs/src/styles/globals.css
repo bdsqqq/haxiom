@@ -344,7 +344,6 @@
 @layer base {
   body {
     @apply bg text;
-    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::selection {
