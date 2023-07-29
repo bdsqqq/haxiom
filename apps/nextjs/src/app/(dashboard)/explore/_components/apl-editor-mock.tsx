@@ -4,7 +4,7 @@ import { Button } from '@haxiom/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@haxiom/ui/dropdown-menu';
 import { Separator } from '@haxiom/ui/separator';
 import { ChevronDown } from '@haxiom/ui/icons';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { mockAction } from '~/app/(dashboard)/_utils';
 import { Lock } from '../../_components/Lock';
 import { useDebugStore } from '../../_components/debugger';
@@ -81,11 +81,14 @@ const ADITIONAL_ACTIONS = [
 ];
 
 /**
- * Provide a DropdownMenuTrigger as a child to this component.
+ * Use this a a controlled component or provide a DropdownMenuTrigger as a child to this component.
  */
-const AditionalActionsDropdown = ({ children }: { children: ReactNode }) => {
+const AditionalActionsDropdown = ({
+  children,
+  ...rest
+}: { children?: ReactNode } & ComponentProps<typeof DropdownMenu>) => {
   return (
-    <DropdownMenu>
+    <DropdownMenu {...rest}>
       {children}
       <DropdownMenuContent align="end">
         {ADITIONAL_ACTIONS.map((action) => (

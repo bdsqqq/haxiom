@@ -1,18 +1,18 @@
 'use client';
 
 import { Sheet, SheetClose, SheetContent, SheetTitle } from '@haxiom/ui/sheet';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Label } from '@haxiom/ui/label';
 import { Input, TextArea } from '@haxiom/ui/input';
 import { Button } from '@haxiom/ui/button';
 import { mockAction } from '../_utils';
 
 /**
- * Provide a SheetTrigger as a child to this component.
+ * Use this a a controlled component or provide a SheetTrigger as a child to this component.
  */
-export const NewMonitorSheet = ({ children }: { children?: ReactNode }) => {
+export const NewMonitorSheet = ({ children, ...rest }: { children?: ReactNode } & ComponentProps<typeof Sheet>) => {
   return (
-    <Sheet>
+    <Sheet {...rest}>
       {children}
       <SheetContent>
         <SheetTitle>New Monitor</SheetTitle>

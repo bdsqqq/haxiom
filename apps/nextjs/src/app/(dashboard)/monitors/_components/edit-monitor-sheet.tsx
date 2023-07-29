@@ -1,12 +1,12 @@
 import { Sheet, SheetContent, SheetTitle } from '@haxiom/ui/sheet';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 /**
- * Provide a SheetTrigger as a child to this component.
+ * Use this a a controlled component or provide a SheetTrigger as a child to this component.
  */
-export const EditMonitorSheet = ({ children }: { children?: ReactNode }) => {
+export const EditMonitorSheet = ({ children, ...rest }: { children?: ReactNode } & ComponentProps<typeof Sheet>) => {
   return (
-    <Sheet>
+    <Sheet {...rest}>
       {children}
       <SheetContent>
         <SheetTitle>Edit monitor</SheetTitle>

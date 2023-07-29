@@ -1,16 +1,19 @@
 import { Dialog, DialogClose, DialogContent, DialogTitle } from '@haxiom/ui/dialog';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Label } from '@haxiom/ui/label';
 import { Input } from '@haxiom/ui/input';
 import { Button } from '@haxiom/ui/button';
 import { toast } from '@haxiom/ui/use-toast';
 
 /**
- * Provide a DialogTrigger as a child to this component.
+ * Use this a a controlled component or provide a DialogTrigger as a child to this component.
  */
-export const NewOrganizationDialog = ({ children }: { children?: ReactNode }) => {
+export const NewOrganizationDialog = ({
+  children,
+  ...rest
+}: { children?: ReactNode } & ComponentProps<typeof Dialog>) => {
   return (
-    <Dialog>
+    <Dialog {...rest}>
       {children}
       <DialogContent>
         <DialogTitle>New Organization</DialogTitle>
