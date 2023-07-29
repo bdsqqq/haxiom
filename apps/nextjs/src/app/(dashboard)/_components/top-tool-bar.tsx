@@ -4,8 +4,8 @@ import { MAX_WIDTH_CLASS } from '../_constants';
 
 export const TopToolBar = ({ children, className }: { children?: ReactNode; className?: string }) => {
   return (
-    <div className="h-16 border-b">
-      <div className={cn('flex h-full items-center', MAX_WIDTH_CLASS, className)}>{children}</div>
+    <div className="h-16 border-b sticky top-12 z-20">
+      <div className={cn('flex h-full items-center bg', MAX_WIDTH_CLASS, className)}>{children}</div>
     </div>
   );
 };
