@@ -360,7 +360,7 @@
   }
 
   * {
-    @apply focus-visible:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-11 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-1;
+    @apply focus-visible:z-10 focus-visible:relative focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-11 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-1;
   }
 
   input,
@@ -404,10 +404,10 @@
 
   /* Remove Safari input shadow on mobile */
   'input[type="text"]' {
-    appearance: "none";
+    appearance: 'none';
   }
 
   'input[type="email"]' {
-    appearance: "none";
+    appearance: 'none';
   }
 }
