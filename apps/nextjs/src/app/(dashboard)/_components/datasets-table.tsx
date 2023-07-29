@@ -14,11 +14,18 @@ const MAKE_DATASET_URL = (id: string) => `${DATASET_URL_PREFIX}/${id}`;
 export const DatasetsTable = () => {
   return (
     <Card>
-      <CardHeader className="justify-between">
+      <CardHeader className="justify-between relative">
         <CardTitle>Datasets</CardTitle>
         <NewDatasetDialog>
           <DialogTrigger asChild>
-            <Button>New Dataset</Button>
+            <Button
+              options={{
+                variant: 'outline',
+              }}
+              className="absolute -inset-px left-auto h-auto focus:ring-offset-0"
+            >
+              New Dataset
+            </Button>
           </DialogTrigger>
         </NewDatasetDialog>
       </CardHeader>
