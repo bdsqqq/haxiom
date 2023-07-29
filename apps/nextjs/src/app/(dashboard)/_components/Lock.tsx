@@ -17,13 +17,14 @@ export const Lock = forwardRef<
   if (!locked) return <>{child}</>;
 
   // Not too happy about this bit, but it makes sure cloneElement gets a valid element (not a string and other misc types allowed by ReactNode)
-  const isValid = isValidElement<HTMLButtonElement & { onClick?: () => void }>(child);
+  const isValid = isValidElement<HTMLButtonElement & { href?: string; onClick?: () => void }>(child);
   if (!isValid) throw new Error(`Lock's child must be a valid react element, see: `);
 
   return (
     <Popover>
       <PopoverTrigger asChild {...rest} ref={ref}>
         {cloneElement(child, {
+          href: '#', // 👺👺👺 This gives href to anything, things that are not links. Didn't cause issues yet but be wary.
           onClick: () => {
             // no op
           },
