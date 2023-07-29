@@ -1,5 +1,5 @@
 import { Dialog, DialogClose, DialogContent, DialogTitle } from '@haxiom/ui/dialog';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Label } from '@haxiom/ui/label';
 import { Input, TextArea } from '@haxiom/ui/input';
 import { Button } from '@haxiom/ui/button';
@@ -8,11 +8,11 @@ import { Info } from '@haxiom/ui/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@haxiom/ui/popover';
 
 /**
- * Provide a DialogTrigger as a child to this component.
+ * Use this a a controlled component or provide a DialogTrigger as a child to this component.
  */
-export const NewDatasetDialog = ({ children }: { children?: ReactNode }) => {
+export const NewDatasetDialog = ({ children, ...rest }: { children?: ReactNode } & ComponentProps<typeof Dialog>) => {
   return (
-    <Dialog>
+    <Dialog {...rest}>
       {children}
       <DialogContent>
         <DialogTitle>New Dataset</DialogTitle>
