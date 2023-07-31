@@ -45,7 +45,7 @@ export const DatasetsTable = () => {
         {MOCK_DATASETS.map((dataset) => (
           <Link
             key={dataset.id}
-            className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
+            className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
             href={MAKE_DATASET_URL(dataset.id)}
           >
             <span>{dataset.name}</span>

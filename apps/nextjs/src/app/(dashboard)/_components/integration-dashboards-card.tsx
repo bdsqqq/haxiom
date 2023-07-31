@@ -40,7 +40,7 @@ const EmptyState = () => {
 const IntegrationDashboard = () => {
   return (
     <Link
-      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
+      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
       href={''}
     >
       <div className="flex gap-2">
