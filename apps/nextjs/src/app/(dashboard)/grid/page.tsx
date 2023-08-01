@@ -7,13 +7,8 @@ import { IntegrationDashboardsCard } from '~/app/(dashboard)/_components/integra
 
 export default function Page() {
   return (
-    <main
-      style={{
-        '--columns-available': '12',
-      }}
-      className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS)}
-    >
-      <section>
+    <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS)}>
+      {/* <section>
         <h1>A bunch of items</h1>
         <Grid>
           <div className="col-span-4">
@@ -77,15 +72,15 @@ export default function Page() {
             <TestItem />
           </div>
         </Grid>
-      </section>
+      </section> */}
 
-      <section>
-        <Grid className="grid-rows-2 min-h-[87vh]">
-          <div className="col-span-8 row-span-2">
+      <section className="lg:col-span-12 md:col-span-8 col-span-4">
+        <Grid className="lg:grid-rows-2 min-h-[87vh]">
+          <div className="col-span-8 lg:row-span-2">
             <DatasetsTable />
           </div>
 
-          <Grid className="col-span-4 row-span-2">
+          <Grid className="lg:col-span-4 md:col-span-8 col-span-4 lg:row-span-2">
             <div className="col-span-4">
               <IntegrationDashboardsCard />
             </div>
