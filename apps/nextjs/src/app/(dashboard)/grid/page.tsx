@@ -94,8 +94,6 @@ export default function Page() {
   );
 }
 
-const TestItem = () => <div className="bg-gray-3 border h-full" />;
-
 const Grid: FC<PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>>> = ({ children, className, style, ...rest }) => {
   return (
     <div
@@ -110,3 +108,5 @@ const Grid: FC<PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>>> = ({ child
     </div>
   );
 };
+
+const TestItem = () => <div className="bg-gray-3 border h-full" />;
