@@ -41,7 +41,7 @@ export const DatasetsTable = () => {
           </Lock>
         </NewDatasetDialog>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="p-0 -mb-px">
         {MOCK_DATASETS.map((dataset) => (
           <Link
             key={dataset.id}

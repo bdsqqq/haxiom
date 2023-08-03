@@ -16,7 +16,7 @@ export const TeamDashboardsCard = () => {
         </CardTitle>
         <CardDescription>Only you can see and change these dashboards</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col items-center p-0">
+      <CardContent className="flex flex-col items-center p-0 -mb-px">
         {DASHBOARDS_TO_RENDER.length ? (
           DASHBOARDS_TO_RENDER.map((dashboard) => <Dashboard key={dashboard} />)
         ) : (
@@ -39,7 +39,7 @@ const EmptyState = () => {
 const Dashboard = () => {
   return (
     <Link
-      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
+      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
       href={''}
     >
       <div className="flex gap-2">

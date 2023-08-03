@@ -20,7 +20,7 @@ export const AllMonitorsCard = () => {
           </SheetTrigger>
         </NewMonitorSheet>
       </CardHeader>
-      <CardContent className="flex flex-col items-center p-0">
+      <CardContent className="flex flex-col items-center p-0 -mb-px">
         <EditMonitorSheet>
           {MONITORS_TO_RENDER.length ? (
             MONITORS_TO_RENDER.map((monitor, i) => (
@@ -48,7 +48,7 @@ const EmptyState = () => {
 const Monitor = ({ light = 'green', ...rest }: { light?: 'green' | 'red' }) => {
   return (
     <SheetTrigger
-      className="text-left w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
+      className="text-left w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
       {...rest}
     >
       <div className="flex justify-between w-full">

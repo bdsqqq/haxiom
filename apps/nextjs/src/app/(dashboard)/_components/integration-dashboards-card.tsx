@@ -15,7 +15,7 @@ export const IntegrationDashboardsCard = () => {
           <Plug className="h-4 w-4" /> Integration Dashboards
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-center p-0">
+      <CardContent className="flex flex-col items-center p-0 -mb-px">
         {INTEGRATION_DASHBOARDS_TO_RENDER.length ? (
           INTEGRATION_DASHBOARDS_TO_RENDER.map((integrationDashboard) => (
             <IntegrationDashboard key={integrationDashboard} />

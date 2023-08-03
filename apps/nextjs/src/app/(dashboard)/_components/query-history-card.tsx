@@ -15,7 +15,7 @@ export const QueryHistoryCard = () => {
           <History className="h-4 w-4" /> Query history
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-center p-0">
+      <CardContent className="flex flex-col items-center p-0 -mb-px">
         {QUERIES_TO_RENDER.length ? QUERIES_TO_RENDER.map((query) => <Query key={query} />) : <EmptyState />}
       </CardContent>
     </Card>
@@ -34,7 +34,7 @@ const EmptyState = () => {
 const Query = () => {
   return (
     <Link
-      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 [&:not(:last-child)]:border-b"
+      className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
       href={''}
     >
       <span>Hej do</span>
