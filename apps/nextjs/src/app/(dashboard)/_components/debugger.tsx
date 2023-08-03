@@ -25,14 +25,15 @@ export function Debugger() {
         <Button
           options={{
             size: 'icon',
+            variant: 'outline',
           }}
-          className="opacity-0 hover:opacity-100 focus:opacity-100 fixed bottom-1 right-1 z-50"
+          className="opacity-0 hover:opacity-100 focus:opacity-100 fixed bottom-4 right-4 data-[state=open]:opacity-100 z-50"
         >
           <Settings className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="flex flex-col p-4">
+      <PopoverContent align="end" className="flex flex-col p-4">
         <div className="flex gap-2 items-center">
           Has a bunch of accesses: {hasABunchOfAccesses ? 'true' : 'false'}
           <Button onClick={toggle}>Toggle</Button>
