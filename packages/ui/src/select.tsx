@@ -41,18 +41,14 @@ const SelectContent = React.forwardRef<
       ref={ref}
       className={cn(
         'relative z-50 min-w-[8rem] overflow-hidden focus:ring-offset-0 border bg-subtle shadow-md animate-in fade-in-80',
-        position === 'popper' && 'translate-y-1',
+        position === 'popper' && ' min-w-[var(--radix-select-trigger-width)]',
         className
       )}
       position={position}
       {...props}
     >
       <SelectPrimitive.Viewport
-        className={cn(
-          '',
-          position === 'popper' &&
-            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
-        )}
+        className={cn('', position === 'popper' && 'h-[var(--radix-select-trigger-height)] w-full')}
       >
         {children}
       </SelectPrimitive.Viewport>
