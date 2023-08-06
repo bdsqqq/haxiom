@@ -23,6 +23,7 @@ const client = [
   './src/sheet.tsx',
   './src/tabs.tsx',
   './src/toaster.tsx',
+  './src/toggle.tsx',
   './src/tooltip.tsx',
   './src/use-toast.tsx',
 ];
