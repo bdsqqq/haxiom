@@ -34,10 +34,39 @@ export const NewMonitorSheet = ({ children, ...rest }: { children?: ReactNode } 
     mockAction('Created a monitor called ' + values.name);
   }
 
+  function hasRadixIgnoreAttribute(node: HTMLElement | SVGElement | null): boolean {
+    if (!node) {
+      console.log('not a node');
+      return false;
+    }
+
+    // Check if the current node has the data-attribute "radix-ignore"
+    if (node.hasAttribute('data-radix-ignore')) {
+      console.log('found');
+      return true;
+    }
+
+    // If the current node doesn't have the attribute, check its parent node recursively
+    console.log('recursing');
+    return hasRadixIgnoreAttribute(node.parentElement);
+  }
+
   return (
     <Sheet {...rest}>
       {children}
-      <SheetContent>
+      <SheetContent
+        onInteractOutside={(e) => {
+          console.log();
+          // if target element has data-radix-ignore, don't close
+
+          if (e.target instanceof HTMLElement || e.target instanceof SVGElement) {
+            if (hasRadixIgnoreAttribute(e.target)) {
+              e.preventDefault();
+              return;
+            }
+          }
+        }}
+      >
         <SheetTitle>New Monitor</SheetTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
