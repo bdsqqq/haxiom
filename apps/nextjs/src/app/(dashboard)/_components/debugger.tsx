@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@haxiom/ui/button';
+import { Checkbox } from '@haxiom/ui/checkbox';
 import { Settings } from '@haxiom/ui/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@haxiom/ui/popover';
 
@@ -17,8 +18,6 @@ export const useDebugStore = create<DebugState>((set) => ({
 }));
 
 export function Debugger() {
-  const { hasABunchOfAccesses, toggle } = useDebugStore();
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,11 +33,19 @@ export function Debugger() {
       </PopoverTrigger>
 
       <PopoverContent align="end" className="flex flex-col p-4">
-        <div className="flex gap-2 items-center">
-          Has a bunch of accesses: {hasABunchOfAccesses ? 'true' : 'false'}
-          <Button onClick={toggle}>Toggle</Button>
-        </div>
+        <ABunchOfAccessesToggler />
       </PopoverContent>
     </Popover>
   );
 }
+
+const ABunchOfAccessesToggler = () => {
+  const { hasABunchOfAccesses, toggle } = useDebugStore();
+
+  return (
+    <div className="flex gap-2 items-center">
+      <Checkbox checked={hasABunchOfAccesses} onClick={toggle} />
+      Has a bunch of accesses
+    </div>
+  );
+};
