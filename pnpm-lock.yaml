@@ -47,6 +47,9 @@ importers:
       '@next/mdx':
         specifier: ^13.4.8
         version: 13.4.8
+      '@radix-ui/colors':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@t3-oss/env-nextjs':
         specifier: ^0.6.0
         version: 0.6.0(typescript@5.1.6)(zod@3.21.4)
@@ -1340,7 +1343,6 @@ packages:
 
   /@radix-ui/colors@2.0.1:
     resolution: {integrity: sha512-EhWky2oSIf5y+BDfrAY+Rykrkh7m2/M/bgCVRr3M+Hnr4JOh+mtFZLHUS1j/WzaPw1uvd0vwhK3cbxsR0QnCgw==}
-    dev: true
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
