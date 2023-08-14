@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import { default as tailwindRadix} from "tailwindcss-radix"
+// @ts-ignore - tailwindcss-animate is not typed. see: https://github.com/jamiebuilds/tailwindcss-animate
+import { default as tailwindAnimate} from "tailwindcss-animate"
 
 export default {
   darkMode: ["class"],
@@ -240,5 +243,8 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-radix"), require("tailwindcss-animate")],
+  plugins: [
+    tailwindRadix, 
+    tailwindAnimate
+  ],
 } satisfies Config;
