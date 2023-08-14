@@ -41,7 +41,7 @@ const IntegrationDashboard = () => {
   return (
     <Link
       className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
-      href={''}
+      href={'#'}
     >
       <div className="flex gap-2">
         <Logo className="mt-1 h-6 w-6 shrink-0" />

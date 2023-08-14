@@ -35,7 +35,7 @@ const Query = () => {
   return (
     <Link
       className="w-full flex justify-between h-full p-4 hover:bg-element-hover focus:bg-element-hover focus:ring-offset-0 border-b"
-      href={''}
+      href={'#'}
     >
       <span>Hej do</span>
       <div className="flex gap-4 font-mono uppercase text-sm">content</div>
