@@ -240,7 +240,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-radix")(),
-    require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-radix"), require("tailwindcss-animate")],
 } satisfies Config;
