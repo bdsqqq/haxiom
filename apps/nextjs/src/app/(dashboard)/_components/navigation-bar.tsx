@@ -50,7 +50,7 @@ export const NavigationBar = () => {
         <div className="flex items-center h-full">
           <Link
             href={'/'}
-            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center"
+            className="hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 flex items-center"
           >
             <Axiom className="h-6 w-6" />
           </Link>
@@ -59,7 +59,7 @@ export const NavigationBar = () => {
             <Link
               key={href}
               className={cn(
-                'hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center border-b -mb-px',
+                'hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 flex items-center border-b -mb-px',
                 topLevelPath === href.split('/')[1] ? 'border-b-gray-11' : 'border-transparent'
               )}
               href={href}
@@ -73,7 +73,7 @@ export const NavigationBar = () => {
           <Link
             href={'/settings'}
             className={cn(
-              'hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 block flex items-center border-b',
+              'hover:bg-element-hover focus:bg-element-hover focus-visible:ring-offset-0 h-full px-4 flex items-center border-b',
               topLevelPath === 'settings' ? 'border-b-gray-11' : 'border-transparent'
             )}
           >
