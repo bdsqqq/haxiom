@@ -239,6 +239,9 @@ importers:
 
   packages/config/tailwind:
     devDependencies:
+      '@radix-ui/colors':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -1334,6 +1337,10 @@ packages:
       tslib: 2.6.1
       webcrypto-core: 1.7.7
     dev: false
+
+  /@radix-ui/colors@2.0.1:
+    resolution: {integrity: sha512-EhWky2oSIf5y+BDfrAY+Rykrkh7m2/M/bgCVRr3M+Hnr4JOh+mtFZLHUS1j/WzaPw1uvd0vwhK3cbxsR0QnCgw==}
+    dev: true
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
