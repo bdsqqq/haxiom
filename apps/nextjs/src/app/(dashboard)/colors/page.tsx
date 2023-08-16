@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from '@haxiom/ui';
 import { MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS } from '~/app/(dashboard)/_constants';
-import { grayDark, grayDarkA } from '@radix-ui/colors';
+import { gray, grayDark, grayDarkA, red, redDark } from '@radix-ui/colors';
 import { ArrowRight } from '@haxiom/ui/icons';
 import { Separator } from '@haxiom/ui/separator';
 
 const getScaleName = (scale: Record<string, string>) => {
-  const scaleName = Object.keys(scale)[0]?.replace(/(\d+)/g, '');
+  const scaleName = Object.keys(scale)[0]?.replace(/(\d+)/g, '').replace(/-/g, '');
   return scaleName;
 };
 
@@ -104,7 +104,11 @@ function generateCSSPropertiesOfSemanticTokensForScale(scaleName: string, prefix
   }, {} as Record<string, string>);
 }
 
-function generateUsageSpreadableInTWThemeOfSemanticTokens(scaleName: string, prefix?: string) {
+function generateUsageSpreadableInTWThemeOfSemanticTokens(
+  scaleName: string,
+  prefix?: string,
+  options?: { omitName?: boolean }
+) {
   /**
    * Radix scales that end with an A are alpha scales, they have transparency defined so we shouldn't add <alpha-value> to them
    */
@@ -114,7 +118,8 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(scaleName: string, pre
    * removes parent and adds scale name, so `background-base` becomes `scaleName-base`
    * it only removes the parent if it's followed by a dash, so `solid` stays `solid` despite having a parent of the same name
    */
-  const makeKey = (value: string, parent: string) => `${scaleName}-${value.replace(`${parent}-`, '')}`;
+  const makeKey = (value: string, parent: string) =>
+    `${options?.omitName ? '' : `${scaleName}-`}${value.replace(`${parent}-`, '')}`;
 
   const makeString = (value: string) => `var(--${prefix ? `${prefix}-` : ''}${scaleName}-${value})`;
   const putInsideHSLFunction = (value: string, isAlpha: boolean) => `hsl(${value}${isAlpha ? '' : ' / <alpha-value>'})`;
@@ -153,16 +158,138 @@ const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
 const addDashesToRadixScaleSteps = <T extends Record<string, string>>(scale: T) =>
   cloneObjButRunAFunctionOnEachKey(scale, (key) => key.replace(/(\d+)/g, '-$1'));
 
+const giveMeTheThingsForTheseScales = (
+  scales: Record<string, string>[],
+  darkScales?: Record<string, string>[],
+  options?: { prefix?: string; defaultScale?: string }
+) => {
+  const { prefix = 'tw', defaultScale = '' } = options ?? {};
+
+  if (!scales.length) {
+    throw new Error('No scales provided');
+  }
+
+  const allScaleNames = Array.from(new Set([...scales.map(getScaleName), ...(darkScales?.map(getScaleName) ?? [])]));
+
+  if (defaultScale) {
+    const foundDefaultScale = allScaleNames.includes(defaultScale);
+
+    if (!foundDefaultScale) {
+      throw new Error(`Default scale ${defaultScale} not found, select from the scales: ${allScaleNames.join(', ')}`);
+    }
+  }
+
+  const scalesWithDashes = scales.map(addDashesToRadixScaleSteps);
+  const darkScalesWithDashes = darkScales?.map(addDashesToRadixScaleSteps);
+  const scalesWithJustValues = scalesWithDashes.map((scale) =>
+    cloneObjButRunAFunctionOnEachValue(scale, fromHSLtoJustValues)
+  );
+  const darkScalesWithJustValues = darkScalesWithDashes?.map((scale) =>
+    cloneObjButRunAFunctionOnEachValue(scale, fromHSLtoJustValues)
+  );
+
+  const scalesWithTailwindColorsThatConsumeCSSProperties = scalesWithJustValues.reduce((acc, scale) => {
+    return { ...acc, ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(scale) };
+  }, {} as Record<string, string>);
+
+  const scalesWithCSSCustomProperties = scalesWithJustValues.reduce((acc, scale) => {
+    const cssObject = Object.fromEntries(
+      Object.entries(scale).reduce((css, [key, value]) => {
+        css.push(fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix));
+        return css;
+      }, [] as string[][])
+    );
+    return { ...acc, ...cssObject };
+  }, {} as Record<string, string>);
+
+  const darkScalesWithCSSCustomProperties = darkScalesWithJustValues?.reduce((acc, scale) => {
+    const cssObject = Object.fromEntries(
+      Object.entries(scale).reduce((css, [key, value]) => {
+        css.push(fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix));
+        return css;
+      }, [] as string[][])
+    );
+    return { ...acc, ...cssObject };
+  }, {} as Record<string, string>);
+
+  const scalesWithSemanticTokens = scalesWithJustValues.reduce((acc, scale) => {
+    const scaleName = getScaleName(scale);
+    if (!scaleName) {
+      throw new Error(`Scale name not found for scale ${JSON.stringify(scale)}`);
+    }
+
+    const semanticScale = generateCSSPropertiesOfSemanticTokensForScale(scaleName, prefix);
+    return { ...acc, ...semanticScale };
+  }, {} as Record<string, string>);
+
+  const scalesWithSemanticTokensForUsageInTWTheme = scalesWithJustValues.reduce(
+    (acc, scale) => {
+      const scaleName = getScaleName(scale);
+      if (!scaleName) {
+        throw new Error(`Scale name not found for scale ${JSON.stringify(scale)}`);
+      }
+
+      const semanticScale = generateUsageSpreadableInTWThemeOfSemanticTokens(scaleName, prefix);
+
+      const { background, border, solid, foreground } = semanticScale;
+      const { background: prevBackground, border: prevBorder, solid: prevSolid, foreground: prevForeground } = acc;
+
+      return {
+        background: { ...prevBackground, ...background },
+        border: { ...prevBorder, ...border },
+        solid: { ...prevSolid, ...solid },
+        foreground: { ...prevForeground, ...foreground },
+      };
+    },
+    {
+      background: {},
+      border: {},
+      solid: {},
+      foreground: {},
+    } as Record<string, any>
+  );
+
+  const defaultScaleWithSemanticTokens = generateUsageSpreadableInTWThemeOfSemanticTokens(defaultScale, prefix, {
+    omitName: true,
+  });
+
+  const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = {
+    background: {
+      ...scalesWithSemanticTokensForUsageInTWTheme.background,
+      ...(defaultScaleWithSemanticTokens.background ?? {}),
+    },
+    border: { ...scalesWithSemanticTokensForUsageInTWTheme.border, ...(defaultScaleWithSemanticTokens.border ?? {}) },
+    solid: { ...scalesWithSemanticTokensForUsageInTWTheme.solid, ...(defaultScaleWithSemanticTokens.solid ?? {}) },
+    foreground: {
+      ...scalesWithSemanticTokensForUsageInTWTheme.foreground,
+      ...(defaultScaleWithSemanticTokens.foreground ?? {}),
+    },
+  };
+
+  const stuffToPutInRoot = {
+    ...scalesWithCSSCustomProperties,
+    ...scalesWithSemanticTokens,
+  };
+
+  const stuffToPutInRootDark = { ...darkScalesWithCSSCustomProperties };
+
+  const stuffToPutInTheme = {
+    scalesWithTailwindColorsThatConsumeCSSProperties,
+    scalesWithSemanticTokensForUsageInTWTheme: scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme,
+  };
+
+  return {
+    stuffToPutInRoot,
+    stuffToPutInRootDark,
+    stuffToPutInTheme,
+  };
+};
+
 export default function Page() {
   return (
-    <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'bg-gray-solid flex flex-col gap-4 h-full')}>
+    <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
       <div className="shrink-0 flex flex-col gap-2">
-        <div>
-          <Scale raw scale={grayDark} />
-        </div>
-        <div>
-          <Scale raw scale={grayDarkA} />
-        </div>
+        <Scales scales={[red, gray]} darkScales={[redDark, grayDark]} />
       </div>
       <div className="h-auto grid place-content-center w-full">
         <div className="flex gap-2 flex-col">
@@ -183,7 +310,20 @@ export default function Page() {
   );
 }
 
-const Scale = ({ scale, raw = false }: { scale: Record<string, string>; raw?: boolean }) => {
+const Scales = ({ scales, darkScales }: { scales: Record<string, string>[]; darkScales: Record<string, string>[] }) => {
+  const res = giveMeTheThingsForTheseScales(scales, darkScales, {
+    prefix: 'radix',
+    defaultScale: 'gray',
+  });
+
+  return (
+    <pre className="bg-gray-base">
+      <code>{JSON.stringify(res, null, 2)}</code>
+    </pre>
+  );
+};
+
+const Scale = ({ scale }: { scale: Record<string, string> }) => {
   const scaleWithDashes = addDashesToRadixScaleSteps(scale);
   const convertedScale = Object.entries(scaleWithDashes).map(([key, value]) => {
     return {
@@ -191,38 +331,6 @@ const Scale = ({ scale, raw = false }: { scale: Record<string, string>; raw?: bo
       color: fromHSLtoJustValues(value),
     };
   });
-
-  if (raw) {
-    const scaleWithJustValues = cloneObjButRunAFunctionOnEachValue(scaleWithDashes, fromHSLtoJustValues);
-    const prefix = 'tw';
-
-    // Inject this in theme
-    // spread in root colors
-    const scaleToTailwindColorsThatConsumeCSSProperties = fromJustValuesToTailwindColorsThatConsumeCSSProperties(
-      scaleWithJustValues,
-      prefix
-    );
-    // spread each color in it's desired place
-    const spreadableTokensForTheme = generateUsageSpreadableInTWThemeOfSemanticTokens(getScaleName(scale), prefix);
-    // end inject in theme
-
-    // Inject this in root
-    const cssObject = Object.fromEntries(
-      Object.entries(scaleWithJustValues).reduce((css, [key, value]) => {
-        css.push(fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix));
-        return css;
-      }, [] as string[][])
-    );
-    const semanticScale = generateCSSPropertiesOfSemanticTokensForScale(getScaleName(scale), prefix);
-    // end inject in root
-
-    const res = semanticScale;
-    return (
-      <pre>
-        <code>{JSON.stringify(res, null, 2)}</code>
-      </pre>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-2">
