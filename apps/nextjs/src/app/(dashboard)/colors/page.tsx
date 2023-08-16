@@ -1,7 +1,7 @@
 import { cn } from '@haxiom/ui';
 import { MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS } from '~/app/(dashboard)/_constants';
 import { grayDark, grayDarkA } from '@radix-ui/colors';
-import { ChevronDown } from '@haxiom/ui/icons';
+import { ArrowRight } from '@haxiom/ui/icons';
 import { Separator } from '@haxiom/ui/separator';
 
 const fromHSLtoJustValues = (color: string) => {
@@ -41,19 +41,28 @@ const fromHSLtoJustValues = (color: string) => {
 
 export default function Page() {
   return (
-    <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex gap-4 h-full')}>
-      <div className="shrink-0">
-        <Scale scale={grayDark} />
+    <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
+      <div className="shrink-0 flex gap-2">
+        <div>
+          <Scale scale={grayDark} />
+        </div>
+        <div>
+          <Scale scale={grayDarkA} />
+        </div>
       </div>
       <div className="h-auto grid place-content-center w-full">
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <div>{grayDark.gray1}</div>
-          <ChevronDown />
-          <div>{fromHSLtoJustValues(grayDark.gray1)}</div>
+        <div className="flex gap-2 flex-col">
+          <div className="flex gap-2 items-center justify-center">
+            <div>{grayDark.gray1}</div>
+            <ArrowRight size={16} />
+            <div>{fromHSLtoJustValues(grayDark.gray1)}</div>
+          </div>
           <Separator />
-          <div>{grayDarkA.grayA1}</div>
-          <ChevronDown />
-          <div>{fromHSLtoJustValues(grayDarkA.grayA1)}</div>
+          <div className="flex gap-2 items-center justify-center">
+            <div>{grayDarkA.grayA1}</div>
+            <ArrowRight size={16} />
+            <div>{fromHSLtoJustValues(grayDarkA.grayA1)}</div>
+          </div>
         </div>
       </div>
     </main>
@@ -63,10 +72,10 @@ export default function Page() {
 const Scale = ({ scale }: { scale: Record<string, string> }) => {
   return Object.entries(scale).map(([key, value]) => {
     return (
-      <div key={key} className="flex items-center">
+      <div key={key} className="flex gap-2 items-center">
         <div className="w-8 h-8" style={{ backgroundColor: value }}></div>
-        <div className="ml-2">{key}</div>
-        <div className="ml-2">{fromHSLtoJustValues(value)}</div>
+        <div>{key}</div>
+        <div>{fromHSLtoJustValues(value)}</div>
       </div>
     );
   });
