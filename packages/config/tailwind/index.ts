@@ -5,7 +5,7 @@ import { default as tailwindRadix} from "tailwindcss-radix"
 // @ts-ignore - tailwindcss-animate is not typed. see: https://github.com/jamiebuilds/tailwindcss-animate
 import { default as tailwindAnimate} from "tailwindcss-animate"
 
-import { gray, grayDark, grayA } from "@radix-ui/colors"
+import { gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA, grayDark, grayDarkA, blueDark, blueDarkA, plumDark, plumDarkA, redDark, redDarkA, grassDark, grassDarkA, amberDark, amberDarkA} from "@radix-ui/colors"
 
 const getScaleName = (scale: Record<string, string>) => {
   const scaleName = Object.keys(scale)[0]?.replace(/(\d+)/g, '').replace(/-/g, '');
@@ -287,10 +287,12 @@ const giveMeTheThingsForTheseScales = (
   };
 };
 
-const stuff = giveMeTheThingsForTheseScales([gray, grayA], [grayDark], {
-  prefix: 'radix',
-  defaultScale: "gray",
-});
+const stuff = giveMeTheThingsForTheseScales(
+  [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA], [grayDark, grayDarkA, blueDark, blueDarkA, plumDark, plumDarkA, redDark, redDarkA, grassDark, grassDarkA, amberDark, amberDarkA], 
+  {
+    prefix: 'qui',
+    defaultScale: "gray",
+  });
 
 export default {
   darkMode: ["class"],
@@ -389,7 +391,7 @@ export default {
         ":root": {
           ...stuff.stuffToPutInRoot,
         },
-        ":root.dark": {
+        ".dark": {
           ...stuff.stuffToPutInRootDark,
         },
       })

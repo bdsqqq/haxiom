@@ -1,7 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from '@haxiom/ui';
 import { MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS } from '~/app/(dashboard)/_constants';
-import { gray, grayDark, grayDarkA, red, redDark } from '@radix-ui/colors';
+import {
+  gray,
+  grayA,
+  blue,
+  blueA,
+  plum,
+  plumA,
+  red,
+  redA,
+  grass,
+  grassA,
+  amber,
+  amberA,
+  grayDark,
+  grayDarkA,
+  blueDark,
+  blueDarkA,
+  plumDark,
+  plumDarkA,
+  redDark,
+  redDarkA,
+  grassDark,
+  grassDarkA,
+  amberDark,
+  amberDarkA,
+} from '@radix-ui/colors';
 import { ArrowRight } from '@haxiom/ui/icons';
 import { Separator } from '@haxiom/ui/separator';
 
@@ -289,7 +314,23 @@ export default function Page() {
   return (
     <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
       <div className="shrink-0 flex flex-col gap-2">
-        <Scales scales={[red, gray]} darkScales={[redDark, grayDark]} />
+        <Scales
+          scales={[gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA]}
+          darkScales={[
+            grayDark,
+            grayDarkA,
+            blueDark,
+            blueDarkA,
+            plumDark,
+            plumDarkA,
+            redDark,
+            redDarkA,
+            grassDark,
+            grassDarkA,
+            amberDark,
+            amberDarkA,
+          ]}
+        />
       </div>
       <div className="h-auto grid place-content-center w-full">
         <div className="flex gap-2 flex-col">
@@ -311,14 +352,31 @@ export default function Page() {
 }
 
 const Scales = ({ scales, darkScales }: { scales: Record<string, string>[]; darkScales: Record<string, string>[] }) => {
-  const res = giveMeTheThingsForTheseScales(scales, darkScales, {
-    prefix: 'radix',
-    defaultScale: 'gray',
-  });
+  const stuff = giveMeTheThingsForTheseScales(
+    [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA],
+    [
+      grayDark,
+      grayDarkA,
+      blueDark,
+      blueDarkA,
+      plumDark,
+      plumDarkA,
+      redDark,
+      redDarkA,
+      grassDark,
+      grassDarkA,
+      amberDark,
+      amberDarkA,
+    ],
+    {
+      prefix: 'radix',
+      defaultScale: 'gray',
+    }
+  );
 
   return (
     <pre className="bg-gray-base">
-      <code>{JSON.stringify(res, null, 2)}</code>
+      <code>{JSON.stringify(stuff, null, 2)}</code>
     </pre>
   );
 };
