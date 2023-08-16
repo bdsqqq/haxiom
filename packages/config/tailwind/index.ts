@@ -1,8 +1,166 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin"
 import { fontFamily } from "tailwindcss/defaultTheme";
 import { default as tailwindRadix} from "tailwindcss-radix"
 // @ts-ignore - tailwindcss-animate is not typed. see: https://github.com/jamiebuilds/tailwindcss-animate
 import { default as tailwindAnimate} from "tailwindcss-animate"
+
+import { gray, grayDark, grayA } from "@radix-ui/colors"
+
+const getScaleName = (scale: Record<string, string>) => {
+  const scaleName = Object.keys(scale)[0]?.replace(/(\d+)/g, '');
+  return scaleName;
+};
+
+const fromHSLtoJustValues = (color: string) => {
+  const functionTransforms = {
+    hsl: (value: string) => {
+      const units = ['deg', '%', '%'];
+      return value
+        .replace('hsl(', '')
+        .replace(')', '')
+        .replace(/%/g, '')
+        .split(',')
+        .map((value, i) => value.trim() + (units[i] ?? ''))
+        .join(' ');
+    },
+    hsla: (value: string) => {
+      const units = ['deg', '%', '%', ''];
+      const separators = ['', '', '/'];
+      return value
+        .replace('hsla(', '')
+        .replace(')', '')
+        .replace(/%/g, '')
+        .split(',')
+        .map((value, i) => value.trim() + units[i] + (separators[i] ? ` ${separators[i]}` : ''))
+        .join(' ');
+    },
+  } as const;
+
+  const possibleFunctions = Object.keys(functionTransforms) as (keyof typeof functionTransforms)[];
+
+  const functionType = possibleFunctions.find((func) => color.startsWith(func + '('));
+  if (!functionType) {
+    throw new Error(`Unknown function type for color ${color}`);
+  }
+
+  return functionTransforms[functionType](color);
+};
+
+function cloneObjButRunAFunctionOnEachValue<T extends Record<string, any>, U>(
+  obj: T,
+  func: (value: any) => U
+): Record<string, U> {
+  return Object.keys(obj).reduce((clonedObj, key) => {
+    clonedObj[key] = func(obj[key]);
+    return clonedObj;
+  }, {} as Record<string, U>);
+}
+
+function cloneObjButRunAFunctionOnEachKey<T extends Record<string, any>>(
+  obj: T,
+  func: (key: string) => string
+): Record<string, string> {
+  return Object.keys(obj).reduce((clonedObj, key) => {
+    const newKey = func(key);
+    clonedObj[newKey] = obj[key] as string;
+    return clonedObj;
+  }, {} as Record<string, string>);
+}
+
+const semanticSteps = {
+  background: [
+    { key: 'background-base', step: 1 },
+    { key: 'background-subtle', step: 2 },
+    { key: 'background-element', step: 3 },
+    { key: 'background-element-hover', step: 4 },
+    { key: 'background-element-active', step: 5 },
+    { key: 'background-element-selected', step: 5 },
+    { key: 'separator-subtle', step: 6 },
+  ],
+  border: [
+    { key: 'separator-subtle', step: 6 },
+    { key: 'border-subtle', step: 6 },
+    { key: 'element-border', step: 7 },
+    { key: 'element-border-hover', step: 8 },
+  ],
+  solid: [
+    { key: 'solid', step: 9 },
+    { key: 'solid-hover', step: 10 },
+  ],
+  foreground: [
+    { key: 'foreground-subtle', step: 11 },
+    { key: 'foreground', step: 12 },
+  ],
+};
+
+const flatSemanticSteps = Object.values(semanticSteps).flatMap((entry) => entry);
+
+function generateCSSPropertiesOfSemanticTokensForScale(scaleName: string, prefix?: string) {
+  const makeString = (value: number) => `var(--${prefix ? `${prefix}-` : ''}${scaleName}-${value})`;
+  const makeKey = (value: string) => `--${prefix ? `${prefix}-` : ''}${scaleName}-${value}`;
+
+  return flatSemanticSteps.reduce((acc, item) => {
+    acc[makeKey(item.key)] = makeString(item.step);
+    return acc;
+  }, {} as Record<string, string>);
+}
+
+function generateUsageSpreadableInTWThemeOfSemanticTokens(scaleName: string, prefix?: string) {
+  /**
+   * Radix scales that end with an A are alpha scales, they have transparency defined so we shouldn't add <alpha-value> to them
+   */
+  const isAlpha = scaleName.at(-1) === 'A';
+
+  /**
+   * removes parent and adds scale name, so `background-base` becomes `scaleName-base`
+   * it only removes the parent if it's followed by a dash, so `solid` stays `solid` despite having a parent of the same name
+   */
+  const makeKey = (value: string, parent: string) => `${scaleName}-${value.replace(`${parent}-`, '')}`;
+
+  const makeString = (value: string) => `var(--${prefix ? `${prefix}-` : ''}${scaleName}-${value})`;
+  const putInsideHSLFunction = (value: string, isAlpha: boolean) => `hsl(${value}${isAlpha ? '' : ' / <alpha-value>'})`;
+
+  return Object.entries(semanticSteps).reduce((acc, [key, value]) => {
+    acc[key as keyof typeof semanticSteps] = value.reduce((acc, item) => {
+      acc[makeKey(item.key, key)] = putInsideHSLFunction(makeString(item.key), isAlpha);
+      return acc;
+    }, {} as Record<string, string>);
+    return acc;
+  }, {} as Record<keyof typeof semanticSteps, Record<string, string>>);
+}
+
+const fromJustValuesToCSSCustomPropertiesTuple = (
+  name: string,
+  color: ReturnType<typeof fromHSLtoJustValues>,
+  prefix?: string
+): [string, string] => {
+  return [`--${prefix ? `${prefix}-` : ''}${name}`, `${color};`];
+};
+
+const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
+  scaleWithJustValues: Record<string, string>,
+  prefix?: string
+) =>
+  Object.entries(scaleWithJustValues).reduce((acc, [key, value]) => {
+    let colorFunction = 'hsl';
+    if (value.includes('/')) {
+      colorFunction = 'hsla';
+    }
+
+    acc[key] = `hsl(var(--${prefix ? `${prefix}-` : ''}${key})${colorFunction === 'hsl' ? ' / <alpha-value>)' : ')'}`;
+    return acc;
+  }, {} as Record<string, string>);
+
+const addDashesToRadixScaleSteps = <T extends Record<string, string>>(scale: T) =>
+  cloneObjButRunAFunctionOnEachKey(scale, (key) => key.replace(/(\d+)/g, '-$1'));
+
+
+const grayWithDashes = addDashesToRadixScaleSteps(gray);
+const grayDarkWithDashes = addDashesToRadixScaleSteps(grayDark);
+const prefix = 'tw';
+
+const spreadableTokensForTheme = generateUsageSpreadableInTWThemeOfSemanticTokens('gray', prefix);
 
 export default {
   darkMode: ["class"],
@@ -11,150 +169,10 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      "gray-1": `hsl(var(--gray-1) / <alpha-value>)`,
-      "gray-2": `hsl(var(--gray-2) / <alpha-value>)`,
-      "gray-3": `hsl(var(--gray-3) / <alpha-value>)`,
-      "gray-4": `hsl(var(--gray-4) / <alpha-value>)`,
-      "gray-5": `hsl(var(--gray-5) / <alpha-value>)`,
-      "gray-6": `hsl(var(--gray-6) / <alpha-value>)`,
-      "gray-7": `hsl(var(--gray-7) / <alpha-value>)`,
-      "gray-8": `hsl(var(--gray-8) / <alpha-value>)`,
-      "gray-9": `hsl(var(--gray-9) / <alpha-value>)`,
-      "gray-10": `hsl(var(--gray-10) / <alpha-value>)`,
-      "gray-11": `hsl(var(--gray-11) / <alpha-value>)`,
-      "gray-12": `hsl(var(--gray-12) / <alpha-value>)`,
-      "grayA-1": `hsl(var(--grayA1))`,
-      "grayA-2": `hsl(var(--grayA2))`,
-      "grayA-3": `hsl(var(--grayA3))`,
-      "grayA-4": `hsl(var(--grayA4))`,
-      "grayA-5": `hsl(var(--grayA5))`,
-      "grayA-6": `hsl(var(--grayA6))`,
-      "grayA-7": `hsl(var(--grayA7))`,
-      "grayA-8": `hsl(var(--grayA8))`,
-      "grayA-9": `hsl(var(--grayA9))`,
-      "grayA-10": `hsl(var(--grayA10))`,
-      "grayA-11": `hsl(var(--grayA11))`,
-      "grayA-12": `hsl(var(--grayA12))`,
-      "blue-1": `hsl(var(--blue-1) / <alpha-value>)`,
-      "blue-2": `hsl(var(--blue-2) / <alpha-value>)`,
-      "blue-3": `hsl(var(--blue-3) / <alpha-value>)`,
-      "blue-4": `hsl(var(--blue-4) / <alpha-value>)`,
-      "blue-5": `hsl(var(--blue-5) / <alpha-value>)`,
-      "blue-6": `hsl(var(--blue-6) / <alpha-value>)`,
-      "blue-7": `hsl(var(--blue-7) / <alpha-value>)`,
-      "blue-8": `hsl(var(--blue-8) / <alpha-value>)`,
-      "blue-9": `hsl(var(--blue-9) / <alpha-value>)`,
-      "blue-10": `hsl(var(--blue-10) / <alpha-value>)`,
-      "blue-11": `hsl(var(--blue-11) / <alpha-value>)`,
-      "blue-12": `hsl(var(--blue-12) / <alpha-value>)`,
-      "blueA-1": `hsl(var(--blueA1))`,
-      "blueA-2": `hsl(var(--blueA2))`,
-      "blueA-3": `hsl(var(--blueA3))`,
-      "blueA-4": `hsl(var(--blueA4))`,
-      "blueA-5": `hsl(var(--blueA5))`,
-      "blueA-6": `hsl(var(--blueA6))`,
-      "blueA-7": `hsl(var(--blueA7))`,
-      "blueA-8": `hsl(var(--blueA8))`,
-      "blueA-9": `hsl(var(--blueA9))`,
-      "blueA-10": `hsl(var(--blueA10))`,
-      "blueA-11": `hsl(var(--blueA11))`,
-      "blueA-12": `hsl(var(--blueA12))`,
-      "plum-1": `hsl(var(--plum-1) / <alpha-value>)`,
-      "plum-2": `hsl(var(--plum-2) / <alpha-value>)`,
-      "plum-3": `hsl(var(--plum-3) / <alpha-value>)`,
-      "plum-4": `hsl(var(--plum-4) / <alpha-value>)`,
-      "plum-5": `hsl(var(--plum-5) / <alpha-value>)`,
-      "plum-6": `hsl(var(--plum-6) / <alpha-value>)`,
-      "plum-7": `hsl(var(--plum-7) / <alpha-value>)`,
-      "plum-8": `hsl(var(--plum-8) / <alpha-value>)`,
-      "plum-9": `hsl(var(--plum-9) / <alpha-value>)`,
-      "plum-10": `hsl(var(--plum-10) / <alpha-value>)`,
-      "plum-11": `hsl(var(--plum-11) / <alpha-value>)`,
-      "plum-12": `hsl(var(--plum-12) / <alpha-value>)`,
-      "plumA-1": `hsl(var(--plumA1))`,
-      "plumA-2": `hsl(var(--plumA2))`,
-      "plumA-3": `hsl(var(--plumA3))`,
-      "plumA-4": `hsl(var(--plumA4))`,
-      "plumA-5": `hsl(var(--plumA5))`,
-      "plumA-6": `hsl(var(--plumA6))`,
-      "plumA-7": `hsl(var(--plumA7))`,
-      "plumA-8": `hsl(var(--plumA8))`,
-      "plumA-9": `hsl(var(--plumA9))`,
-      "plumA-10": `hsl(var(--plumA10))`,
-      "plumA-11": `hsl(var(--plumA11))`,
-      "plumA-12": `hsl(var(--plumA12))`,
-      "red-1": `hsl(var(--red-1) / <alpha-value>)`,
-      "red-2": `hsl(var(--red-2) / <alpha-value>)`,
-      "red-3": `hsl(var(--red-3) / <alpha-value>)`,
-      "red-4": `hsl(var(--red-4) / <alpha-value>)`,
-      "red-5": `hsl(var(--red-5) / <alpha-value>)`,
-      "red-6": `hsl(var(--red-6) / <alpha-value>)`,
-      "red-7": `hsl(var(--red-7) / <alpha-value>)`,
-      "red-8": `hsl(var(--red-8) / <alpha-value>)`,
-      "red-9": `hsl(var(--red-9) / <alpha-value>)`,
-      "red-10": `hsl(var(--red-10) / <alpha-value>)`,
-      "red-11": `hsl(var(--red-11) / <alpha-value>)`,
-      "red-12": `hsl(var(--red-12) / <alpha-value>)`,
-      "redA-1": `hsl(var(--redA1))`,
-      "redA-2": `hsl(var(--redA2))`,
-      "redA-3": `hsl(var(--redA3))`,
-      "redA-4": `hsl(var(--redA4))`,
-      "redA-5": `hsl(var(--redA5))`,
-      "redA-6": `hsl(var(--redA6))`,
-      "redA-7": `hsl(var(--redA7))`,
-      "redA-8": `hsl(var(--redA8))`,
-      "redA-9": `hsl(var(--redA9))`,
-      "redA-10": `hsl(var(--redA10))`,
-      "redA-11": `hsl(var(--redA11))`,
-      "redA-12": `hsl(var(--redA12))`,
-      "grass-1": `hsl(var(--grass-1) / <alpha-value>)`,
-      "grass-2": `hsl(var(--grass-2) / <alpha-value>)`,
-      "grass-3": `hsl(var(--grass-3) / <alpha-value>)`,
-      "grass-4": `hsl(var(--grass-4) / <alpha-value>)`,
-      "grass-5": `hsl(var(--grass-5) / <alpha-value>)`,
-      "grass-6": `hsl(var(--grass-6) / <alpha-value>)`,
-      "grass-7": `hsl(var(--grass-7) / <alpha-value>)`,
-      "grass-8": `hsl(var(--grass-8) / <alpha-value>)`,
-      "grass-9": `hsl(var(--grass-9) / <alpha-value>)`,
-      "grass-10": `hsl(var(--grass-10) / <alpha-value>)`,
-      "grass-11": `hsl(var(--grass-11) / <alpha-value>)`,
-      "grass-12": `hsl(var(--grass-12) / <alpha-value>)`,
-      "grassA-1": `hsl(var(--grassA1))`,
-      "grassA-2": `hsl(var(--grassA2))`,
-      "grassA-3": `hsl(var(--grassA3))`,
-      "grassA-4": `hsl(var(--grassA4))`,
-      "grassA-5": `hsl(var(--grassA5))`,
-      "grassA-6": `hsl(var(--grassA6))`,
-      "grassA-7": `hsl(var(--grassA7))`,
-      "grassA-8": `hsl(var(--grassA8))`,
-      "grassA-9": `hsl(var(--grassA9))`,
-      "grassA-10": `hsl(var(--grassA10))`,
-      "grassA-11": `hsl(var(--grassA11))`,
-      "grassA-12": `hsl(var(--grassA12))`,
-      "amber-1": `hsl(var(--amber-1) / <alpha-value>)`,
-      "amber-2": `hsl(var(--amber-2) / <alpha-value>)`,
-      "amber-3": `hsl(var(--amber-3) / <alpha-value>)`,
-      "amber-4": `hsl(var(--amber-4) / <alpha-value>)`,
-      "amber-5": `hsl(var(--amber-5) / <alpha-value>)`,
-      "amber-6": `hsl(var(--amber-6) / <alpha-value>)`,
-      "amber-7": `hsl(var(--amber-7) / <alpha-value>)`,
-      "amber-8": `hsl(var(--amber-8) / <alpha-value>)`,
-      "amber-9": `hsl(var(--amber-9) / <alpha-value>)`,
-      "amber-10": `hsl(var(--amber-10) / <alpha-value>)`,
-      "amber-11": `hsl(var(--amber-11) / <alpha-value>)`,
-      "amber-12": `hsl(var(--amber-12) / <alpha-value>)`,
-      "amberA-1": `hsl(var(--amberA1))`,
-      "amberA-2": `hsl(var(--amberA2))`,
-      "amberA-3": `hsl(var(--amberA3))`,
-      "amberA-4": `hsl(var(--amberA4))`,
-      "amberA-5": `hsl(var(--amberA5))`,
-      "amberA-6": `hsl(var(--amberA6))`,
-      "amberA-7": `hsl(var(--amberA7))`,
-      "amberA-8": `hsl(var(--amberA8))`,
-      "amberA-9": `hsl(var(--amberA9))`,
-      "amberA-10": `hsl(var(--amberA10))`,
-      "amberA-11": `hsl(var(--amberA11))`,
-      "amberA-12": `hsl(var(--amberA12))`,
+      ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(
+        grayWithDashes,
+        prefix
+      ),
     },
     transitionTimingFunction: {
       /**
@@ -194,26 +212,19 @@ export default {
     },
     extend: {
       colors: {
-        solid: "hsl(var(--solid) / <alpha-value>)",
-        "solid-hover": "hsl(var(--solid-hover) / <alpha-value>)",
+        ...spreadableTokensForTheme.solid,
       },
       backgroundColor: {
-        DEFAULT: "hsl(var(--background) / <alpha-value>)",
-        subtle: "hsl(var(--background-subtle) / <alpha-value>)",
-        element: "hsl(var(--background-element) / <alpha-value>)",
-        "element-hover": "hsl(var(--background-element-hover) / <alpha-value>)",
-        "element-active":
-          "hsl(var(--background-element-active) / <alpha-value>)",
-        "element-selected":
-          "hsl(var(--background-element-selected) / <alpha-value>)",
+        DEFAULT: spreadableTokensForTheme.background.base ?? "",
+        ...spreadableTokensForTheme.background,  
       },
       textColor: {
         DEFAULT: "hsl(var(--foreground) / <alpha-value>)",
-        subtle: "hsl(var(--foreground-subtle) / <alpha-value>)",
+        ...spreadableTokensForTheme.foreground,  
       },
       borderColor: {
         DEFAULT: "hsl(var(--element-border) / <alpha-value>)",
-        subtle: "hsl(var(--border-subtle) / <alpha-value>)",
+        ...spreadableTokensForTheme.border,  
       },
       ringColor: {
         DEFAULT: "hsl(var(--focus-ring) / <alpha-value>)",
@@ -245,6 +256,26 @@ export default {
   },
   plugins: [
     tailwindRadix, 
-    tailwindAnimate
+    tailwindAnimate,
+    plugin(function ({ addUtilities, addBase }) {
+      const scaleName = getScaleName(gray) ?? "";
+      const scaleWithJustValues = cloneObjButRunAFunctionOnEachValue(grayWithDashes, fromHSLtoJustValues);
+      
+      const cssObject = Object.fromEntries(
+        Object.entries(scaleWithJustValues).reduce((css, [key, value]) => {
+          css.push(fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix));
+          return css;
+        }, [] as string[][])
+      );
+      const semanticScale = generateCSSPropertiesOfSemanticTokensForScale(scaleName, prefix);
+      
+
+      addBase({
+        ":root": {
+          ...cssObject,
+          ...semanticScale
+        },
+      })
+    })
   ],
 } satisfies Config;
