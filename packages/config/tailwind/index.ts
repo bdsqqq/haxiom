@@ -191,7 +191,7 @@ const giveMeTheThingsForTheseScales = (
   );
 
   const scalesWithTailwindColorsThatConsumeCSSProperties = scalesWithJustValues.reduce((acc, scale) => {
-    return { ...acc, ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(scale) };
+    return { ...acc, ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(scale, prefix) };
   }, {} as Record<string, string>);
 
   const scalesWithCSSCustomProperties = scalesWithJustValues.reduce((acc, scale) => {
@@ -345,14 +345,14 @@ export default {
       },
       backgroundColor: {
         DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.background.base ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.background,  
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.background,
       },
       textColor: {
-        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground.base ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground,  
+        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground.foreground ?? "",
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground,
       },
       borderColor: {
-        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.border.base ?? "",
+        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.border.subtle ?? "",
         ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.border,    
       },
       ringColor: {

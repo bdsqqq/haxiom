@@ -214,7 +214,7 @@ const giveMeTheThingsForTheseScales = (
   );
 
   const scalesWithTailwindColorsThatConsumeCSSProperties = scalesWithJustValues.reduce((acc, scale) => {
-    return { ...acc, ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(scale) };
+    return { ...acc, ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(scale, prefix) };
   }, {} as Record<string, string>);
 
   const scalesWithCSSCustomProperties = scalesWithJustValues.reduce((acc, scale) => {
@@ -315,20 +315,23 @@ export default function Page() {
     <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
       <div className="shrink-0 flex flex-col gap-2">
         <Scales
-          scales={[gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA]}
+          scales={[
+            gray,
+            //  grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA
+          ]}
           darkScales={[
             grayDark,
-            grayDarkA,
-            blueDark,
-            blueDarkA,
-            plumDark,
-            plumDarkA,
-            redDark,
-            redDarkA,
-            grassDark,
-            grassDarkA,
-            amberDark,
-            amberDarkA,
+            // grayDarkA,
+            // blueDark,
+            // blueDarkA,
+            // plumDark,
+            // plumDarkA,
+            // redDark,
+            // redDarkA,
+            // grassDark,
+            // grassDarkA,
+            // amberDark,
+            // amberDarkA,
           ]}
         />
       </div>
@@ -352,27 +355,10 @@ export default function Page() {
 }
 
 const Scales = ({ scales, darkScales }: { scales: Record<string, string>[]; darkScales: Record<string, string>[] }) => {
-  const stuff = giveMeTheThingsForTheseScales(
-    [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA],
-    [
-      grayDark,
-      grayDarkA,
-      blueDark,
-      blueDarkA,
-      plumDark,
-      plumDarkA,
-      redDark,
-      redDarkA,
-      grassDark,
-      grassDarkA,
-      amberDark,
-      amberDarkA,
-    ],
-    {
-      prefix: 'radix',
-      defaultScale: 'gray',
-    }
-  );
+  const stuff = giveMeTheThingsForTheseScales(scales, darkScales, {
+    prefix: 'qui',
+    defaultScale: 'gray',
+  });
 
   return (
     <pre className="bg-gray-base">
