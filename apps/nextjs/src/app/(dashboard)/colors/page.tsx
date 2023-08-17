@@ -315,23 +315,20 @@ export default function Page() {
     <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
       <div className="shrink-0 flex flex-col gap-2">
         <Scales
-          scales={[
-            gray,
-            //  grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA
-          ]}
+          scales={[gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA]}
           darkScales={[
             grayDark,
-            // grayDarkA,
-            // blueDark,
-            // blueDarkA,
-            // plumDark,
-            // plumDarkA,
-            // redDark,
-            // redDarkA,
-            // grassDark,
-            // grassDarkA,
-            // amberDark,
-            // amberDarkA,
+            grayDarkA,
+            blueDark,
+            blueDarkA,
+            plumDark,
+            plumDarkA,
+            redDark,
+            redDarkA,
+            grassDark,
+            grassDarkA,
+            amberDark,
+            amberDarkA,
           ]}
         />
       </div>
