@@ -241,6 +241,10 @@ importers:
         version: 5.1.6
 
   packages/config/tailwind:
+    dependencies:
+      defu:
+        specifier: ^6.1.2
+        version: 6.1.2
     devDependencies:
       '@radix-ui/colors':
         specifier: ^2.0.1
@@ -3473,6 +3477,10 @@ packages:
     dependencies:
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
+    dev: false
+
+  /defu@6.1.2:
+    resolution: {integrity: sha512-+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==}
     dev: false
 
   /delayed-stream@1.0.0:
