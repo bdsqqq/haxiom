@@ -24,6 +24,7 @@ import {
   redDark,
   redDarkA,
 } from "@radix-ui/colors";
+import { defu } from "defu";
 import type { Config } from "tailwindcss";
 // @ts-ignore - tailwindcss-animate is not typed. see: https://github.com/jamiebuilds/tailwindcss-animate
 import { default as tailwindAnimate } from "tailwindcss-animate";
@@ -69,29 +70,62 @@ const stuff = giveMeTheThingsForTheseScales(
 );
 
 const quiPlaceholderName = (config: Config) => {
-  const tempColors = Object.assign({}, config.theme?.colors, {
-    "test-color": "gainsboro",
-  });
-
-  return {
-    ...config,
+  return defu(config, {
     theme: {
-      ...config.theme,
-      colors: tempColors,
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        ...stuff.stuffToPutInTheme
+          .scalesWithTailwindColorsThatConsumeCSSProperties,
+      },
+      extend: {
+        colors: {
+          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .solid,
+        },
+        backgroundColor: {
+          DEFAULT:
+            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+              .background.base ?? "",
+          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .background,
+        },
+        textColor: {
+          DEFAULT:
+            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+              .foreground.foreground ?? "",
+          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .foreground,
+        },
+        borderColor: {
+          DEFAULT:
+            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+              .border.subtle ?? "",
+          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .border,
+        },
+      },
     },
-  };
+    plugins: [
+      plugin(function ({ addUtilities, addBase }) {
+        addBase({
+          ":root": {
+            ...stuff.stuffToPutInRoot,
+          },
+          ".dark": {
+            ...stuff.stuffToPutInRootDark,
+          },
+        });
+      }),
+    ],
+  });
 };
 
 export default quiPlaceholderName({
   darkMode: ["class"],
   content: ["src/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
   theme: {
-    colors: {
-      transparent: "transparent",
-      current: "currentColor",
-      ...stuff.stuffToPutInTheme
-        .scalesWithTailwindColorsThatConsumeCSSProperties,
-    },
+    colors: {},
     transitionTimingFunction: {
       /**
        * See: https://carbondesignsystem.com/guidelines/motion/overview/
@@ -129,31 +163,6 @@ export default quiPlaceholderName({
       "slow-02": "700ms",
     },
     extend: {
-      colors: {
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-          .solid,
-      },
-      backgroundColor: {
-        DEFAULT:
-          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .background.base ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-          .background,
-      },
-      textColor: {
-        DEFAULT:
-          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .foreground.foreground ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-          .foreground,
-      },
-      borderColor: {
-        DEFAULT:
-          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .border.subtle ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-          .border,
-      },
       ringColor: {
         DEFAULT: "hsl(var(--focus-ring) / <alpha-value>)",
       },
@@ -182,18 +191,5 @@ export default quiPlaceholderName({
       },
     },
   },
-  plugins: [
-    tailwindRadix,
-    tailwindAnimate,
-    plugin(function ({ addUtilities, addBase }) {
-      addBase({
-        ":root": {
-          ...stuff.stuffToPutInRoot,
-        },
-        ".dark": {
-          ...stuff.stuffToPutInRootDark,
-        },
-      });
-    }),
-  ],
+  plugins: [tailwindRadix, tailwindAnimate],
 } satisfies Config);
