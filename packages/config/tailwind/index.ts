@@ -1,29 +1,96 @@
+import {
+  amber,
+  amberA,
+  amberDark,
+  amberDarkA,
+  blue,
+  blueA,
+  blueDark,
+  blueDarkA,
+  grass,
+  grassA,
+  grassDark,
+  grassDarkA,
+  gray,
+  grayA,
+  grayDark,
+  grayDarkA,
+  plum,
+  plumA,
+  plumDark,
+  plumDarkA,
+  red,
+  redA,
+  redDark,
+  redDarkA,
+} from "@radix-ui/colors";
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin"
-import { fontFamily } from "tailwindcss/defaultTheme";
-import { default as tailwindRadix} from "tailwindcss-radix"
 // @ts-ignore - tailwindcss-animate is not typed. see: https://github.com/jamiebuilds/tailwindcss-animate
-import { default as tailwindAnimate} from "tailwindcss-animate"
-
-import { gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA, grayDark, grayDarkA, blueDark, blueDarkA, plumDark, plumDarkA, redDark, redDarkA, grassDark, grassDarkA, amberDark, amberDarkA} from "@radix-ui/colors"
+import { default as tailwindAnimate } from "tailwindcss-animate";
+import { default as tailwindRadix } from "tailwindcss-radix";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 import { giveMeTheThingsForTheseScales } from "./qui-radix-bridge";
 
 const stuff = giveMeTheThingsForTheseScales(
-  [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA], [grayDark, grayDarkA, blueDark, blueDarkA, plumDark, plumDarkA, redDark, redDarkA, grassDark, grassDarkA, amberDark, amberDarkA], 
+  [
+    gray,
+    grayA,
+    blue,
+    blueA,
+    plum,
+    plumA,
+    red,
+    redA,
+    grass,
+    grassA,
+    amber,
+    amberA,
+  ],
+  [
+    grayDark,
+    grayDarkA,
+    blueDark,
+    blueDarkA,
+    plumDark,
+    plumDarkA,
+    redDark,
+    redDarkA,
+    grassDark,
+    grassDarkA,
+    amberDark,
+    amberDarkA,
+  ],
   {
-    prefix: 'qui',
+    prefix: "qui",
     defaultScale: "gray",
+  },
+);
+
+const quiPlaceholderName = (config: Config) => {
+  const tempColors = Object.assign({}, config.theme?.colors, {
+    "test-color": "gainsboro",
   });
 
-export default {
+  return {
+    ...config,
+    theme: {
+      ...config.theme,
+      colors: tempColors,
+    },
+  };
+};
+
+export default quiPlaceholderName({
   darkMode: ["class"],
   content: ["src/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
   theme: {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      ...stuff.stuffToPutInTheme.scalesWithTailwindColorsThatConsumeCSSProperties,
+      ...stuff.stuffToPutInTheme
+        .scalesWithTailwindColorsThatConsumeCSSProperties,
     },
     transitionTimingFunction: {
       /**
@@ -63,19 +130,29 @@ export default {
     },
     extend: {
       colors: {
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.solid,
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+          .solid,
       },
       backgroundColor: {
-        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.background.base ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.background,
+        DEFAULT:
+          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .background.base ?? "",
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+          .background,
       },
       textColor: {
-        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground.foreground ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.foreground,
+        DEFAULT:
+          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .foreground.foreground ?? "",
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+          .foreground,
       },
       borderColor: {
-        DEFAULT: stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.border.subtle ?? "",
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme.border,    
+        DEFAULT:
+          stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+            .border.subtle ?? "",
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
+          .border,
       },
       ringColor: {
         DEFAULT: "hsl(var(--focus-ring) / <alpha-value>)",
@@ -106,7 +183,7 @@ export default {
     },
   },
   plugins: [
-    tailwindRadix, 
+    tailwindRadix,
     tailwindAnimate,
     plugin(function ({ addUtilities, addBase }) {
       addBase({
@@ -116,7 +193,7 @@ export default {
         ".dark": {
           ...stuff.stuffToPutInRootDark,
         },
-      })
-    })
+      });
+    }),
   ],
-} satisfies Config;
+} satisfies Config);
