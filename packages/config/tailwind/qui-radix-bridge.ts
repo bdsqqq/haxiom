@@ -70,30 +70,32 @@ function cloneObjButRunAFunctionOnEachKey<T extends Record<string, any>>(
   }, {} as Record<string, string>);
 }
 
+type SemanticSteps = Record<string, Array<{ key: string; step: string }>>;
+
 // TODO: make those spreads based on this object.
-const semanticSteps = {
+const semanticSteps: SemanticSteps = {
   background: [
-    { key: "background-base", step: 1 },
-    { key: "background-subtle", step: 2 },
-    { key: "background-element", step: 3 },
-    { key: "background-element-hover", step: 4 },
-    { key: "background-element-active", step: 5 },
-    { key: "background-element-selected", step: 5 },
-    { key: "separator-subtle", step: 6 },
+    { key: "background-base", step: "1" },
+    { key: "background-subtle", step: "2" },
+    { key: "background-element", step: "3" },
+    { key: "background-element-hover", step: "4" },
+    { key: "background-element-active", step: "5" },
+    { key: "background-element-selected", step: "5" },
+    { key: "separator-subtle", step: "6" },
   ],
   border: [
-    { key: "separator-subtle", step: 6 },
-    { key: "border-subtle", step: 6 },
-    { key: "element-border", step: 7 },
-    { key: "element-border-hover", step: 8 },
+    { key: "separator-subtle", step: "6" },
+    { key: "border-subtle", step: "6" },
+    { key: "element-border", step: "7" },
+    { key: "element-border-hover", step: "8" },
   ],
   solid: [
-    { key: "solid", step: 9 },
-    { key: "solid-hover", step: 10 },
+    { key: "solid", step: "9" },
+    { key: "solid-hover", step: "10" },
   ],
   foreground: [
-    { key: "foreground-subtle", step: 11 },
-    { key: "foreground", step: 12 },
+    { key: "foreground-subtle", step: "11" },
+    { key: "foreground", step: "12" },
   ],
 };
 
@@ -105,7 +107,7 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   scaleName: string,
   prefix?: string,
 ) {
-  const makeString = (value: number) =>
+  const makeString = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
   const makeKey = (value: string) =>
     `--${prefix ? `${prefix}-` : ""}${scaleName}-${value}`;
