@@ -169,15 +169,16 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   semanticSteps: SemanticSteps,
   prefix?: string,
 ) {
-  const makeString = (value: string) =>
+  const makeValue = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
+
   const makeKey = (value: string) =>
     `--${prefix ? `${prefix}-` : ""}${scaleName}-${value}`;
 
   const flatSemanticSteps = makeFlatSemanticSteps(semanticSteps);
 
   return flatSemanticSteps.reduce((acc, item) => {
-    acc[makeKey(item.key)] = makeString(item.step);
+    acc[makeKey(item.key)] = makeValue(item.step);
     return acc;
   }, {} as Record<string, string>);
 }
