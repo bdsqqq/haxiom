@@ -81,7 +81,6 @@ const tailwindCorePluginsWithColorInTheName = [
   "colors",
   "divideColor",
   "gradientColorStops",
-  "gradientColorStopPositions",
   "outlineColor",
   "placeholderColor",
   "ringColor",
@@ -123,6 +122,12 @@ const semanticSteps: SemanticSteps = {
     { key: "border-subtle", step: "6" },
     { key: "border-element", step: "7" },
     { key: "border-element-hover", step: "8" },
+  ],
+  divideColor: [
+    { key: "DEFAULT", step: "6" },
+    { key: "divide-subtle", step: "6" },
+    { key: "divide-element", step: "7" },
+    { key: "divide-element-hover", step: "8" },
   ],
   ringColor: [
     { key: "DEFAULT", step: "7" },
