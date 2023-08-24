@@ -117,20 +117,20 @@ const radixSemanticSteps = {
     { key: "background-element-selected", step: "5" },
   ],
   borderColor: [
-    { key: "DEFAULT", step: "6" },
+    { key: "border-DEFAULT", step: "6" },
     { key: "separator-subtle", step: "6" },
     { key: "border-subtle", step: "6" },
     { key: "border-element", step: "7" },
     { key: "border-element-hover", step: "8" },
   ],
   divideColor: [
-    { key: "DEFAULT", step: "6" },
+    { key: "divide-DEFAULT", step: "6" },
     { key: "divide-subtle", step: "6" },
     { key: "divide-element", step: "7" },
     { key: "divide-element-hover", step: "8" },
   ],
   ringColor: [
-    { key: "DEFAULT", step: "7" },
+    { key: "ring-DEFAULT", step: "7" },
     { key: "base", step: "7" },
   ],
   colors: [
@@ -138,12 +138,12 @@ const radixSemanticSteps = {
     { key: "solid-hover", step: "10" },
   ],
   boxShadowColor: [
-    { key: "DEFAULT", step: "9" },
+    { key: "boxShadow-DEFAULT", step: "9" },
     { key: "boxShadow-subtle", step: "9" },
     { key: "boxShadow-contrast", step: "10" },
   ],
   accentColor: [
-    { key: "DEFAULT", step: "9" },
+    { key: "accent-DEFAULT", step: "9" },
     { key: "accent-base", step: "9" },
     { key: "accent-hover", step: "10" },
   ],
