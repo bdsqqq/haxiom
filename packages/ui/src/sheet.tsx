@@ -52,7 +52,7 @@ const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Ove
 );
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
-const sheetVariants = cva('fixed z-50 scale-100 gap-4 bg p-6 opacity-100 shadow-lg border', {
+const sheetVariants = cva('fixed z-50 scale-100 gap-4 bg-base p-6 opacity-100 shadow-lg border', {
   variants: {
     position: {
       top: 'animate-in slide-in-from-top w-full duration-moderate-01',

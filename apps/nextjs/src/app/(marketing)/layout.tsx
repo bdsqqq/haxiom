@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
 const NavigationBar = () => {
   return (
-    <nav className="sticky top-0 bg border-b">
+    <nav className="sticky top-0 bg-base border-b">
       <div className={cn('flex justify-between h-12', MAX_WIDTH_CLASS)}>
         <div className="flex items-center h-full">
           <Link

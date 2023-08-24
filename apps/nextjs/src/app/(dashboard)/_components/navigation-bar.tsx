@@ -45,7 +45,7 @@ export const NavigationBar = () => {
   const topLevelPath = pathname.split('/')[1];
 
   return (
-    <nav className="sticky top-0 bg border-b border-subtle h-12 z-20">
+    <nav className="sticky top-0 bg-base border-b border-subtle h-12 z-20">
       <div className={cn('flex justify-between h-full', MAX_WIDTH_CLASS)}>
         <div className="flex items-center h-full">
           <Link
