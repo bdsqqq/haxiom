@@ -48,8 +48,8 @@ importers:
         specifier: ^13.4.8
         version: 13.4.8
       '@radix-ui/colors':
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^2.1.0
+        version: 2.1.0
       '@t3-oss/env-nextjs':
         specifier: ^0.6.0
         version: 0.6.0(typescript@5.1.6)(zod@3.21.4)
@@ -247,8 +247,8 @@ importers:
         version: 6.1.2
     devDependencies:
       '@radix-ui/colors':
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^2.1.0
+        version: 2.1.0
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -1345,8 +1345,8 @@ packages:
       webcrypto-core: 1.7.7
     dev: false
 
-  /@radix-ui/colors@2.0.1:
-    resolution: {integrity: sha512-EhWky2oSIf5y+BDfrAY+Rykrkh7m2/M/bgCVRr3M+Hnr4JOh+mtFZLHUS1j/WzaPw1uvd0vwhK3cbxsR0QnCgw==}
+  /@radix-ui/colors@2.1.0:
+    resolution: {integrity: sha512-gcBnxjS2u2c6thQz/9K1+Pt2ZYcm5WKU4SLi0emYkRmYbVUw+37rlc5wgLtYOsSsRP9nxVtbJJYj6WVO7UUmZg==}
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
