@@ -169,7 +169,7 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   semanticSteps: SemanticSteps,
   prefix?: string,
 ) {
-  const makeValue = (value: string) =>
+  const makeCSSVar = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
 
   const makeKey = (value: string) =>
@@ -178,7 +178,7 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   const flatSemanticSteps = makeFlatSemanticSteps(semanticSteps);
 
   return flatSemanticSteps.reduce((acc, item) => {
-    acc[makeKey(item.key)] = makeValue(item.step);
+    acc[makeKey(item.key)] = makeCSSVar(item.step);
     return acc;
   }, {} as Record<string, string>);
 }
@@ -204,8 +204,12 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
     return `${options?.omitName ? "" : `${scaleName}-`}${valueWithoutParent}`;
   };
 
-  const makeString = (value: string) =>
+  const makeCSSVar = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
+
+  /** 
+   * Wraps value passed in an hsl() function with <alpha-value> if it doesn't already has alpha for consumption in tailwind theme.
+   */
   const putInsideHSLFunction = (value: string, isAlpha: boolean) =>
     `hsl(${value}${isAlpha ? "" : " / <alpha-value>"})`;
 
@@ -217,7 +221,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
         : key;
 
       acc[makeKey(item.key, keyWithoutColorSuffix)] = putInsideHSLFunction(
-        makeString(item.key),
+        makeCSSVar(item.key),
         isAlpha,
       );
       return acc;
@@ -226,12 +230,16 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   }, {} as Record<keyof SemanticSteps, Record<string, string>>);
 }
 
-const fromJustValuesToCSSCustomPropertiesTuple = (
-  name: string,
-  color: ReturnType<typeof fromHSLtoJustValues>,
+const makeCSSCustomPropertyTuple = (options: {
+  key: string,
+  value: string,
   prefix?: string,
-): [string, string] => {
-  return [`--${prefix ? `${prefix}-` : ""}${name}`, `${color};`];
+}): [string, string] => {
+  const { key, value, prefix } = options;
+
+  const maybePrefix = prefix ? `${prefix}-` : "";
+
+  return [`--${maybePrefix}${key}`, `${value};`];
 };
 
 const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
@@ -320,7 +328,7 @@ export const giveMeTheThingsForTheseScales = (options: {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
           css.push(
-            fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix),
+            makeCSSCustomPropertyTuple({key, value, prefix}),
           );
           return css;
         }, [] as string[][]),
@@ -335,7 +343,7 @@ export const giveMeTheThingsForTheseScales = (options: {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
           css.push(
-            fromJustValuesToCSSCustomPropertiesTuple(key, value, prefix),
+            makeCSSCustomPropertyTuple({key, value, prefix}),
           );
           return css;
         }, [] as string[][]),
