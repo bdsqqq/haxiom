@@ -98,7 +98,7 @@ type SemanticSteps = {
   }>;
 };
 
-const radixSemanticSteps: SemanticSteps = {
+const radixSemanticSteps = {
   backgroundColor: [
     { key: "background-base", step: "1" },
     { key: "background-subtle", step: "2" },
@@ -159,7 +159,7 @@ const radixSemanticSteps: SemanticSteps = {
     { key: "placeholder-subtle", step: "11" },
     { key: "placeholder-contrast", step: "12" },
   ],
-};
+} satisfies SemanticSteps;
 
 const flatSemanticSteps = Object.values(radixSemanticSteps).flatMap(
   (entry) => entry,
