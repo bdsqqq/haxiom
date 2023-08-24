@@ -21,7 +21,7 @@
   }
 
   * {
-    @apply focus-visible:z-10 focus-visible:relative focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-11 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-1;
+    @apply focus-visible:z-10 focus-visible:relative focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-blue-solid;
   }
 
   input,
