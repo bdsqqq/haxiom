@@ -54,31 +54,7 @@ const quiPlaceholderName = (
           .scalesWithTailwindColorsThatConsumeCSSProperties,
       },
       extend: {
-        colors: {
-          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .solid,
-        },
-        backgroundColor: {
-          DEFAULT:
-            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-              .background.base ?? "",
-          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .background,
-        },
-        textColor: {
-          DEFAULT:
-            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-              .foreground.foreground ?? "",
-          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .foreground,
-        },
-        borderColor: {
-          DEFAULT:
-            stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-              .border.subtle ?? "",
-          ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme
-            .border,
-        },
+        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme,
       },
     },
     plugins: [

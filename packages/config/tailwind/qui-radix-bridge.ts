@@ -1,3 +1,5 @@
+import { defu } from "defu";
+
 const getScaleName = (scale: Record<string, string>) => {
   const scaleName = Object.keys(scale)[0]
     ?.replace(/(\d+)/g, "")
@@ -70,11 +72,16 @@ function cloneObjButRunAFunctionOnEachKey<T extends Record<string, any>>(
   }, {} as Record<string, string>);
 }
 
-type SemanticSteps = Record<string, Array<{ key: string; step: string }>>;
+const tailwindCorePluginsWithColorInTheName = ['accentColor', 'backgroundColor', 'borderColor', 'boxShadowColor', 'caretColor', 'colors', 'divideColor', 'gradientColorStops', 'gradientColorStopPositions', 'outlineColor', 'placeholderColor', 'ringColor', 'ringOffsetColor', 'textColor', 'textDecorationColor'] as const;
+type TailwindCorePluginsWithColorInTheName =
+  (typeof tailwindCorePluginsWithColorInTheName)[number];
 
-// TODO: make those spreads based on this object.
+  type SemanticSteps = {
+    [K in TailwindCorePluginsWithColorInTheName]?: Array<{ key: string; step: string }>;
+  };
+  
 const semanticSteps: SemanticSteps = {
-  background: [
+  backgroundColor: [
     { key: "background-base", step: "1" },
     { key: "background-subtle", step: "2" },
     { key: "background-element", step: "3" },
@@ -83,19 +90,20 @@ const semanticSteps: SemanticSteps = {
     { key: "background-element-selected", step: "5" },
     { key: "separator-subtle", step: "6" },
   ],
-  border: [
+  borderColor: [
+    { key: "DEFAULT", step: "6" },
     { key: "separator-subtle", step: "6" },
     { key: "border-subtle", step: "6" },
     { key: "element-border", step: "7" },
     { key: "element-border-hover", step: "8" },
   ],
-  solid: [
+  colors: [
     { key: "solid", step: "9" },
     { key: "solid-hover", step: "10" },
   ],
-  foreground: [
-    { key: "foreground-subtle", step: "11" },
-    { key: "foreground", step: "12" },
+  textColor: [
+    { key: "text-subtle", step: "11" },
+    { key: "text-base", step: "12" },
   ],
 };
 
@@ -301,27 +309,9 @@ export const giveMeTheThingsForTheseScales = (options: {
         prefix,
       );
 
-      const { background, border, solid, foreground } = semanticScale;
-      const {
-        background: prevBackground,
-        border: prevBorder,
-        solid: prevSolid,
-        foreground: prevForeground,
-      } = acc;
-
-      return {
-        background: { ...prevBackground, ...background },
-        border: { ...prevBorder, ...border },
-        solid: { ...prevSolid, ...solid },
-        foreground: { ...prevForeground, ...foreground },
-      };
+      return defu(semanticScale, acc);
     },
-    {
-      background: {},
-      border: {},
-      solid: {},
-      foreground: {},
-    } as Record<string, any>,
+    {},
   );
 
   const defaultScaleWithSemanticTokens =
@@ -329,24 +319,10 @@ export const giveMeTheThingsForTheseScales = (options: {
       omitName: true,
     });
 
-  const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = {
-    background: {
-      ...scalesWithSemanticTokensForUsageInTWTheme.background,
-      ...(defaultScaleWithSemanticTokens.background ?? {}),
-    },
-    border: {
-      ...scalesWithSemanticTokensForUsageInTWTheme.border,
-      ...(defaultScaleWithSemanticTokens.border ?? {}),
-    },
-    solid: {
-      ...scalesWithSemanticTokensForUsageInTWTheme.solid,
-      ...(defaultScaleWithSemanticTokens.solid ?? {}),
-    },
-    foreground: {
-      ...scalesWithSemanticTokensForUsageInTWTheme.foreground,
-      ...(defaultScaleWithSemanticTokens.foreground ?? {}),
-    },
-  };
+  const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = defu(
+    scalesWithSemanticTokensForUsageInTWTheme,
+    defaultScaleWithSemanticTokens,
+  );
 
   const stuffToPutInRoot = {
     ...scalesWithCSSCustomProperties,
