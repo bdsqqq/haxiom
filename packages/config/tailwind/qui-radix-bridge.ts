@@ -160,11 +160,12 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
    * removes parent and adds scale name, so `background-base` becomes `scaleName-base`
    * it only removes the parent if it's followed by a dash, so `solid` stays `solid` despite having a parent of the same name
    */
-  const makeKey = (value: string, parent: string) =>
-    `${options?.omitName ? "" : `${scaleName}-`}${value.replace(
+  const makeKey = (value: string, parent: string) => {
+    return `${options?.omitName ? "" : `${scaleName}-`}${value.replace(
       `${parent}-`,
       "",
     )}`;
+  };
 
   const makeString = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
@@ -173,7 +174,12 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
 
   return Object.entries(semanticSteps).reduce((acc, [key, value]) => {
     acc[key as keyof typeof semanticSteps] = value.reduce((acc, item) => {
-      acc[makeKey(item.key, key)] = putInsideHSLFunction(
+      // if the key ends with "Color" we remove "Color", so `backgroundColor` becomes `background`
+      const keyWithoutColorSuffix = key.endsWith("Color")
+        ? key.replace("Color", "")
+        : key;
+
+      acc[makeKey(item.key, keyWithoutColorSuffix)] = putInsideHSLFunction(
         makeString(item.key),
         isAlpha,
       );

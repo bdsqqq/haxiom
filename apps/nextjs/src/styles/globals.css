@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-background-base text-base;
+    @apply bg-base text-base;
   }
 
   ::selection {
