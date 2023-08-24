@@ -161,18 +161,20 @@ const radixSemanticSteps = {
   ],
 } satisfies SemanticSteps;
 
-const flatSemanticSteps = Object.values(radixSemanticSteps).flatMap(
-  (entry) => entry,
-);
+const makeFlatSemanticSteps = (semanticSteps: SemanticSteps) =>
+  Object.values(semanticSteps).flatMap((entry) => entry);
 
 function generateCSSPropertiesOfSemanticTokensForScale(
   scaleName: string,
+  semanticSteps: SemanticSteps,
   prefix?: string,
 ) {
   const makeString = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
   const makeKey = (value: string) =>
     `--${prefix ? `${prefix}-` : ""}${scaleName}-${value}`;
+
+  const flatSemanticSteps = makeFlatSemanticSteps(semanticSteps);
 
   return flatSemanticSteps.reduce((acc, item) => {
     acc[makeKey(item.key)] = makeString(item.step);
@@ -182,8 +184,9 @@ function generateCSSPropertiesOfSemanticTokensForScale(
 
 function generateUsageSpreadableInTWThemeOfSemanticTokens(
   scaleName: string,
+  semanticSteps: SemanticSteps,
   prefix?: string,
-  options?: { omitName?: boolean },
+  options?: { omitName?: boolean }
 ) {
   /**
    * Radix scales that end with an A are alpha scales, they have transparency defined so we shouldn't add <alpha-value> to them
@@ -205,8 +208,8 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   const putInsideHSLFunction = (value: string, isAlpha: boolean) =>
     `hsl(${value}${isAlpha ? "" : " / <alpha-value>"})`;
 
-  return Object.entries(radixSemanticSteps).reduce((acc, [key, value]) => {
-    acc[key as keyof typeof radixSemanticSteps] = value.reduce((acc, item) => {
+  return Object.entries(semanticSteps).reduce((acc, [key, value]) => {
+    acc[key as keyof typeof semanticSteps] = value.reduce((acc, item) => {
       // if the key ends with "Color" we remove "Color", so `backgroundColor` becomes `background`
       const keyWithoutColorSuffix = key.endsWith("Color")
         ? key.replace("Color", "")
@@ -219,7 +222,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
       return acc;
     }, {} as Record<string, string>);
     return acc;
-  }, {} as Record<keyof typeof radixSemanticSteps, Record<string, string>>);
+  }, {} as Record<keyof SemanticSteps, Record<string, string>>);
 }
 
 const fromJustValuesToCSSCustomPropertiesTuple = (
@@ -255,6 +258,7 @@ const addDashesToRadixScaleSteps = <T extends Record<string, string>>(
 
 export const giveMeTheThingsForTheseScales = (options: {
   lightScales: Array<Record<string, string>>;
+  semanticSteps?: SemanticSteps;
   darkScales?: Array<Record<string, string>>;
   defaultScale?: string;
   prefix?: string;
@@ -264,6 +268,7 @@ export const giveMeTheThingsForTheseScales = (options: {
     darkScales,
     prefix = "tw",
     defaultScale = "",
+    semanticSteps = radixSemanticSteps,
   } = options ?? {};
 
   if (!lightScales.length) {
@@ -349,6 +354,7 @@ export const giveMeTheThingsForTheseScales = (options: {
 
     const semanticScale = generateCSSPropertiesOfSemanticTokensForScale(
       scaleName,
+      semanticSteps,
       prefix,
     );
     return { ...acc, ...semanticScale };
@@ -365,6 +371,7 @@ export const giveMeTheThingsForTheseScales = (options: {
 
       const semanticScale = generateUsageSpreadableInTWThemeOfSemanticTokens(
         scaleName,
+        semanticSteps,
         prefix,
       );
 
@@ -374,7 +381,7 @@ export const giveMeTheThingsForTheseScales = (options: {
   );
 
   const defaultScaleWithSemanticTokens =
-    generateUsageSpreadableInTWThemeOfSemanticTokens(defaultScale, prefix, {
+    generateUsageSpreadableInTWThemeOfSemanticTokens(defaultScale, semanticSteps, prefix, {
       omitName: true,
     });
 
