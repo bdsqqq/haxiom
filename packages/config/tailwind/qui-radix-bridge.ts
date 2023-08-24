@@ -99,7 +99,6 @@ type SemanticSteps = {
   }>;
 };
 
-// TODO: I changed the keys from this, now I need to go where I make the names for the tokens and update the logic that omits the first part if it's the same as the key of the parent. I'm thinking: get the key -> remove "Color" from the end, keep the rest of the logic the same.
 const semanticSteps: SemanticSteps = {
   backgroundColor: [
     { key: "background-base", step: "1" },
