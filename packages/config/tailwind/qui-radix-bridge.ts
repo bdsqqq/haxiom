@@ -1,5 +1,8 @@
 import { defu } from "defu";
 
+/**
+ * Assumes scale is an object where keys are <scale-name>-<step> and that all keys will have the same format as the first one. Made for radix scales.
+ */
 const getScaleName = (scale: Record<string, string>) => {
   const scaleName = Object.keys(scale)[0]
     ?.replace(/(\d+)/g, "")
