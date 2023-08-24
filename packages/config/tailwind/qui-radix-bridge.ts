@@ -122,7 +122,7 @@ const semanticSteps: SemanticSteps = {
   ],
   textColor: [
     { key: "text-subtle", step: "11" },
-    { key: "text-base", step: "12" },
+    { key: "text-contrast", step: "12" },
   ],
 };
 

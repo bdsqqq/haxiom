@@ -12,7 +12,7 @@ const Popover = PopoverPrimitive.Root;
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const popoverContentVariants = cva(
-  'z-50 min-w-[8rem] border bg-subtle text-base shadow-md animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 focus:ring-offset-0',
+  'z-50 min-w-[8rem] border bg-subtle text-contrast shadow-md animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 focus:ring-offset-0',
   {
     variants: {
       size: {
