@@ -113,8 +113,8 @@ const semanticSteps: SemanticSteps = {
     { key: "DEFAULT", step: "6" },
     { key: "separator-subtle", step: "6" },
     { key: "border-subtle", step: "6" },
-    { key: "element-border", step: "7" },
-    { key: "element-border-hover", step: "8" },
+    { key: "border-element", step: "7" },
+    { key: "border-element-hover", step: "8" },
   ],
   colors: [
     { key: "solid", step: "9" },
