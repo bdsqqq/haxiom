@@ -98,7 +98,7 @@ type SemanticSteps = {
   }>;
 };
 
-const semanticSteps: SemanticSteps = {
+const radixSemanticSteps: SemanticSteps = {
   backgroundColor: [
     { key: "background-base", step: "1" },
     { key: "background-subtle", step: "2" },
@@ -161,7 +161,7 @@ const semanticSteps: SemanticSteps = {
   ],
 };
 
-const flatSemanticSteps = Object.values(semanticSteps).flatMap(
+const flatSemanticSteps = Object.values(radixSemanticSteps).flatMap(
   (entry) => entry,
 );
 
@@ -205,8 +205,8 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   const putInsideHSLFunction = (value: string, isAlpha: boolean) =>
     `hsl(${value}${isAlpha ? "" : " / <alpha-value>"})`;
 
-  return Object.entries(semanticSteps).reduce((acc, [key, value]) => {
-    acc[key as keyof typeof semanticSteps] = value.reduce((acc, item) => {
+  return Object.entries(radixSemanticSteps).reduce((acc, [key, value]) => {
+    acc[key as keyof typeof radixSemanticSteps] = value.reduce((acc, item) => {
       // if the key ends with "Color" we remove "Color", so `backgroundColor` becomes `background`
       const keyWithoutColorSuffix = key.endsWith("Color")
         ? key.replace("Color", "")
@@ -219,7 +219,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
       return acc;
     }, {} as Record<string, string>);
     return acc;
-  }, {} as Record<keyof typeof semanticSteps, Record<string, string>>);
+  }, {} as Record<keyof typeof radixSemanticSteps, Record<string, string>>);
 }
 
 const fromJustValuesToCSSCustomPropertiesTuple = (
