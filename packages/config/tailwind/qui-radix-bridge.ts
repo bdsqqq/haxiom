@@ -160,10 +160,9 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
    * it only removes the parent if it's followed by a dash, so `solid` stays `solid` despite having a parent of the same name
    */
   const makeKey = (value: string, parent: string) => {
-    return `${options?.omitName ? "" : `${scaleName}-`}${value.replace(
-      `${parent}-`,
-      "",
-    )}`;
+    const valueWithoutParent = value.replace(`${parent}-`, "");
+
+    return `${options?.omitName ? "" : `${scaleName}-`}${valueWithoutParent}`;
   };
 
   const makeString = (value: string) =>
