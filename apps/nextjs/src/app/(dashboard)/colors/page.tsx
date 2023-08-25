@@ -26,78 +26,82 @@ import {
   amberDark,
   amberDarkA,
 } from '@radix-ui/colors';
-import { ArrowRight } from '@haxiom/ui/icons';
-import { Separator } from '@haxiom/ui/separator';
-
 import { giveMeTheThingsForTheseScales } from '@haxiom/tailwind-config/qui-radix-bridge';
+
+const lightScales = [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA];
+const darkScales = [
+  grayDark,
+  grayDarkA,
+  blueDark,
+  blueDarkA,
+  plumDark,
+  plumDarkA,
+  redDark,
+  redDarkA,
+  grassDark,
+  grassDarkA,
+  amberDark,
+  amberDarkA,
+];
 
 export default function Page() {
   return (
     <main className={cn(MAX_WIDTH_CLASS, MAIN_CONTENT_CLASS, 'flex flex-col gap-4 h-full')}>
-      <div className="shrink-0 bg-test-color flex flex-col gap-2">
-        <Scales
-          scales={[gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA]}
-          darkScales={[
-            grayDark,
-            grayDarkA,
-            blueDark,
-            blueDarkA,
-            plumDark,
-            plumDarkA,
-            redDark,
-            redDarkA,
-            grassDark,
-            grassDarkA,
-            amberDark,
-            amberDarkA,
-          ]}
-        />
-      </div>
-      <div className="h-auto grid place-content-center w-full">
-        <div className="flex gap-2 flex-col">
-          <div className="flex gap-2 items-center justify-center">
-            <div>{grayDark.gray1}</div>
-            <ArrowRight size={16} />
-          </div>
-          <Separator />
-          <div className="flex gap-2 items-center justify-center">
-            <div>{grayDarkA.grayA1}</div>
-            <ArrowRight size={16} />
-          </div>
+      <div className="flex gap-8">
+        <div className="shrink-0">
+          <ScalesChips lightScales={lightScales} darkScales={darkScales} />
+        </div>
+        <div className="shrink-0 overflow-scroll">
+          <Scales lightScales={lightScales} darkScales={darkScales} />
         </div>
       </div>
     </main>
   );
 }
 
-const Scales = ({ scales, darkScales }: { scales: Record<string, string>[]; darkScales: Record<string, string>[] }) => {
+const Scales = ({
+  lightScales,
+  darkScales,
+}: {
+  lightScales: Record<string, string>[];
+  darkScales: Record<string, string>[];
+}) => {
   const stuff = giveMeTheThingsForTheseScales({
-    lightScales: scales,
+    lightScales,
     darkScales,
     prefix: 'qui',
     defaultScale: 'gray',
   });
 
   return (
-    <pre className="bg-gray-base">
+    <pre className="bg-gray-base relative">
       <code>{JSON.stringify(stuff, null, 2)}</code>
     </pre>
   );
 };
 
-// const Scale = ({ scale }: { scale: Record<string, string> }) => {
+const ScalesChips = ({
+  lightScales,
+  darkScales,
+}: {
+  lightScales: Record<string, string>[];
+  darkScales: Record<string, string>[];
+}) => {
+  const stuff = giveMeTheThingsForTheseScales({
+    lightScales,
+    darkScales,
+    prefix: 'qui',
+    defaultScale: 'gray',
+  });
 
-//   return (
-//     <div className="flex flex-col gap-2">
-//       {convertedScale.map((color) => {
-//         return (
-//           <div key={color.key} className="flex gap-2 items-center">
-//             <div className="w-8 h-8" style={{ backgroundColor: scaleWithDashes[color.key] }}></div>
-//             <div>{color.key}</div>
-//             <div>{color.color}</div>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// };
+  return (
+    <div className="flex flex-col">
+      {Object.values(stuff.stuffToPutInRootDark).map((color) => (
+        <div key={color} className="flex gap-2 items-center">
+          <div className="w-8 h-8" style={{ backgroundColor: `hsl(${color.replace(';', '')})` }}></div>
+          <div>{`hsl(${color.replace(';', '')})`}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
