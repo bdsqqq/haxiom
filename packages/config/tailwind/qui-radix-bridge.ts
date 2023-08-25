@@ -430,3 +430,27 @@ export const giveMeTheThingsForTheseScales = (options: {
     stuffToPutInTheme,
   };
 };
+
+/*
+THIS IS ME THINKING, NOT A SPEC, THIS ISN"T SOURCE OF TRUTH, JUST ME THINKING.
+
+I'm starting with three pieces of data: arrays of scales (light and dark), semantic steps, an optional scale name to use as a default, and an optional prefix to use for the CSS custom properties.
+
+The scales in the arrays are objects where the keys are <scale-name>-<step> and the values are hsl() or hsla() strings. The scale name is used to generate the CSS custom properties and the semantic tokens. The step is used to generate the CSS custom properties and the semantic tokens.
+
+The semantic steps are an object where the keys are the name of the tailwind core plugin that will be used to generate the semantic tokens and the values are arrays of objects where each object has a key and a step. The key is the name of the semantic token and the step is the step of the scale that will be used to generate the value of the semantic token.
+
+The default scale name is used to generate the semantic tokens for the default scale. The default scale is the scale that will be used to generate the semantic tokens for the semantic tokens that don't have a scale name in their name. For example, if the default scale name is "solid" and the semantic steps are { colors: [{ key: "solid", step: "9" }] }, the semantic tokens will be { colors: { solid: "hsl(var(--solid-9) / <alpha-value>)" } }.
+
+The prefix is used to prefix the CSS custom properties. For example, if the prefix is "tw", the CSS custom properties will be --tw-<scale-name>-<step>. The prefix is also used to prefix the semantic tokens. For example, if the prefix is "tw", the semantic tokens will be { colors: { "tw-solid": "hsl(var(--tw-solid-9) / <alpha-value>)" } }.
+
+The function returns an object with three properties: stuffToPutInRoot, stuffToPutInRootDark, and stuffToPutInTheme.
+
+stuffToPutInRoot is an object with the CSS custom properties and the semantic tokens. The CSS custom properties are the CSS custom properties for the light scales. The semantic tokens are the semantic tokens for the light scales.
+
+stuffToPutInRootDark is an object with the CSS custom properties for the dark scales.
+
+stuffToPutInTheme is an object with the semantic tokens for the light scales and the semantic tokens for the dark scales. The semantic tokens for the light scales are the semantic tokens for the light scales. The semantic tokens for the dark scales are the semantic tokens for the dark scales.
+
+
+*/
