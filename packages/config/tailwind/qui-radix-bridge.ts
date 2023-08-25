@@ -265,12 +265,16 @@ const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
     return acc;
   }, {} as Record<string, string>);
 
+/**
+ * searches for all sequences of digits and replace them with a dash followed by the same sequence of digits.
+ * eg: abc123def456 -> abc-123def-456
+ */
+const addDashBeforeNumberSequence = (key: string) =>
+  key.replace(/(\d+)/g, "-$1");
+
 const addDashesToRadixScaleSteps = <T extends Record<string, string>>(
   scale: T,
-) =>
-  cloneObjButRunAFunctionOnEachKey(scale, (key) =>
-    key.replace(/(\d+)/g, "-$1"),
-  );
+) => cloneObjButRunAFunctionOnEachKey(scale, addDashBeforeNumberSequence);
 
 export const giveMeTheThingsForTheseScales = (options: {
   lightScales: Array<Record<string, string>>;
@@ -310,9 +314,9 @@ export const giveMeTheThingsForTheseScales = (options: {
     }
   }
 
-  const scalesWithDashes = lightScales.map(addDashesToRadixScaleSteps);
+  const lightScalesWithDashes = lightScales.map(addDashesToRadixScaleSteps);
   const darkScalesWithDashes = darkScales?.map(addDashesToRadixScaleSteps);
-  const scalesWithJustValues = scalesWithDashes.map((scale) =>
+  const scalesWithJustValues = lightScalesWithDashes.map((scale) =>
     cloneObjButRunAFunctionOnEachValue(scale, fromHSLtoJustValues),
   );
   const darkScalesWithJustValues = darkScalesWithDashes?.map((scale) =>
