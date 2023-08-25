@@ -26,7 +26,7 @@ import {
   amberDark,
   amberDarkA,
 } from '@radix-ui/colors';
-import { giveMeTheThingsForTheseScales } from '@haxiom/tailwind-config/qui-radix-bridge';
+import { generateTailwindThemeData } from '@haxiom/tailwind-config/qui-radix-bridge';
 
 const lightScales = [gray, grayA, blue, blueA, plum, plumA, red, redA, grass, grassA, amber, amberA];
 const darkScales = [
@@ -66,7 +66,7 @@ const Scales = ({
   lightScales: Record<string, string>[];
   darkScales: Record<string, string>[];
 }) => {
-  const stuff = giveMeTheThingsForTheseScales({
+  const stuff = generateTailwindThemeData({
     lightScales,
     darkScales,
     prefix: 'qui',
@@ -87,7 +87,7 @@ const ScalesChips = ({
   lightScales: Record<string, string>[];
   darkScales: Record<string, string>[];
 }) => {
-  const stuff = giveMeTheThingsForTheseScales({
+  const stuff = generateTailwindThemeData({
     lightScales,
     darkScales,
     prefix: 'qui',

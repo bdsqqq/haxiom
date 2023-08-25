@@ -32,7 +32,7 @@ import { default as tailwindRadix } from "tailwindcss-radix";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
-import { giveMeTheThingsForTheseScales } from "./qui-radix-bridge";
+import { generateTailwindThemeData } from "./qui-radix-bridge";
 
 const quiPlaceholderName = (
   tailwindConfig: Config,
@@ -43,7 +43,7 @@ const quiPlaceholderName = (
     prefix?: string;
   },
 ) => {
-  const stuff = giveMeTheThingsForTheseScales(options);
+  const stuff = generateTailwindThemeData(options);
 
   return defu(tailwindConfig, {
     theme: {

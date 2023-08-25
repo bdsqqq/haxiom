@@ -3,7 +3,7 @@ import { defu } from "defu";
 /**
  * Assumes scale is an object where keys are <scale-name>-<step> and that all keys will have the same format as the first one. Made for radix scales.
  */
-const getScaleName = (scale: Record<string, string>) => {
+const extractScaleNameFromKeys = (scale: Record<string, string>) => {
   const scaleName = Object.keys(scale)[0]
     ?.replace(/(\d+)/g, "")
     .replace(/-/g, "");
@@ -14,7 +14,7 @@ const getScaleName = (scale: Record<string, string>) => {
  * @param color hsl() or hsla() string eg: "hsl(0, 0%, 0%)" or "hsla(0deg, 0%, 0%, 0.5)"
  * @returns space separated values with units. e.g. "0deg 0% 0%"
  */
-const fromHSLtoJustValues = (color: string) => {
+const convertHSLToValues = (color: string) => {
   const functionTransforms = {
     hsl: (value: string) => {
       const units = ["deg", "%", "%"];
@@ -58,7 +58,7 @@ const fromHSLtoJustValues = (color: string) => {
   return functionTransforms[functionType](color);
 };
 
-function cloneObjButRunAFunctionOnEachValue<T extends Record<string, any>, U>(
+function transformValuesInObject<T extends Record<string, any>, U>(
   obj: T,
   func: (value: any) => U,
 ): Record<string, U> {
@@ -68,7 +68,7 @@ function cloneObjButRunAFunctionOnEachValue<T extends Record<string, any>, U>(
   }, {} as Record<string, U>);
 }
 
-function cloneObjButRunAFunctionOnEachKey<T extends Record<string, any>>(
+function transformKeysInObject<T extends Record<string, any>>(
   obj: T,
   func: (key: string) => string,
 ): Record<string, string> {
@@ -168,10 +168,10 @@ const radixSemanticSteps = {
   ],
 } satisfies SemanticSteps;
 
-const makeFlatSemanticSteps = (semanticSteps: SemanticSteps) =>
+const flattenSemanticSteps = (semanticSteps: SemanticSteps) =>
   Object.values(semanticSteps).flatMap((entry) => entry);
 
-function generateCSSPropertiesOfSemanticTokensForScale(
+function generateCSSPropertiesForSemanticScale(
   scaleName: string,
   semanticSteps: SemanticSteps,
   prefix?: string,
@@ -182,7 +182,7 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   const makeKey = (value: string) =>
     `--${prefix ? `${prefix}-` : ""}${scaleName}-${value}`;
 
-  const flatSemanticSteps = makeFlatSemanticSteps(semanticSteps);
+  const flatSemanticSteps = flattenSemanticSteps(semanticSteps);
 
   return flatSemanticSteps.reduce((acc, item) => {
     acc[makeKey(item.key)] = makeCSSVar(item.step);
@@ -190,7 +190,7 @@ function generateCSSPropertiesOfSemanticTokensForScale(
   }, {} as Record<string, string>);
 }
 
-function generateUsageSpreadableInTWThemeOfSemanticTokens(
+function generateSemanticTokensForTWTheme(
   scaleName: string,
   semanticSteps: SemanticSteps,
   prefix?: string,
@@ -237,7 +237,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   }, {} as Record<keyof SemanticSteps, Record<string, string>>);
 }
 
-const makeCSSCustomPropertyTuple = (options: {
+const createCSSCustomPropertyTuple = (options: {
   key: string;
   value: string;
   prefix?: string;
@@ -249,11 +249,17 @@ const makeCSSCustomPropertyTuple = (options: {
   return [`--${maybePrefix}${key}`, `${value};`];
 };
 
-const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
-  scaleWithJustValues: Record<string, string>,
+// TODO: support rgb (eww)
+/**
+ * @param scale scale with keys that are <scale-name>-<step> and values that are space separated values with units. e.g. "0deg 0% 0%"
+ * colors generated use CSS custom properties, to allow tailwind opacity utilities it's necessary to add <alpha-value> to the end of the value. This means that the color will consist of only values eg: `0deg 0% 0%` instead of `hsl(0, 0%, 0%)`.
+ * @see https://tailwindcss.com/docs/customizing-colors#using-css-variables
+ */
+const convertScaleToTailwindColorObject = (
+  scale: Record<string, string>,
   prefix?: string,
 ) =>
-  Object.entries(scaleWithJustValues).reduce((acc, [key, value]) => {
+  Object.entries(scale).reduce((acc, [key, value]) => {
     let colorFunction = "hsl";
     if (value.includes("/")) {
       colorFunction = "hsla";
@@ -269,14 +275,14 @@ const fromJustValuesToTailwindColorsThatConsumeCSSProperties = (
  * searches for all sequences of digits and replace them with a dash followed by the same sequence of digits.
  * eg: abc123def456 -> abc-123def-456
  */
-const addDashBeforeNumberSequence = (key: string) =>
+const addDashesBeforeNumberSequences = (key: string) =>
   key.replace(/(\d+)/g, "-$1");
 
-const addDashesToRadixScaleSteps = <T extends Record<string, string>>(
+const addDashesToRadixScaleKeys = <T extends Record<string, string>>(
   scale: T,
-) => cloneObjButRunAFunctionOnEachKey(scale, addDashBeforeNumberSequence);
+) => transformKeysInObject(scale, addDashesBeforeNumberSequences);
 
-export const giveMeTheThingsForTheseScales = (options: {
+export const generateTailwindThemeData = (options: {
   lightScales: Array<Record<string, string>>;
   semanticSteps?: SemanticSteps;
   darkScales?: Array<Record<string, string>>;
@@ -297,8 +303,8 @@ export const giveMeTheThingsForTheseScales = (options: {
 
   const allScaleNames = Array.from(
     new Set([
-      ...lightScales.map(getScaleName),
-      ...(darkScales?.map(getScaleName) ?? []),
+      ...lightScales.map(extractScaleNameFromKeys),
+      ...(darkScales?.map(extractScaleNameFromKeys) ?? []),
     ]),
   );
 
@@ -314,23 +320,20 @@ export const giveMeTheThingsForTheseScales = (options: {
     }
   }
 
-  const lightScalesWithDashes = lightScales.map(addDashesToRadixScaleSteps);
-  const darkScalesWithDashes = darkScales?.map(addDashesToRadixScaleSteps);
+  const lightScalesWithDashes = lightScales.map(addDashesToRadixScaleKeys);
+  const darkScalesWithDashes = darkScales?.map(addDashesToRadixScaleKeys);
   const scalesWithJustValues = lightScalesWithDashes.map((scale) =>
-    cloneObjButRunAFunctionOnEachValue(scale, fromHSLtoJustValues),
+    transformValuesInObject(scale, convertHSLToValues),
   );
   const darkScalesWithJustValues = darkScalesWithDashes?.map((scale) =>
-    cloneObjButRunAFunctionOnEachValue(scale, fromHSLtoJustValues),
+    transformValuesInObject(scale, convertHSLToValues),
   );
 
   const scalesWithTailwindColorsThatConsumeCSSProperties =
     scalesWithJustValues.reduce((acc, scale) => {
       return {
         ...acc,
-        ...fromJustValuesToTailwindColorsThatConsumeCSSProperties(
-          scale,
-          prefix,
-        ),
+        ...convertScaleToTailwindColorObject(scale, prefix),
       };
     }, {} as Record<string, string>);
 
@@ -338,7 +341,7 @@ export const giveMeTheThingsForTheseScales = (options: {
     (acc, scale) => {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
-          css.push(makeCSSCustomPropertyTuple({ key, value, prefix }));
+          css.push(createCSSCustomPropertyTuple({ key, value, prefix }));
           return css;
         }, [] as string[][]),
       );
@@ -351,7 +354,7 @@ export const giveMeTheThingsForTheseScales = (options: {
     (acc, scale) => {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
-          css.push(makeCSSCustomPropertyTuple({ key, value, prefix }));
+          css.push(createCSSCustomPropertyTuple({ key, value, prefix }));
           return css;
         }, [] as string[][]),
       );
@@ -361,14 +364,14 @@ export const giveMeTheThingsForTheseScales = (options: {
   );
 
   const scalesWithSemanticTokens = scalesWithJustValues.reduce((acc, scale) => {
-    const scaleName = getScaleName(scale);
+    const scaleName = extractScaleNameFromKeys(scale);
     if (!scaleName) {
       throw new Error(
         `Scale name not found for scale ${JSON.stringify(scale)}`,
       );
     }
 
-    const semanticScale = generateCSSPropertiesOfSemanticTokensForScale(
+    const semanticScale = generateCSSPropertiesForSemanticScale(
       scaleName,
       semanticSteps,
       prefix,
@@ -378,14 +381,14 @@ export const giveMeTheThingsForTheseScales = (options: {
 
   const scalesWithSemanticTokensForUsageInTWTheme = scalesWithJustValues.reduce(
     (acc, scale) => {
-      const scaleName = getScaleName(scale);
+      const scaleName = extractScaleNameFromKeys(scale);
       if (!scaleName) {
         throw new Error(
           `Scale name not found for scale ${JSON.stringify(scale)}`,
         );
       }
 
-      const semanticScale = generateUsageSpreadableInTWThemeOfSemanticTokens(
+      const semanticScale = generateSemanticTokensForTWTheme(
         scaleName,
         semanticSteps,
         prefix,
@@ -396,15 +399,14 @@ export const giveMeTheThingsForTheseScales = (options: {
     {},
   );
 
-  const defaultScaleWithSemanticTokens =
-    generateUsageSpreadableInTWThemeOfSemanticTokens(
-      defaultScale,
-      semanticSteps,
-      prefix,
-      {
-        omitName: true,
-      },
-    );
+  const defaultScaleWithSemanticTokens = generateSemanticTokensForTWTheme(
+    defaultScale,
+    semanticSteps,
+    prefix,
+    {
+      omitName: true,
+    },
+  );
 
   const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = defu(
     scalesWithSemanticTokensForUsageInTWTheme,
