@@ -10,6 +10,10 @@ const getScaleName = (scale: Record<string, string>) => {
   return scaleName;
 };
 
+/**
+ * @param color hsl() or hsla() string eg: "hsl(0, 0%, 0%)" or "hsla(0deg, 0%, 0%, 0.5)"
+ * @returns space separated values with units. e.g. "0deg 0% 0%"
+ */
 const fromHSLtoJustValues = (color: string) => {
   const functionTransforms = {
     hsl: (value: string) => {
@@ -190,7 +194,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   scaleName: string,
   semanticSteps: SemanticSteps,
   prefix?: string,
-  options?: { omitName?: boolean }
+  options?: { omitName?: boolean },
 ) {
   /**
    * Radix scales that end with an A are alpha scales, they have transparency defined so we shouldn't add <alpha-value> to them
@@ -210,7 +214,7 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
   const makeCSSVar = (value: string) =>
     `var(--${prefix ? `${prefix}-` : ""}${scaleName}-${value})`;
 
-  /** 
+  /**
    * Wraps value passed in an hsl() function with <alpha-value> if it doesn't already has alpha for consumption in tailwind theme.
    */
   const putInsideHSLFunction = (value: string, isAlpha: boolean) =>
@@ -234,9 +238,9 @@ function generateUsageSpreadableInTWThemeOfSemanticTokens(
 }
 
 const makeCSSCustomPropertyTuple = (options: {
-  key: string,
-  value: string,
-  prefix?: string,
+  key: string;
+  value: string;
+  prefix?: string;
 }): [string, string] => {
   const { key, value, prefix } = options;
 
@@ -330,9 +334,7 @@ export const giveMeTheThingsForTheseScales = (options: {
     (acc, scale) => {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
-          css.push(
-            makeCSSCustomPropertyTuple({key, value, prefix}),
-          );
+          css.push(makeCSSCustomPropertyTuple({ key, value, prefix }));
           return css;
         }, [] as string[][]),
       );
@@ -345,9 +347,7 @@ export const giveMeTheThingsForTheseScales = (options: {
     (acc, scale) => {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
-          css.push(
-            makeCSSCustomPropertyTuple({key, value, prefix}),
-          );
+          css.push(makeCSSCustomPropertyTuple({ key, value, prefix }));
           return css;
         }, [] as string[][]),
       );
@@ -393,9 +393,14 @@ export const giveMeTheThingsForTheseScales = (options: {
   );
 
   const defaultScaleWithSemanticTokens =
-    generateUsageSpreadableInTWThemeOfSemanticTokens(defaultScale, semanticSteps, prefix, {
-      omitName: true,
-    });
+    generateUsageSpreadableInTWThemeOfSemanticTokens(
+      defaultScale,
+      semanticSteps,
+      prefix,
+      {
+        omitName: true,
+      },
+    );
 
   const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = defu(
     scalesWithSemanticTokensForUsageInTWTheme,
