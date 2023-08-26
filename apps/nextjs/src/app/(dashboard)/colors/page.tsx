@@ -96,7 +96,7 @@ const ScalesChips = ({
 
   return (
     <div className="flex flex-col">
-      {Object.values(stuff.stuffToPutInRootDark.darkScalesWithCSSCustomProperties).map((color) => (
+      {Object.values(stuff.useInRootDark.darkScalesWithCSSCustomProperties).map((color) => (
         <div key={color} className="flex gap-2 items-center">
           <div className="w-8 h-8" style={{ backgroundColor: `hsl(${color.replace(';', '')})` }}></div>
           <div>{`hsl(${color.replace(';', '')})`}</div>

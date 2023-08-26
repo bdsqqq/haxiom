@@ -396,25 +396,24 @@ export const generateTailwindThemeData = (options: {
     {} as Record<string, string>,
   );
 
-  const scalesWithSemanticTokensForUsageInTWTheme =
-    lightScalesWithJustValues.reduce((acc, scale) => {
-      const scaleName = extractScaleNameFromKeys(scale);
-      if (!scaleName) {
-        throw new Error(
-          `Scale name not found for scale ${JSON.stringify(scale)}`,
-        );
-      }
-
-      const semanticScale = generateSemanticTokensForTWTheme(
-        scaleName,
-        semanticSteps,
-        prefix,
+  const semanticScales = lightScalesWithJustValues.reduce((acc, scale) => {
+    const scaleName = extractScaleNameFromKeys(scale);
+    if (!scaleName) {
+      throw new Error(
+        `Scale name not found for scale ${JSON.stringify(scale)}`,
       );
+    }
 
-      return defu(semanticScale, acc);
-    }, {});
+    const semanticScale = generateSemanticTokensForTWTheme(
+      scaleName,
+      semanticSteps,
+      prefix,
+    );
 
-  const defaultScaleWithSemanticTokens = generateSemanticTokensForTWTheme(
+    return defu(semanticScale, acc);
+  }, {});
+
+  const semanticDefaultScale = generateSemanticTokensForTWTheme(
     defaultScale,
     semanticSteps,
     prefix,
@@ -423,28 +422,23 @@ export const generateTailwindThemeData = (options: {
     },
   );
 
-  const scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme = defu(
-    scalesWithSemanticTokensForUsageInTWTheme,
-    defaultScaleWithSemanticTokens,
-  );
+  const allSemanticScales = defu(semanticScales, semanticDefaultScale);
 
-  const stuffToPutInRoot = {
+  const useInRoot = {
     scalesWithCSSCustomProperties,
     scalesWithSemanticTokens,
   };
 
-  const stuffToPutInRootDark = { darkScalesWithCSSCustomProperties };
+  const useInRootDark = { darkScalesWithCSSCustomProperties };
 
   const stuffToPutInTheme = {
-    scalesWithTailwindColorsThatConsumeCSSProperties:
-      lightScalesWithTailwindColorsThatConsumeCSSProperties,
-    scalesWithSemanticTokensForUsageInTWTheme:
-      scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme,
+    rootScales: lightScalesWithTailwindColorsThatConsumeCSSProperties,
+    semanticScales: allSemanticScales,
   };
 
   return {
-    stuffToPutInRoot,
-    stuffToPutInRootDark,
+    useInRoot,
+    useInRootDark,
     stuffToPutInTheme,
   };
 };

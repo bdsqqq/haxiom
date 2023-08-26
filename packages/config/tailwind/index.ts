@@ -50,24 +50,23 @@ const quiPlaceholderName = (
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        ...stuff.stuffToPutInTheme
-          .scalesWithTailwindColorsThatConsumeCSSProperties,
+        ...stuff.stuffToPutInTheme.rootScales,
       },
       extend: {
-        ...stuff.stuffToPutInTheme.scalesWithSemanticTokensForUsageInTWTheme,
+        ...stuff.stuffToPutInTheme.semanticScales,
       },
     },
     plugins: [
       plugin(function ({ addUtilities, addBase }) {
         addBase({
           ":root": {
-            ...stuff.stuffToPutInRoot.scalesWithSemanticTokens,
+            ...stuff.useInRoot.scalesWithSemanticTokens,
           },
           ":root[data-theme='light'], .light": {
-            ...stuff.stuffToPutInRoot.scalesWithCSSCustomProperties,
+            ...stuff.useInRoot.scalesWithCSSCustomProperties,
           },
           ":root[data-theme='dark'], .dark": {
-            ...stuff.stuffToPutInRootDark.darkScalesWithCSSCustomProperties,
+            ...stuff.useInRootDark.darkScalesWithCSSCustomProperties,
           },
         });
       }),
