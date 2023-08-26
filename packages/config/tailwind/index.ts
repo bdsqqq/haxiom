@@ -61,10 +61,13 @@ const quiPlaceholderName = (
       plugin(function ({ addUtilities, addBase }) {
         addBase({
           ":root": {
-            ...stuff.stuffToPutInRoot,
+            ...stuff.stuffToPutInRoot.scalesWithSemanticTokens,
           },
-          ".dark": {
-            ...stuff.stuffToPutInRootDark,
+          ":root[data-theme='light'], .light": {
+            ...stuff.stuffToPutInRoot.scalesWithCSSCustomProperties,
+          },
+          ":root[data-theme='dark'], .dark": {
+            ...stuff.stuffToPutInRootDark.darkScalesWithCSSCustomProperties,
           },
         });
       }),

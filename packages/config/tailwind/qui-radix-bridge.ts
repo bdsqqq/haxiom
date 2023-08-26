@@ -429,11 +429,11 @@ export const generateTailwindThemeData = (options: {
   );
 
   const stuffToPutInRoot = {
-    ...scalesWithCSSCustomProperties,
-    ...scalesWithSemanticTokens,
+    scalesWithCSSCustomProperties,
+    scalesWithSemanticTokens,
   };
 
-  const stuffToPutInRootDark = { ...darkScalesWithCSSCustomProperties };
+  const stuffToPutInRootDark = { darkScalesWithCSSCustomProperties };
 
   const stuffToPutInTheme = {
     scalesWithTailwindColorsThatConsumeCSSProperties:
