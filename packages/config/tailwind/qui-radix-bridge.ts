@@ -1,20 +1,14 @@
 import { defu } from "defu";
 
-/**
- * Assumes scale is an object where keys are <scale-name>-<step> and that all keys will have the same format as the first one. Made for radix scales.
- */
-const extractScaleNameFromKeys = (scale: Record<string, string>) => {
-  const scaleName = Object.keys(scale)[0]
-    ?.replace(/(\d+)/g, "")
-    .replace(/-/g, "");
-  return scaleName;
-};
+/* ========================================
+data wrangling
+======================================== */
 
 /**
  * @param color hsl() or hsla() string eg: "hsl(0, 0%, 0%)" or "hsla(0deg, 0%, 0%, 0.5)"
  * @returns space separated values with units. e.g. "0deg 0% 0%"
  */
-const convertHSLToValues = (color: string) => {
+const extractValuesFromHSL = (color: string) => {
   const functionTransforms = {
     hsl: (value: string) => {
       const units = ["deg", "%", "%"];
@@ -58,6 +52,16 @@ const convertHSLToValues = (color: string) => {
   return functionTransforms[functionType](color);
 };
 
+/**
+ * Assumes scale is an object where keys are <scale-name>-<step> and that all keys will have the same format as the first one. Made for radix scales.
+ */
+const extractScaleNameFromKeys = (scale: Record<string, string>) => {
+  const scaleName = Object.keys(scale)[0]
+    ?.replace(/(\d+)/g, "")
+    .replace(/-/g, "");
+  return scaleName;
+};
+
 function transformValuesInObject<T extends Record<string, any>, U>(
   obj: T,
   func: (value: any) => U,
@@ -78,6 +82,17 @@ function transformKeysInObject<T extends Record<string, any>>(
     return clonedObj;
   }, {} as Record<string, string>);
 }
+
+/**
+ * searches for all sequences of digits and replace them with a dash followed by the same sequence of digits.
+ * eg: abc123def456 -> abc-123def-456
+ */
+const addDashesBeforeNumberSequences = (key: string) =>
+  key.replace(/(\d+)/g, "-$1");
+
+/* ========================================
+Semantic step generation
+======================================== */
 
 const tailwindCorePluginsWithColorInTheName = [
   "accentColor",
@@ -237,6 +252,10 @@ function generateSemanticTokensForTWTheme(
   }, {} as Record<keyof SemanticSteps, Record<string, string>>);
 }
 
+/* ========================================
+CSS custom property
+======================================== */
+
 const createCSSCustomPropertyTuple = (options: {
   key: string;
   value: string;
@@ -270,13 +289,6 @@ const convertScaleToTailwindColorObject = (
     }`;
     return acc;
   }, {} as Record<string, string>);
-
-/**
- * searches for all sequences of digits and replace them with a dash followed by the same sequence of digits.
- * eg: abc123def456 -> abc-123def-456
- */
-const addDashesBeforeNumberSequences = (key: string) =>
-  key.replace(/(\d+)/g, "-$1");
 
 const addDashesToRadixScaleKeys = <T extends Record<string, string>>(
   scale: T,
@@ -320,24 +332,26 @@ export const generateTailwindThemeData = (options: {
     }
   }
 
+  // RADIX SPECIFIC
   const lightScalesWithDashes = lightScales.map(addDashesToRadixScaleKeys);
   const darkScalesWithDashes = darkScales?.map(addDashesToRadixScaleKeys);
-  const scalesWithJustValues = lightScalesWithDashes.map((scale) =>
-    transformValuesInObject(scale, convertHSLToValues),
+  const lightScalesWithJustValues = lightScalesWithDashes.map((scale) =>
+    transformValuesInObject(scale, extractValuesFromHSL),
   );
   const darkScalesWithJustValues = darkScalesWithDashes?.map((scale) =>
-    transformValuesInObject(scale, convertHSLToValues),
+    transformValuesInObject(scale, extractValuesFromHSL),
   );
+  // END RADIX SPECIFIC
 
-  const scalesWithTailwindColorsThatConsumeCSSProperties =
-    scalesWithJustValues.reduce((acc, scale) => {
+  const lightScalesWithTailwindColorsThatConsumeCSSProperties =
+    lightScalesWithJustValues.reduce((acc, scale) => {
       return {
         ...acc,
         ...convertScaleToTailwindColorObject(scale, prefix),
       };
     }, {} as Record<string, string>);
 
-  const scalesWithCSSCustomProperties = scalesWithJustValues.reduce(
+  const scalesWithCSSCustomProperties = lightScalesWithJustValues.reduce(
     (acc, scale) => {
       const cssObject = Object.fromEntries(
         Object.entries(scale).reduce((css, [key, value]) => {
@@ -363,24 +377,27 @@ export const generateTailwindThemeData = (options: {
     {} as Record<string, string>,
   );
 
-  const scalesWithSemanticTokens = scalesWithJustValues.reduce((acc, scale) => {
-    const scaleName = extractScaleNameFromKeys(scale);
-    if (!scaleName) {
-      throw new Error(
-        `Scale name not found for scale ${JSON.stringify(scale)}`,
-      );
-    }
-
-    const semanticScale = generateCSSPropertiesForSemanticScale(
-      scaleName,
-      semanticSteps,
-      prefix,
-    );
-    return { ...acc, ...semanticScale };
-  }, {} as Record<string, string>);
-
-  const scalesWithSemanticTokensForUsageInTWTheme = scalesWithJustValues.reduce(
+  const scalesWithSemanticTokens = lightScalesWithJustValues.reduce(
     (acc, scale) => {
+      const scaleName = extractScaleNameFromKeys(scale);
+      if (!scaleName) {
+        throw new Error(
+          `Scale name not found for scale ${JSON.stringify(scale)}`,
+        );
+      }
+
+      const semanticScale = generateCSSPropertiesForSemanticScale(
+        scaleName,
+        semanticSteps,
+        prefix,
+      );
+      return { ...acc, ...semanticScale };
+    },
+    {} as Record<string, string>,
+  );
+
+  const scalesWithSemanticTokensForUsageInTWTheme =
+    lightScalesWithJustValues.reduce((acc, scale) => {
       const scaleName = extractScaleNameFromKeys(scale);
       if (!scaleName) {
         throw new Error(
@@ -395,9 +412,7 @@ export const generateTailwindThemeData = (options: {
       );
 
       return defu(semanticScale, acc);
-    },
-    {},
-  );
+    }, {});
 
   const defaultScaleWithSemanticTokens = generateSemanticTokensForTWTheme(
     defaultScale,
@@ -421,7 +436,8 @@ export const generateTailwindThemeData = (options: {
   const stuffToPutInRootDark = { ...darkScalesWithCSSCustomProperties };
 
   const stuffToPutInTheme = {
-    scalesWithTailwindColorsThatConsumeCSSProperties,
+    scalesWithTailwindColorsThatConsumeCSSProperties:
+      lightScalesWithTailwindColorsThatConsumeCSSProperties,
     scalesWithSemanticTokensForUsageInTWTheme:
       scalesPlusDefaultScaleWithSemanticTokensForUsageInTWTheme,
   };
