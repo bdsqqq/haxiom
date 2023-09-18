@@ -174,14 +174,20 @@ const radixSemanticSteps = {
   textColor: [
     { key: "text-subtle", step: "11" },
     { key: "text-contrast", step: "12" },
+    { key: "text-on-solid-subtle", step: "2" },
+    { key: "text-on-solid-contrast", step: "1" },
   ],
   textDecorationColor: [
     { key: "textDecoration-subtle", step: "11" },
     { key: "textDecoration-contrast", step: "12" },
+    { key: "textDecoration-on-solid-subtle", step: "2" },
+    { key: "textDecoration-on-solid-contrast", step: "1" },
   ],
   placeholderColor: [
     { key: "placeholder-subtle", step: "11" },
     { key: "placeholder-contrast", step: "12" },
+    { key: "placeholder-on-solid-subtle", step: "2" },
+    { key: "placeholder-on-solid-contrast", step: "1" },
   ],
 } satisfies SemanticSteps;
 
