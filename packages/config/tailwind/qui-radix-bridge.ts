@@ -1,4 +1,6 @@
 import { defu } from "defu";
+import plugin from "tailwindcss/plugin";
+import { Config } from "tailwindcss/types";
 
 /* ========================================
 data wrangling
@@ -441,6 +443,50 @@ export const generateTailwindThemeData = (options: {
     useInRootDark,
     stuffToPutInTheme,
   };
+};
+
+/* ========================================
+User facing
+======================================== */
+
+export const qui = (
+  options: {
+    lightScales: Array<Record<string, string>>;
+    darkScales?: Array<Record<string, string>>;
+    defaultScale?: string;
+    prefix?: string;
+  },
+  tailwindConfig: Config,
+) => {
+  const stuff = generateTailwindThemeData(options);
+
+  return defu(tailwindConfig, {
+    theme: {
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        ...stuff.stuffToPutInTheme.rootScales,
+      },
+      extend: {
+        ...stuff.stuffToPutInTheme.semanticScales,
+      },
+    },
+    plugins: [
+      plugin(function ({ addUtilities, addBase }) {
+        addBase({
+          ":root": {
+            ...stuff.useInRoot.scalesWithSemanticTokens,
+          },
+          ":root[data-theme='light'], .light": {
+            ...stuff.useInRoot.scalesWithCSSCustomProperties,
+          },
+          ":root[data-theme='dark'], .dark": {
+            ...stuff.useInRootDark.darkScalesWithCSSCustomProperties,
+          },
+        });
+      }),
+    ],
+  });
 };
 
 /*

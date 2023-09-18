@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@haxiom/ui/avatar";
 import { Button } from "@haxiom/ui/button";
 import { ButtonsGrid } from "./_components/button-grid";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@haxiom/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@haxiom/ui/card";
 import { Checkbox } from "@haxiom/ui/checkbox";
 import { CommandDialogDemo } from "./_components/command-palette-demo"
 import { DataTableDemo } from "./_components/data-table-demo"
@@ -11,8 +11,8 @@ import { Input, TextArea } from "@haxiom/ui/input";
 import { Label } from "@haxiom/ui/label";
 import { ScrollArea } from "@haxiom/ui/scroll-area";
 import { SelectDemo } from "./_components/select-demo";
-import { Sheet, SheetTrigger, SheetContent} from "@haxiom/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger} from "@haxiom/ui/tabs";
+import { Sheet, SheetTrigger, SheetContent } from "@haxiom/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@haxiom/ui/tabs";
 import { ToastDemo } from "./_components/toast-demo";
 
 export const runtime = "edge";
@@ -53,7 +53,7 @@ export default function Home() {
           </DialogTrigger>
           <DialogContent>modal</DialogContent>
         </Dialog>
-        
+
         <DropdownMenuDemo />
 
         <Input placeholder="placeholder..." />

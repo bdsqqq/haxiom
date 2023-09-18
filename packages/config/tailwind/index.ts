@@ -32,49 +32,41 @@ import { default as tailwindRadix } from "tailwindcss-radix";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
-import { generateTailwindThemeData } from "./qui-radix-bridge";
+import { qui } from "./qui-radix-bridge";
 
-const quiPlaceholderName = (
-  tailwindConfig: Config,
-  options: {
-    lightScales: Array<Record<string, string>>;
-    darkScales?: Array<Record<string, string>>;
-    defaultScale?: string;
-    prefix?: string;
-  },
-) => {
-  const stuff = generateTailwindThemeData(options);
-
-  return defu(tailwindConfig, {
-    theme: {
-      colors: {
-        transparent: "transparent",
-        current: "currentColor",
-        ...stuff.stuffToPutInTheme.rootScales,
-      },
-      extend: {
-        ...stuff.stuffToPutInTheme.semanticScales,
-      },
-    },
-    plugins: [
-      plugin(function ({ addUtilities, addBase }) {
-        addBase({
-          ":root": {
-            ...stuff.useInRoot.scalesWithSemanticTokens,
-          },
-          ":root[data-theme='light'], .light": {
-            ...stuff.useInRoot.scalesWithCSSCustomProperties,
-          },
-          ":root[data-theme='dark'], .dark": {
-            ...stuff.useInRootDark.darkScalesWithCSSCustomProperties,
-          },
-        });
-      }),
+export default qui(
+  {
+    lightScales: [
+      gray,
+      grayA,
+      blue,
+      blueA,
+      plum,
+      plumA,
+      red,
+      redA,
+      grass,
+      grassA,
+      amber,
+      amberA,
     ],
-  });
-};
-
-export default quiPlaceholderName(
+    darkScales: [
+      grayDark,
+      grayDarkA,
+      blueDark,
+      blueDarkA,
+      plumDark,
+      plumDarkA,
+      redDark,
+      redDarkA,
+      grassDark,
+      grassDarkA,
+      amberDark,
+      amberDarkA,
+    ],
+    prefix: "qui",
+    defaultScale: "gray",
+  },
   {
     darkMode: ["class"],
     content: ["src/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
@@ -147,36 +139,4 @@ export default quiPlaceholderName(
     },
     plugins: [tailwindRadix, tailwindAnimate],
   } satisfies Config,
-  {
-    lightScales: [
-      gray,
-      grayA,
-      blue,
-      blueA,
-      plum,
-      plumA,
-      red,
-      redA,
-      grass,
-      grassA,
-      amber,
-      amberA,
-    ],
-    darkScales: [
-      grayDark,
-      grayDarkA,
-      blueDark,
-      blueDarkA,
-      plumDark,
-      plumDarkA,
-      redDark,
-      redDarkA,
-      grassDark,
-      grassDarkA,
-      amberDark,
-      amberDarkA,
-    ],
-    prefix: "qui",
-    defaultScale: "gray",
-  },
 );
