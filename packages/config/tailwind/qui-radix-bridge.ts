@@ -461,6 +461,7 @@ export const qui = (
     darkScales?: Array<Record<string, string>>;
     defaultScale?: string;
     prefix?: string;
+    semanticSteps?: SemanticSteps;
   },
   tailwindConfig: Config,
 ) => {
