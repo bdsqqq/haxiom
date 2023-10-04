@@ -359,6 +359,7 @@ export const generateTailwindThemeData = (options: {
       };
     }, {} as Record<string, string>);
 
+  // TODO: allow user to specify specify scales for specific color gamuts. eg: @media (color-gamut: p3)
   const scalesWithCSSCustomProperties = lightScalesWithJustValues.reduce(
     (acc, scale) => {
       const cssObject = Object.fromEntries(
