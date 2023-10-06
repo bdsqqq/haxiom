@@ -276,6 +276,29 @@ const createCSSCustomPropertyTuple = (options: {
   return [`--${maybePrefix}${key}`, `${value};`];
 };
 
+const findColorFunction = (color: string) => {
+  if (color.startsWith("#")) {
+    const value = color.replace("#", "");
+    if (value.length === 4 || value.length === 8) {
+      return "hexA";
+    }
+    if (value.length === 3 || value.length === 6) {
+      return "hex";
+    }
+
+    console.log(
+      `Color ${color} is hex but doesn't have a valid number of characters. Hex colors should have 3 or 6 characters, or 4 or 8 characters for Hex with Alpha.`,
+    );
+  }
+
+  if (color.startsWith("hsl")) {
+    if (color) {
+      // Igor, you were writting the logic to figure out what kind of color you're dealing with so you can map the color to an object where key/: value are colorFunction: correspondingMethod.
+      // Right now this lib is broken because radix uses hex instead of hsl now.
+    }
+  }
+};
+
 // TODO: support rgb (eww)
 /**
  * @param scale scale with keys that are <scale-name>-<step> and values that are space separated values with units. e.g. "0deg 0% 0%"
