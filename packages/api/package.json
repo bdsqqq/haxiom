@@ -11,13 +11,13 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.21.13",
+    "@clerk/nextjs": "^4.29.3",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@trpc/client": "^10.33.1",
     "@trpc/server": "^10.45.3",
     "next": "^15.5.21",
     "superjson": "1.12.4",
-    "zod": "^3.22.3",
+    "zod": "^3.22.4",
     "zod-form-data": "^2.0.1"
   },
   "devDependencies": {
