@@ -1,5 +1,5 @@
 import type { AppRouter } from "@haxiom/api";
-import type { HttpBatchLinkOptions, HTTPHeaders, TRPCLink } from "@trpc/client";
+import type { HttpBatchLinkOptions, TRPCLink } from "@trpc/client";
 import { httpBatchLink } from "@trpc/client";
 
 const getBaseUrl = () => {
@@ -11,7 +11,7 @@ const getBaseUrl = () => {
 
 const lambdas = ["stripe", "ingestion"];
 
-export const endingLink = (opts?: { headers?: HTTPHeaders }) =>
+export const endingLink = (opts?: Pick<HttpBatchLinkOptions, "headers">) =>
   ((runtime) => {
     const sharedOpts = {
       headers: opts?.headers,
