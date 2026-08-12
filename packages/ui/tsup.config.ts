@@ -37,6 +37,7 @@ export default defineConfig((opts) => {
     format: ['esm'],
     minify: true,
     outDir: 'dist',
+    outExtension: () => ({ js: '.mjs', dts: '.d.ts' }),
   } satisfies Options;
 
   return [

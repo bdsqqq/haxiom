@@ -122,7 +122,7 @@ export const TimeRange = ({ dark = false }) => {
           ? `Changed to ${format(data.fullRange.from, 'MMM d, yyyy')} - ${format(data.fullRange.to, 'MMM d, yyyy')}`
           : '',
       });
-    } catch (error) {
+    } catch {
       toaster.toast({
         title: 'Error changing date range',
         variant: 'destructive',

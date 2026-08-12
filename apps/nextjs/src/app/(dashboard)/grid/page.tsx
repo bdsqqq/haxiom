@@ -108,5 +108,3 @@ const Grid: FC<PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>>> = ({ child
     </div>
   );
 };
-
-const TestItem = () => <div className="bg-gray-3 border h-full" />;
