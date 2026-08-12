@@ -69,7 +69,7 @@ const NoAccessFeedback = () => {
   return (
     <div className="flex flex-col gap-4 max-w-[320px]">
       <div>
-        <h4>You're already using your two free datasets.</h4>
+        <h4>You&apos;re already using your two free datasets.</h4>
         <p className="text-subtle">Unlimited datasets can be created for $25 per month.</p>
       </div>
 

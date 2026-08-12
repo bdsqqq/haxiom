@@ -2,11 +2,13 @@
 const config = {
   extends: [
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
   ],
+  plugins: ["react-hooks"],
   rules: {
     "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
   globals: {
     React: "writable",

@@ -370,7 +370,6 @@
     font: inherit;
   }
 
-  ,
   p,
   h1,
   h2,
@@ -381,7 +380,6 @@
     overflow-wrap: break-word;
   }
 
-  ,
   h1,
   h2,
   h3,
@@ -392,7 +390,6 @@
     font-weight: inherit;
   }
 
-  ,
   ol,
   ul {
     list-style: none;
@@ -400,15 +397,13 @@
     padding: 0;
   }
 
-  ,
-
   /* Remove Safari input shadow on mobile */
-  'input[type="text"]' {
-    appearance: 'none';
+  input[type="text"] {
+    appearance: none;
   }
 
-  'input[type="email"]' {
-    appearance: 'none';
+  input[type="email"] {
+    appearance: none;
   }
 }
 
