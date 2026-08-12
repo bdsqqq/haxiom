@@ -1,5 +1,7 @@
+/** @jsx createElement */
 import * as Lucide from 'lucide-react';
 import type { Icon as LucideIcon } from 'lucide-react';
+import { createElement } from 'react';
 
 export type Icon = LucideIcon;
 
