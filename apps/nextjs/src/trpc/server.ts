@@ -19,7 +19,7 @@ export const api = experimental_createTRPCNextAppDirServer<AppRouter>({
             (opts.direction === "down" && opts.result instanceof Error),
         }),
         endingLink({
-          headers: Object.fromEntries(headers().entries()),
+          headers: async () => Object.fromEntries((await headers()).entries()),
         }),
       ],
     };

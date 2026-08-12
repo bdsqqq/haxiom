@@ -11,7 +11,6 @@ const config = {
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
     mdxRs: true,
-    serverActions: true,
   },
   // modularizeImports: {
   //   "lucide-react": {
